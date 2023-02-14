@@ -16,5 +16,5 @@
   ],
   "name": "pwa demo",
   "short_name": "pwa demo",
-  "start_url": "/demo/index.html"
+  "start_url": "/"
 }
