@@ -3,7 +3,7 @@
   "display": "minimal-ui",
   "icons": [
     {
-      "src": "/favicon_32.png",
+      "src": "favicon_32.png",
       "sizes": "32x32",
       "type": "image/png"
     }
