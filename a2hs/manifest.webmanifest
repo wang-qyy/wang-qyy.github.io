@@ -4,8 +4,8 @@
   "display": "fullscreen",
   "icons": [
     {
-      "src": "icon/pikbest.png",
-      "sizes": "149x109",
+      "src": "icon/fox-icon.png",
+      "sizes": "192x192",
       "type": "image/png"
     }
   ],
