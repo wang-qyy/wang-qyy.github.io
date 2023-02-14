@@ -1,18 +1,14 @@
 {
-    "version": "1.0.0",
-    "background_color": "#ffffff",
-    "display": "standalone",
-    "icons": [
-      {
-        "src": "https://js.seapik.com/static/favicon_32.png",
-        "sizes": "32x32",
-        "type": "image/png"
-      }
-    ],
-    "lang": "en-US",
-    "name": "Seapik",
-    "short_name": "Seapik",
-    "start_url": "/",
-    "scope": "/",
-    "theme_color": "#fff"
-  }
+  "background_color": "purple",
+  "display": "minimal-ui",
+  "icons": [
+    {
+      "src": "/favicon_32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ],
+  "name": "pwa test",
+  "short_name": "pwa test",
+  "start_url": "/"
+}
