@@ -3,8 +3,8 @@
   "display": "minimal-ui",
   "icons": [
     {
-      "src": "/pikbest.png",
-      "sizes": "149x109",
+      "src": "/128.png",
+      "sizes": "128x128",
       "type": "image/png"
     }
   ],
