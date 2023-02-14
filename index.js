@@ -1,4 +1,4 @@
-let deferredPrompt: Event;
+let deferredPrompt;
 // 默认不展示按钮，仅支持 「Add to Home Screen」 功能才展现
 const addBtn = document.querySelector('.add-button');
 addBtn.style.visibility = 'hidden';
