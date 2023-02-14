@@ -1,31 +1,16 @@
 <html>
 
 <head>
-    <title> parent </title>
-    <script>
+    <title> pwa测试 </title>
 
-        function method() {
-            alert("a");
-            window.open('child.html', "新增", "width=500,height=480,screenX=400,screenY=100");
-        }
-
-        //子页面调用的函数
-        window.BBBB = function () {
-            console.log('window.BBBB');
-
-
-        }
-          //如果想传递参数可以在function(a){
-          //  这样传参
-          //} 
-    </script>
+    <style>
+        .add-button{}
+    </style>
 </head>
 
 <body>
-    <form method=post action="">
-        <input type="text" name="" id="text1"><br>
-    </form>
-    <input type="button" value="foward" onclick="method()">
+    <button class="add-button">添加到桌面</button>
 </body>
 
+<script src="./index.js" defer></script>
 </html>
