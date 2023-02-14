@@ -1,0 +1,31 @@
+<html>
+
+<head>
+    <title> parent </title>
+    <script>
+
+        function method() {
+            alert("a");
+            window.open('child.html', "新增", "width=500,height=480,screenX=400,screenY=100");
+        }
+
+        //子页面调用的函数
+        window.BBBB = function () {
+            console.log('window.BBBB');
+
+
+        }
+          //如果想传递参数可以在function(a){
+          //  这样传参
+          //} 
+    </script>
+</head>
+
+<body>
+    <form method=post action="">
+        <input type="text" name="" id="text1"><br>
+    </form>
+    <input type="button" value="foward" onclick="method()">
+</body>
+
+</html>
