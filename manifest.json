@@ -3,8 +3,8 @@
   "display": "minimal-ui",
   "icons": [
     {
-      "src": "/a2hs/icon/fox-icon.png",
-      "sizes": "192x192",
+      "src": "/pikbest.png",
+      "sizes": "149x109",
       "type": "image/png"
     }
   ],
