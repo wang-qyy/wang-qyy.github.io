@@ -4,7 +4,7 @@
   "display": "fullscreen",
   "icons": [
     {
-      "src": "/favicon_32.png",
+      "src": "../a2hs/icon/fox-icon.png",
       "sizes": "32x32",
       "type": "image/png"
     }

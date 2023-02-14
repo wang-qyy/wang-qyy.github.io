@@ -2,7 +2,7 @@
 // 我们可以设置一个空的 serviceWorker
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-        .register('/demo/sw.js')
+        .register('/demo/sw_demo.js')
         .then(function () {
             console.log('Service Worker Registered');
         });
