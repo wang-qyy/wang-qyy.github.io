@@ -10,5 +10,5 @@
   ],
   "name": "pwa test",
   "short_name": "pwa test",
-  "start_url": "/"
+  "start_url": "/index.html"
 }
