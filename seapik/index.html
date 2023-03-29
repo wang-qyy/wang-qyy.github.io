@@ -1,45 +1,46 @@
 <!DOCTYPE html>
 <html lang="zh">
-  <head>
-    <meta name="renderer" content="webkit" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta charset="utf-8" />
-    <meta name="srm-id" content="1" />
-    <link
-      rel="icon"
-      href="//js.seapik.com/static/favicon.ico"
-      type="image/x-icon"
-    />
-    <link
-      rel="stylesheet"
-      href="./v1/css/bundle.0988d54b.css"
-    />
-    <script>
-      window.routerBase = "/";
-    </script>
-    <script>
+
+<head>
+  <meta name="renderer" content="webkit" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta charset="utf-8" />
+  <meta name="srm-id" content="1" />
+  <link rel="icon" href="//js.seapik.com/static/favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./v1/css/bundle.0988d54b.css" />
+  <script>
+    window.routerBase = "/";
+  </script>
+  <script>
       //! umi version: 3.5.35
-    </script>
-  </head>
+  </script>
+</head>
 
-  <body>
-    <div id="seapik"></div>
+<body>
 
-    <script>
-      const ico = document.querySelector('link[type="image/x-icon"]');
+  <div>看这里</div>
 
-      if (window.location.host === "edit.pngtree.com") {
-        ico.href = "https://pngtree.com/favicon.ico";
+  <div id="seapik">
 
-        document.title = "Pngtree editor";
-      } else {
-        ico.href = "//js.seapik.com/static/favicon.png";
-        document.title = "Seapik editor";
-      }
-    </script>
+    <div>content</div>
+  </div>
 
-    <script src="./static/lib/fabric/4.6.0/fabric.min.js"></script>
-    <script src="./static/lib/react/17.0.2/react.min.js"></script>
-    <script src="./v1/js/bundle.a11ed494.js"></script>
-  </body>
+  <script>
+    const ico = document.querySelector('link[type="image/x-icon"]');
+
+    if (window.location.host === "edit.pngtree.com") {
+      ico.href = "https://pngtree.com/favicon.ico";
+
+      document.title = "Pngtree editor";
+    } else {
+      ico.href = "//js.seapik.com/static/favicon.png";
+      document.title = "Seapik editor";
+    }
+  </script>
+
+  <script src="./static/lib/fabric/4.6.0/fabric.min.js"></script>
+  <script src="./static/lib/react/17.0.2/react.min.js"></script>
+  <script src="./v1/js/bundle.a11ed494.js"></script>
+</body>
+
 </html>
