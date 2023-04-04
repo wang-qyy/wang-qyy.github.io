@@ -7,8 +7,8 @@ const publicPath = isProd ? 'https://wang-qyy.github.io/editor/' : 'http://local
 
 export default defineConfig({
   title: false,
-  devServer: { port: 8888 },
-  mountElementId: 'seapik',
+  devServer: { port: 3333 },
+  mountElementId: 'editor',
   // links: [
   //   {
   //     rel: 'icon',
