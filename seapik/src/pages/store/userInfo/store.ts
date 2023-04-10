@@ -14,7 +14,7 @@ class UserInfoStore {
   constructor() {
     makeObservable(this);
 
-    this.getUserInfo();
+    // this.getUserInfo();
   }
 
   @computed

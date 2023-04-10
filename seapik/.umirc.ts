@@ -13,7 +13,7 @@ const version = 'v1';
 
 export default defineConfig({
   title: 'pngtree editor',
-  devServer: { port: 8888 },
+  devServer: { port: 9999 },
   links: [
     {
       rel: 'icon',

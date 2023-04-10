@@ -32,7 +32,7 @@ customConfig({
   wholeTemplate: true,
 });
 
-initFontFamily();
+// initFontFamily();
 
 function Layout() {
   const { open, openMenu } = useMenu();
