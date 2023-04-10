@@ -5,7 +5,7 @@ import { execSync } from 'child_process';
 
 const isProd = process.env.NODE_ENV === 'production';
 const publicPath = isProd
-  ? 'https://wang-qyy.github.io/seapik/dist/'
+  ? 'https://wang-qyy.github.io/edit_ppt/dist/'
   : 'http://localhost:1111/';
 // process.env.SENTRY_AUTH_TOKEN = '832cf192e4b543f9a46c89a458ce7ea3d2fe065768884f09bbf7ada1c7b1743e';
 const scriptMiddleFilename = isProd ? '.min' : '';
