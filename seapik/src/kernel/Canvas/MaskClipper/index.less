@@ -1,0 +1,79 @@
+@import '../../style/variable';
+// 视频蒙版样式
+.hc-asset-mask-clipper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: @maxZIndex+99;
+  // background: rgba(0, 0, 0, 0.35);
+  * {
+    box-sizing: border-box;
+    user-select: none;
+  }
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hc-AIC-preview-image {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .hc-AIC-origin-image {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+  }
+
+  .hc-AIC-tools {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    z-index: 10;
+    background-color: #fff;
+    -webkit-user-select: none;
+    border-radius: 2px;
+    box-shadow: 0 0 4px 0 #a9afc5;
+  }
+
+  .hc-AIC-tools-inner {
+    white-space: nowrap;
+    padding: 0 15px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: normal;
+    //height: 28px;
+    .ant-btn-link {
+      padding: 4px 0;
+      font-size: inherit;
+      font-family: inherit;
+    }
+
+    .ant-slider {
+      width: 150px;
+      font-family: inherit;
+    }
+  }
+
+  .hc-asset-mask-clipper-divider {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    pointer-events: none;
+    z-index: 101;
+    &.hc-asset-mask-clipper-divider-v {
+      width: 1px;
+      height: 100%;
+    }
+    &.hc-asset-mask-clipper-divider-h {
+      width: 100%;
+      height: 1px;
+    }
+  }
+}
