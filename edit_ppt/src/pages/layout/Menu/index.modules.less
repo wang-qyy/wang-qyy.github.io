@@ -1,0 +1,47 @@
+@import '/src/style/variable.less';
+
+.menu {
+  padding: 0 2px;
+  .menu-item {
+    width: 100%;
+    height: 63px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-sizing: content-box;
+    position: relative;
+    padding: 0;
+    font-size: 12px;
+    margin: 0 auto;
+
+    &:hover,
+    &.active {
+      background: none;
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0px;
+        top: 6px;
+        height: 40px;
+        width: 3px;
+        background-color: @primary-color;
+      }
+      .menu-item-icon,
+      .menu-item-label {
+        color: @primary-color;
+      }
+    }
+
+    .menu-item-icon {
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .menu-item-label {
+      color: #fff;
+    }
+  }
+}

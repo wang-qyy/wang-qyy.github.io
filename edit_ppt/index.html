@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta name="renderer" content="webkit" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="srm-id" content="1" />
+    <link
+      rel="icon"
+      href="//js.seapik.com/static/favicon.ico"
+      type="image/x-icon"
+    />
+    <link
+      rel="stylesheet"
+      href="https://js.seapik.com/v1/css/bundle.c0639d81.css"
+    />
+    <script>
+      window.routerBase = "/";
+    </script>
+    <script>
+      //! umi version: 3.5.35
+    </script>
+  </head>
+
+  <body>
+    <div id="seapik"></div>
+
+    <script>
+      const ico = document.querySelector('link[type="image/x-icon"]');
+
+      if (window.location.host === "edit.pngtree.com") {
+        ico.href = "https://pngtree.com/favicon.ico";
+
+        document.title = "Pngtree editor";
+      } else {
+        ico.href = "//js.seapik.com/static/favicon.png";
+        document.title = "Seapik editor";
+      }
+    </script>
+
+    <script src="https://js.seapik.com/static/lib/fabric/4.6.0/fabric.min.js"></script>
+    <script src="https://js.seapik.com/static/lib/react/17.0.2/react.min.js"></script>
+    <script src="https://js.seapik.com/v1/js/bundle.184915b4.js"></script>
+  </body>
+</html>

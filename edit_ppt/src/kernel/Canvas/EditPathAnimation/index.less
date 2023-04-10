@@ -1,0 +1,66 @@
+.edit-path-animation {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 99999999999999999;
+  cursor: pointer;
+}
+.edit-path-box {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-origin: 0 0;
+}
+.edit-path-buttons {
+  width: 100%;
+  height: 50px;
+  position: absolute;
+  left: 0;
+  top: -30px;
+  z-index: 99999999999999999;
+  user-select: none;
+  .ant-btn {
+    height: 25px;
+    margin-right: 5px;
+    padding: 0px 10px;
+    font-size: 12px;
+    :hover {
+      color: #5778fb;
+    }
+  }
+}
+.edit-path-buttons-choosed {
+  background-color: #5778fb;
+  color: #fff;
+}
+.node-left {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fe1bfd;
+  cursor: move;
+  position: absolute;
+  z-index: 4;
+}
+.node-center {
+  width: 10px;
+  height: 10px;
+  border: 2px solid #fe1bfd;
+  cursor: move;
+  position: absolute;
+  z-index: 1;
+  &:hover {
+    background-color: #fe1bfd;
+  }
+}
+.node-right {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #fe1bfd;
+  cursor: move;
+  position: absolute;
+  z-index: 3;
+}

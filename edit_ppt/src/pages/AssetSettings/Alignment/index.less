@@ -1,0 +1,28 @@
+@import '/src/style/variable.less';
+
+.alignment {
+  .alignment-item {
+    flex: 1;
+    font-size: 16px;
+    padding: 0 20px;
+    background-color: #f6f7f9;
+    margin-right: 10px;
+    &:last-child {
+      margin-right: 0;
+    }
+    &.ant-btn-text:focus {
+      background-color: #f6f7f9;
+    }
+
+    &:hover,
+    &.alignment-item-active,
+    &.alignment-item-active.ant-btn-text:focus {
+      color: @primary-color;
+      background-color: #fff;
+      border: 1px solid @primary-color;
+    }
+  }
+  .ant-radio-button-wrapper-checked {
+    background-color: #f6f7f9;
+  }
+}

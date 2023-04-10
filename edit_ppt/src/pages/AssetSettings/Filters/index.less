@@ -1,0 +1,43 @@
+@import url('/src/style/variable.less');
+
+.filters-spinning {
+  min-height: 200px;
+  .ant-spin-container {
+    height: 200px;
+    overflow: auto;
+  }
+}
+
+.filters-label {
+  user-select: none;
+}
+.filters {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  padding: 4px;
+
+  .filters-item {
+    border-radius: 4px;
+    cursor: pointer;
+    overflow: hidden;
+    user-select: none;
+    background-color: #d3d3d3;
+
+    &:hover {
+      transform: scale(1.05);
+    }
+    &.filters-item-clear {
+      background-color: #f3f5f6;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      color: #9da3ac;
+    }
+
+    &.filters-item-active {
+      outline: 1.5px solid @primary-color;
+    }
+  }
+}
