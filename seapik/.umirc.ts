@@ -13,6 +13,7 @@ const version = 'v1';
 
 export default defineConfig({
   title: 'pngtree editor',
+  mountElementId: 'seapik',
   devServer: { port: 9999 },
   links: [
     {
