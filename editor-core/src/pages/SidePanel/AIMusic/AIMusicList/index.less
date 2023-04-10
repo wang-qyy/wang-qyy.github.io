@@ -1,0 +1,67 @@
+.ai-list-item {
+  width: 318px;
+  height: 118px;
+  background: #ffffff;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #262e48;
+  line-height: 20px;
+  padding: 15px 16px;
+  margin-bottom: 27px;
+  position: relative;
+  .ai-item-title {
+    max-width: 200px;
+    //超过一行省略号
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 20px;
+  }
+  .ai-item-show {
+    width: 100%;
+  }
+  .ai-item-add {
+    width: 20px;
+    height: 20px;
+    background: @primary-color;
+    color: rgba(255, 255, 255, 1);
+    position: absolute;
+    top: 15px;
+    right: 40px;
+    font-size: 14px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 20px;
+    cursor: pointer;
+  }
+  .ai-item-dec {
+    color: #262e48;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 20px;
+    cursor: pointer;
+    .ant-popover-arrow {
+      display: none;
+    }
+  }
+}
+.ai-item-dec-done {
+  height: 85px;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #e9eaec;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding-top: 5px;
+  :hover {
+    color: @primary-color;
+  }
+}
+.empty {
+  width: 318px;
+  display: flex;
+  justify-content: center;
+}

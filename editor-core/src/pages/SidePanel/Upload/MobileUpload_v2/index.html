@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- icon font -->
+    <script src="https://at.alicdn.com/t/font_2484305_z8k883b8b3d.js"></script>
+    <title></title>
+
+    <link rel="stylesheet" href="./index.css">
+</head>
+
+<body>
+    <div class="mian">
+        <input id="fileupload" type="file" multiple onchange="getUploadFiles(this)" accept="image/png,image/jpeg,video/mp4,video/quicktime" />
+
+        <div class="header">
+            <span>素材上传</span>
+            <div class="header-divider"></div>
+            <span>秀多多</span>
+        </div>
+        <div class="content">
+
+            <!-- 上传列表展示 -->
+            <div class="content-list"></div>
+
+            <!-- 默认展示start  -->
+            <div class="content-default">
+                <div>
+                    <div class="upload-icon">
+                        <svg class="icon" aria-hidden="true">
+                        <use xlink:href="#iconshangchuan1"></use>
+                      </svg>
+                    </div>
+                    <div class="upload-desc">可批量上传多个文件，文件总大小 不能超过1G
+                    </div>
+                </div>
+                <div class="button upload-button" onclick="getMoreUpload()">选择文件</div>
+
+            </div>
+            <!-- 默认展示end  -->
+
+            <!-- 上传点击事件 -->
+            <div class="bottom">
+                <div class="buttom-ok-btn" onclick="onOk()">确定</div>
+                <button onclick="getMoreUpload()" class="bottom-upload-default bottom-add-file">继续添加</button>
+                <div class="bottom-upload-default bottom-upload-btn" onclick="startUpload()">开始上传</div>
+            </div>
+        </div>
+        <script src="https://cdn.bootcdn.net/ajax/libs/spark-md5/3.0.2/spark-md5.min.js"></script>
+        <script src="./uploader.js"></script>
+        <script src="./getFileInfo.js"></script>
+        <script src="./index.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,74 @@
+@import '/src/global';
+
+@bottomBar-height: 115px;
+@topBar-height: 45px;
+
+.xiudodo-main {
+  flex: 1;
+  position: relative;
+  overflow: scroll;
+  z-index: 8;
+  display: grid;
+  grid-template-rows: 0 1fr;
+  grid-template-columns: 0 1fr;
+  grid-template-areas:
+    'corner-block horizontal-rulers'
+    'vertical-rulers canvas';
+
+  &.xiudodo-main-grid {
+    grid-template-rows: 25px 1fr;
+    grid-template-columns: 25px 1fr;
+  }
+
+  &:hover {
+    &::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(0, 0, 0, 0.2) !important;
+    }
+  }
+
+  &::-webkit-scrollbar-corner {
+    display: none;
+  }
+
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    margin-right: 4px;
+    border-radius: 3px;
+    background-color: transparent;
+  }
+}
+
+.xiudodo-topBar {
+  height: @topBar-height;
+  // margin-top: 12px;
+  background-color: #fff;
+  // display: flex;
+  // justify-content: space-between;
+  // align-items: center;
+  padding: 0 5px;
+  z-index: 9;
+  box-shadow: 0 0 3px 0 rgba(137, 137, 137, 0.5);
+  position: relative;
+
+  * {
+    user-select: none;
+  }
+
+  // .absolute-top-left;
+}
+
+.xiudodo-bottomBar {
+  width: inherit;
+  min-height: @bottomBar-height;
+  background: #fff;
+  // .absolute-bottom-left;
+}

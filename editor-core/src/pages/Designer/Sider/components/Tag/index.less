@@ -1,0 +1,20 @@
+.xiudd-designer-tag {
+  max-width: 80px;
+  height: 28px;
+  line-height: 28px;
+  background-color: #1c1c28;
+  border-radius: 4px;
+  font-size: 12px;
+  color: #fff;
+  text-align: center;
+  white-space: nowrap; //不换行
+  overflow: hidden; //超出隐藏
+  text-overflow: ellipsis; //变成...
+  cursor: pointer;
+  user-select: none;
+
+  &:hover,
+  &.xiudd-designer-tag-active {
+    background: @primary-color;
+  }
+}

@@ -1,0 +1,66 @@
+@import '/src/style/designer.theme.less';
+
+.flex-box {
+  display: flex;
+  align-items: center;
+}
+
+.actions {
+  background-color: @black-font-color;
+  border-bottom: 1px solid #3c3c48;
+  height: 32px;
+
+  .actions-left {
+    flex: 1;
+    padding-left: 75px;
+  }
+
+  .actions-right {
+    flex: 1;
+    color: #fff;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 12px;
+  }
+
+  .action-item {
+    height: 32px;
+    line-height: 32px;
+    margin-right: 30px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      color: @text-color-hover;
+    }
+
+    &.disabled {
+      color: @disabled-font-color;
+      cursor: not-allowed;
+    }
+    &.choosed {
+      color: @primary-color;
+      font-size: 20px;
+    }
+    .copy {
+      font-size: 16px;
+    }
+
+    .assetDuration {
+      font-size: 16px;
+    }
+
+    .name {
+      font-size: 12px;
+      margin-left: 4px;
+    }
+  }
+}
+
+.ruler {
+  border-top: 1px solid @text-color;
+  padding-left: 75px;
+}

@@ -1,0 +1,29 @@
+.xiudodo-designer-canvas {
+  // flex: 1;
+  height: 100%;
+  width: 100%;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  overflow: scroll;
+  z-index: 1;
+  position: relative;
+  display: grid;
+  grid-template-rows: 0 1fr;
+  grid-template-columns: 0 1fr;
+  grid-template-areas:
+    'designer_corner_block designerHorizontal'
+    'designer_vertical canvas';
+
+  &.xiudodo-designer-canvas-grid {
+    grid-template-rows: 25px 1fr;
+    grid-template-columns: 25px 1fr;
+  }
+
+  .xiudodo-designer-DropDustbin {
+    // width: 100%;
+    // height: 100%;
+    position: relative;
+    grid-area: canvas;
+  }
+}

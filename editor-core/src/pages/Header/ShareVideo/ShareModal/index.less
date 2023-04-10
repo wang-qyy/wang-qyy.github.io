@@ -1,0 +1,153 @@
+.synthesisModal {
+  width: 611px;
+  height: 316px;
+  background: #FFFFFF;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .synthesisModalTitle {
+    margin-top: 70px;
+    height: 30px;
+    font-size: 22px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #262E48;
+    line-height: 30px;
+  }
+
+  .synthesisModalProgress {
+    width: 90%;
+    margin-top: 60px;
+    font-size: 18px;
+
+    :global {
+      .ant-progress-inner {
+        height: 12px;
+        background: #E3E3E3;
+        border-radius: 7px;
+
+      }
+
+      .ant-progress-bg {
+        height: 12px !important;
+        background: #5646ED;
+      }
+    }
+
+  }
+
+  .synthesisModalFooter {
+    margin-top: 30px;
+    height: 20px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #7E8AA9;
+    line-height: 20px;
+  }
+}
+
+.fillModal {
+  width: 511px;
+  height: 304px;
+  background: #FFFFFF;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .fillModalIcon {
+    margin-top: 54px;
+    font-size: 50px;
+    color: #E57E3D;
+  }
+
+  .fillModalText {
+    margin-top: 30px;
+    font-size: 16px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #262E48;
+    line-height: 22px;
+  }
+
+  .fillModalButton {
+    margin-top: 33px;
+    width: 203px;
+    height: 45px;
+    background: #5646ED;
+    border-radius: 23px;
+
+    &:hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.successModal {
+  width: 717px;
+  height: 427px;
+  background: #FFFFFF;
+  border-radius: 6px;
+  border: 1px solid #EEEFF2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .successModalTitle {
+    margin-top: 32px;
+    height: 25px;
+    font-size: 18px;
+    font-family: PingFangSC-Medium, PingFang SC;
+    font-weight: 500;
+    color: #262E48;
+    line-height: 25px;
+  }
+
+  .successModalQRcode {
+    margin-top: 28px;
+    width: 130px;
+    height: 130px;
+    background: #F2F2F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .successModalText {
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #262E48;
+    line-height: 20px;
+  }
+
+  .successModalFooter {
+    width: 660px;
+    margin-top: 43px;
+    display: flex;
+    flex-direction: column;
+
+    .footerTitle {
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #262E48;
+      line-height: 20px;
+      margin-bottom: 20px;
+    }
+
+    .footerInput {
+      width: 556px;
+      height: 44px;
+    }
+
+    .footerButton {
+      width: 130px;
+      height: 44px;
+    }
+  }
+}

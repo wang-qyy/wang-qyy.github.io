@@ -1,0 +1,51 @@
+.fontSet {
+  width: 301px;
+  height: 52px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 6px 0px #EBEBEB;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 13px;
+  position: relative;
+
+  .fontSetInput {
+    left: 22px;
+    width: 155px;
+    position: absolute;
+    overflow: hidden;
+
+  }
+
+  :global {
+    .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      background-color: transparent !important;
+    }
+  }
+}
+
+.fontSetType {
+  width: 274px !important;
+  min-width: 274px !important;
+  background: #FFFFFF;
+
+  .font-family-item {
+    background: #FFFFFF;
+    overflow-x: hidden;
+    cursor: pointer;
+    padding: 12px 0 12px 12px;
+
+    &.font-family-active,
+    &:hover {
+      background-color: #f6f7f7;
+    }
+  }
+
+  :global {
+    .ant-select-item-option-active:not(.ant-select-item-option-disabled) {
+      background-color: #ffffff;
+    }
+
+  }
+}

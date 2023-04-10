@@ -1,0 +1,27 @@
+@import '../../style/variable.less';
+//新加的
+.hc-asset-path-mask {
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: @pathEditZIndex;
+}
+
+.path-svg {
+  border: 1px dashed transparent;
+  svg {
+    position: absolute !important;
+    left: 0px !important;
+    top: 0px !important;
+    min-height: 2px;
+  }
+  &:hover {
+    border-color: #673ab7;
+  }
+}
+.choosed {
+  border-color: #673ab7;
+}

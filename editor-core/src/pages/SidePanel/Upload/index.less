@@ -1,0 +1,109 @@
+.upload-wrap {
+  height: 100%;
+
+  .upload-buttons {
+    display: flex;
+    justify-content: space-between;
+    padding: 16px 16px 0;
+
+    .upload-button-item {
+      width: 150px;
+      height: 34px;
+      font-size: 12px;
+      &:hover {
+        .upload-help-tips-icon {
+          display: inline-block;
+        }
+      }
+      .upload-help-tips-icon {
+        display: none;
+        width: 14px;
+        height: 14px;
+        line-height: 14px;
+        text-align: 14px;
+        margin-left: 8px;
+        font-size: 12px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.45);
+      }
+    }
+  }
+
+  .side-panel-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .ant-tabs {
+    flex: 1;
+    .ant-tabs-nav {
+      margin-bottom: 8px;
+    }
+    .ant-tabs-nav-wrap {
+      padding: 0 16px;
+      .ant-tabs-tab {
+        font-size: 12px;
+        color: #262e48;
+      }
+    }
+    .ant-tabs-content-holder {
+      flex: 1;
+      .ant-tabs-content {
+        height: 100%;
+        .ant-tabs-tabpane {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+    }
+  }
+}
+
+.file-action-deleted {
+  font-size: 12px;
+  cursor: pointer;
+  margin-right: 8px;
+  color: #262e48;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.file-selected-exit {
+  font-size: 12px;
+  color: '#262E48';
+  cursor: pointer;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.upload-help-tips {
+  font-size: 12px;
+  p {
+    margin: 0;
+    line-height: 24px;
+  }
+
+  .ant-tooltip-inner {
+    background-color: #f6f6f6;
+    color: #262e48;
+    padding: 14px 10px;
+  }
+  .ant-tooltip-arrow-content {
+    background-color: #f6f6f6;
+  }
+}
+
+.upload-tip-size {
+  color: #ed5822;
+}
+
+.tooltip-overlayClassName {
+  .ant-tooltip-inner {
+    min-width: auto;
+    min-height: auto;
+    padding: 0 4px;
+    font-size: 12px;
+  }
+}

@@ -1,0 +1,45 @@
+.dropDown {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 14px;
+
+  .dropDownTop {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    .dropDownTopLeft {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      .dropDownTopLeftIcon {
+        width: 28px;
+        height: 28px;
+        border-radius: 4px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transition: 0.3s;
+
+        &:hover {
+          background: #F2F3F5;
+        }
+      }
+
+
+      .dropDownTopLeftSpan {
+        font-size: 16px;
+        font-weight: 500;
+        color: #262E48;
+      }
+    }
+
+    .dropDownTopRight {}
+  }
+
+  .dropDownContent {}
+}

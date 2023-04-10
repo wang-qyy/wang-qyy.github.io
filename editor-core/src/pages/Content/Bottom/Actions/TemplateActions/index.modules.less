@@ -1,0 +1,36 @@
+.size:hover,
+.active {
+  background: #f7f7f7;
+}
+
+.size {
+  font-size: 14px;
+  text-align: center;
+  line-height: 26px;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.action {
+  border: 1px solid #d9d9d9;
+  width: 30px;
+  height: 32px;
+  line-height: 32px;
+  text-align: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.input-number {
+  width: 70px;
+  text-align: center;
+  :global {
+    input {
+      text-align: center;
+    }
+    .ant-input-number-handler-wrap {
+      display: none;
+    }
+  }
+}

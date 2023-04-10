@@ -1,0 +1,39 @@
+.bgAni-view {
+  width: 100%;
+  display: grid;
+  gap: 30px 16px;
+  grid-template-columns: repeat(auto-fill, minmax(65px, 1fr));
+  padding: 22px 24px;
+}
+.bgAni-item {
+  width: 65px;
+  cursor: pointer;
+  .no-animation {
+    background: #d8d8d8;
+  }
+  .item-part {
+    width: 100%;
+    height: 65px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    overflow: hidden;
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .active {
+    border: 2px solid @primary-color;
+  }
+  .title {
+    width: 100%;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 400;
+    color: #ffffff;
+    margin-top: 10px;
+  }
+}

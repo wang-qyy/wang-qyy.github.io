@@ -1,0 +1,27 @@
+.xiudd-filters {
+  font-size: 14px;
+  color: #262e48;
+  .xiudd-filters-group {
+    margin-top: 8px;
+    .xiudd-filters-option {
+      min-width: 30px;
+      height: 26px;
+      line-height: 26px;
+      margin-right: 16px;
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+
+      cursor: pointer;
+
+      &:hover {
+        color: @primary-color;
+      }
+    }
+
+    .xiudd-filters-option-active {
+      color: @primary-color;
+    }
+  }
+}

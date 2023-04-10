@@ -1,0 +1,54 @@
+@import '/src/style/designer.theme.less';
+
+.main {
+  // margin-left: 19px;
+}
+
+.tabWarp {
+  width: 100%;
+  // padding: 21px 23px 0 19px;
+  display: grid;
+  gap: 24px;
+  grid-template-columns: minmax(0, 120px) minmax(0, 120px) minmax(0, 120px) minmax(
+      0,
+      120px
+    );
+
+  .tabItem {
+    // width: 117px;
+    height: 36px;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 20px;
+    cursor: pointer;
+
+    :hover {
+      opacity: 0.9;
+    }
+  }
+}
+
+.moreCmp {
+  width: 77px;
+  height: 24px;
+  background: #2e2e39;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #c0c0cd;
+  line-height: 24px;
+  padding: 0 10px;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    color: @primary-color;
+  }
+}

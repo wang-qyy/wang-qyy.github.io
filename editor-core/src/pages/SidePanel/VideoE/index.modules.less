@@ -1,0 +1,65 @@
+@import '/src/global.less';
+
+.class-name {
+  cursor: pointer;
+  margin-left: 16px;
+  margin-bottom: 4px;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.more {
+  color: #484e5f;
+  font-size: 12px;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.more-list {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  :global {
+    .infinite-loader-wrap {
+      flex: 1;
+      height: 0;
+    }
+    .infinite-loader {
+      padding-bottom: 10px;
+    }
+  }
+}
+.list-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-content: flex-start;
+  grid-gap: 14px;
+  height: calc(100vh - 150px) !important;
+}
+.xiudd-videoE-search-list {
+  height: 100%;
+  :global {
+    .ant-tabs-nav-wrap {
+      padding-left: 18px;
+    }
+    .ant-tabs-content-holder {
+      flex: 1;
+    }
+    .ant-tabs-content {
+      height: 100%;
+    }
+  }
+}
+
+.recommend {
+  overflow-y: auto;
+  overflow-x: hidden;
+  :global {
+    .mold-list {
+      grid-template-columns: none;
+    }
+  }
+}

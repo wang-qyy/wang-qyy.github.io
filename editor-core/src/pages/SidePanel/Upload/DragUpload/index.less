@@ -1,0 +1,48 @@
+.drag-upload {
+  height: 100%;
+  width: 100%;
+  position: relative;
+
+  .drag-upload-content {
+    z-index: 10;
+    height: 100%;
+    position: relative;
+  }
+}
+
+.upload-file-dragenter {
+  .dragenter-mask {
+    display: flex;
+  }
+}
+
+.dragenter-mask {
+  display: none;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.52);
+  z-index: 20;
+  color: #fff;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .drag-upload-icon {
+    width: 36px;
+    height: 36px;
+    border: 1px dashed #7e8aa9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #fff;
+    pointer-events: none;
+  }
+  .upload-file-drag-icon > span,
+  .dragenter-desc {
+    color: #fff !important;
+    pointer-events: none;
+  }
+}

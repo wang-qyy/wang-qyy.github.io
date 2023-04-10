@@ -1,0 +1,34 @@
+@import '/src/global.less';
+
+.animation-time-slider-wrap {
+  .ant-input-number {
+    width: 80px;
+  }
+
+  .rc-slider-rail,
+  .rc-slider-step,
+  .rc-slider-track {
+    height: 7px;
+  }
+
+  .xiu-animationRange-handle {
+    font-size: 26px;
+    top: -14px;
+
+    &.xiu-animationRange-handle-turn {
+      transform: rotateY(180deg) translateX(-6px);
+    }
+
+    &:nth-of-type(2) {
+      transform: rotate(180deg) translateX(-6px);
+      top: 18px;
+    }
+  }
+
+  .rc-slider-rail {
+    background-color: @primary-color;
+  }
+  .rc-slider-track {
+    background-color: #eaeaea;
+  }
+}

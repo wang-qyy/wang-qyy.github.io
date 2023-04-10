@@ -1,0 +1,65 @@
+@import '/src/style/designer.theme.less';
+
+.audio-wrap {
+  width: inherit;
+  height: inherit;
+}
+
+.audio-track {
+  user-select: none;
+  height: 28px;
+  position: relative;
+  margin-bottom: 8px;
+  // margin-top: 12px;
+  transition: all 0.3s;
+  z-index: 2;
+
+  .ant-tooltip-placement-bottom {
+    top: 26px !important;
+  }
+
+  .ant-tooltip-placement-top {
+    top: -26px !important;
+  }
+  &:hover {
+    z-index: 101 !important ;
+  }
+}
+
+.audio-collapsed {
+  height: 20px !important;
+
+  .audio-connect {
+    opacity: 0;
+  }
+
+  .clip-handler {
+    display: none;
+  }
+
+  .audio-title {
+    opacity: 0;
+  }
+
+  &.xiudodo-bottom-audios {
+    min-height: 20px;
+  }
+
+  .audio-track {
+    margin: 4px 0;
+  }
+}
+
+// 音频裁剪隐藏同轨道其他音频
+.audio-track-incliping {
+  .audio-module-item:not(.audio-module-item-incliping) {
+    display: none;
+  }
+}
+
+.audio-auxiliary-line {
+  position: absolute;
+  border-left: 1px dashed #ff00d5;
+  height: 100%;
+  z-index: 3;
+}

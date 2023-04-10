@@ -1,0 +1,145 @@
+@import '/src/style/designer.theme.less';
+
+@bottom-min-height: 290px;
+@bottom-max-height: 614px;
+@bottom-default-height: 350px;
+
+.xiudodo-designer-bottom {
+  width: 100%;
+  background-color: @black-font-color;
+}
+
+.drag-handle {
+  height: 4px;
+  cursor: row-resize;
+
+  &:hover {
+    background-color: @primary-color;
+  }
+}
+
+.designer-bottom-layout {
+  color: #fff;
+  display: grid;
+  grid-gap: 0 4px;
+  grid-template-columns: 60px 1fr;
+  grid-template-rows: 25px 1fr; // 刻度尺 、镜头、元素列表 、背景、音频
+  grid-template-areas:
+    'designer-block designer-ruler'
+    'designer-block designer-timeLine'
+    'designer-block designer-template'
+    'designer-audio-label designer-audios';
+  overflow: auto;
+  // padding-bottom: 18px;
+  position: relative;
+}
+
+.designer-block {
+  grid-area: designer-block;
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  background-color: #17171e;
+  display: flex;
+  align-items: end;
+  justify-content: end;
+}
+
+.designer-ruler {
+  background-color: #17171e;
+  grid-area: designer-ruler;
+  position: sticky;
+  top: 0;
+  z-index: 19;
+}
+
+.designer-template {
+  grid-area: designer-template;
+  display: flex;
+  z-index: 18;
+  margin-bottom: 6px;
+}
+
+.designer-background-label {
+  width: 100%;
+  height: 35px;
+  background-color: #1c1c27;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #838390;
+  border-radius: 4px;
+  font-size: 12px;
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  margin-bottom: 6px;
+}
+
+.designer-background-asset {
+  grid-area: designer-background-asset;
+  background-color: #272736;
+  border: 1px dashed #3c3c48;
+  border-radius: 4px;
+  position: relative;
+  cursor: pointer;
+  display: flex;
+}
+
+.designer-audio-label {
+  grid-area: designer-audio-label;
+  position: sticky;
+  left: 0;
+  z-index: 20;
+  background-color: #17171e;
+
+  .designer-audio-label-text {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    background-color: #1c1c27;
+    justify-content: center;
+    color: #838390;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+}
+
+.designer-audios {
+  grid-area: designer-audios;
+  position: relative;
+  cursor: pointer;
+  z-index: 18;
+
+  .designer-audios-empty {
+    height: 28px;
+    line-height: 28px;
+    padding-left: 24px;
+    font-size: 12px;
+    color: #838390;
+    background-color: #272736;
+    border: 1px dashed #3c3c48;
+    border-radius: 4px;
+
+    &:hover {
+      border-color: @primary-color;
+      color: @primary-color;
+    }
+  }
+}
+
+.designer-timeLine-label {
+  width: 100%;
+  height: 46px;
+  position: absolute;
+  left: 0;
+  top: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #30303a;
+  font-size: 12px;
+  font-weight: 400;
+  color: #7a7a87;
+}

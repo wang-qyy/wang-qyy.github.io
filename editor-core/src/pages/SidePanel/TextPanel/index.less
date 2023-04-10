@@ -1,0 +1,70 @@
+@import '/src/global.less';
+
+.text-panel-header {
+  line-height: 40px;
+  width: 100%;
+
+  .text-panel-header-desc,
+  button {
+    color: #7e8aa9;
+  }
+
+  .text-panel-header-name,
+  button:hover {
+    color: #484e5f;
+    font-weight: 500;
+  }
+
+  .backgroundButton {
+    width: 100%;
+    height: 51px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #ffffff;
+    margin-bottom: 16px;
+    border-radius: 4px;
+
+    button {
+      margin: 0 10px;
+      border: none;
+      margin-bottom: 0 !important;
+      background: rgba(38, 46, 72, 0.08);
+
+      &:hover {
+        border: none;
+      }
+    }
+
+    &:hover {
+      border: 1px solid @primary-color;
+    }
+  }
+
+  button {
+    width: 100%;
+    border: none;
+    margin-bottom: 16px;
+
+    &:hover {
+      border: 1px solid @primary-color;
+    }
+  }
+}
+
+.text-panel-wrap {
+  .side-panel-content {
+    overflow-y: auto;
+    margin: 16px 0;
+  }
+
+  .xiudd-skeleton-wrap {
+    padding: 0;
+  }
+
+  .text-panel-content {
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+  }
+}

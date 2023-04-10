@@ -1,0 +1,99 @@
+.uploadFontItem {
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px;
+  margin-bottom: 20px;
+
+  .uploadFontItemTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .uploadFontItemTopName {
+      max-width: 210px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #000000;
+      line-height: 20px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .uploadFontItemTopRight {
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #5A4CDB;
+      line-height: 17px;
+    }
+
+    .uploadFontItemCheckCircleFilled {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #262E48;
+      line-height: 17px;
+
+      .uploadFontItemCheckCircleFilledIcon {
+        margin-right: 3px;
+        font-size: 14px;
+        color: #62B18B;
+
+      }
+
+    }
+
+    .uploadFontItemClose {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #262E48;
+      line-height: 17px;
+      cursor: pointer;
+
+      .uploadFontItemCloseIcon {
+        margin-right: 3px;
+        font-size: 14px;
+        color: #B52121;
+      }
+
+      .uploadFontItemCloseIcon1 {
+        margin-right: 3px;
+        font-size: 14px;
+        color: #E46214;
+      }
+
+      .uploadFontItemCloseSpan {
+        width: 50px;
+        height: 18px;
+        border-bottom: 1px solid #333;
+        // text-decoration:underline;
+      }
+    }
+  }
+
+  .uploadFontItemProgress {
+    :global {
+      .ant-progress-inner {
+        height: 3px;
+
+        .ant-progress-bg {
+          height: 3px !important;
+          background-color: #5646ED;
+
+        }
+      }
+    }
+
+  }
+}

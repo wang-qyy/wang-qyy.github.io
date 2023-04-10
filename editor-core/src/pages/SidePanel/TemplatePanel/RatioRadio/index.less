@@ -1,0 +1,35 @@
+.ratioRadio {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 13px 16px;
+  font-size: 12px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #262E48;
+  line-height: 17px;
+
+  :global {
+    .ant-radio-wrapper {
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #262E48;
+      line-height: 17px;
+    }
+
+    .ant-radio-inner {
+      width: 14px;
+      height: 14px;
+    }
+
+    .ant-radio-inner::after {
+      top: 2px;
+      left: 2px;
+    }
+  }
+
+  .ratioRadioLeft {
+    margin-right: 9px;
+  }
+}

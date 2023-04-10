@@ -1,0 +1,66 @@
+.watermarkTabsWarp {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  .watermarkTabs {
+    flex: 1;
+
+    :global {
+      .ant-tabs-nav {
+        margin: 0;
+        padding-left: 16px;
+      }
+
+      .ant-tabs-top {
+        height: 100%;
+      }
+    }
+  }
+
+  .watermarkFooter {
+    width: 100%;
+    height: 144px;
+    // position: absolute;
+    left: 85px;
+    margin-bottom: 25px;
+    bottom: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .watermarkFooterText {
+      margin-top: 15px;
+      width: 158px;
+      height: 17px;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #262e48;
+      line-height: 17px;
+    }
+  }
+}
+
+.toolsVipCard {
+  position: absolute;
+  top: 10px;
+  margin-left: 8px;
+  width: 26px;
+  height: 14px;
+  background: linear-gradient(90deg, #FAD9C8 0%, #E5B395 100%);
+  border-radius: 4px 4px 4px 0px;
+  display: inline-block;
+  font-size: 12px;
+  font-family: PingFangSC-Regular, PingFang SC;
+  font-weight: 400;
+  color: #69382C;
+  line-height: 14px;
+  cursor: pointer;
+  padding: 0px 4px;
+}

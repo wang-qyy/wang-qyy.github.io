@@ -1,0 +1,74 @@
+.clip-component {
+  // border-bottom-left-radius: 4px;
+  // border-bottom-right-radius: 4px;
+  border-radius: 4px;
+  // overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  z-index: 1;
+}
+
+.clip-handler {
+  height: 100%;
+  width: 15px;
+  position: absolute;
+  top: 0;
+  background-color: rgba(54, 218, 160, 0.18);
+  cursor: ew-resize;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  z-index: 20;
+}
+.clip-handler-left {
+  left: 0;
+}
+.clip-handler-right {
+  right: 0;
+}
+
+.clip-asset-locked {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  right: 4px;
+
+  cursor: pointer;
+  color: #ff2b2b;
+  background-color: #2c2c36;
+  font-size: 12px;
+  z-index: 20;
+}
+
+&.clip-asset-item-active {
+  outline: 1px solid #36daa0;
+  z-index: 2;
+}
+
+.clip-duation {
+  width: 100%;
+  height: 12px;
+  line-height: 12px;
+  top: -12px;
+  text-indent: 10px;
+  color: #fff;
+  overflow: hidden;
+  font-size: 12px;
+}
+
+.clip-handler-tooltip {
+  .ant-tooltip-content {
+    .ant-tooltip-inner {
+      // color: #ff2b2b;
+      text-align: center;
+    }
+  }
+}

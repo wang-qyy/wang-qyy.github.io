@@ -1,0 +1,108 @@
+// @import '~antd/dist/antd.dark.less';
+@import '/src/style/designer.theme.less';
+.designer-wrap {
+  height: 100%;
+  background-color: #1c1c26;
+  overflow: hidden;
+  user-select: none;
+  .ant-layout-sider-children {
+    display: flex;
+  }
+
+  .asset-resize {
+    width: 0;
+    padding: 0 6px;
+    cursor: col-resize;
+    height: 100%;
+    position: absolute;
+    right: -12px;
+
+    &:after {
+      position: absolute;
+      content: '';
+      top: 0;
+      right: 10px;
+      height: 100%;
+    }
+
+    &:hover {
+      &:after {
+        border-left: 2px solid #373749;
+      }
+    }
+    &:active:after {
+      border-left: 2px solid @primary-color;
+    }
+  }
+
+  &.designer-layout {
+    padding: 12px;
+
+    ::-webkit-scrollbar {
+      width: 8px !important;
+      height: 8px !important;
+    }
+    // 滚动条整体部分，可以设置宽度啥的
+    ::-webkit-scrollbar-button {
+    }
+    // 滚动条两端的按钮
+    ::-webkit-scrollbar-track {
+      display: none;
+    }
+    // 外层轨道
+    ::-webkit-scrollbar-track-piece {
+    }
+    // 内层滚动槽
+    ::-webkit-scrollbar-thumb {
+      margin-right: 4px;
+      border-radius: 3px;
+      width: 10px;
+      background: #3c3c48 !important;
+    }
+
+    // 边角
+    ::-webkit-scrollbar-corner {
+      display: none !important;
+    }
+
+    ::-webkit-resizer {
+      display: none !important;
+    }
+  }
+  .ant-layout {
+    height: 100%;
+    background-color: #1c1c26;
+  }
+
+  .ant-layout-header {
+    height: 40px;
+    line-height: 40px;
+    margin-bottom: 12px;
+    padding: 0;
+    background-color: transparent;
+  }
+  .ant-layout-sider {
+    margin-right: 12px;
+    border-radius: @default-border-radius;
+    background-color: #272731;
+    // overflow: hidden;
+    transition: none;
+  }
+
+  .ant-layout-content {
+    background-color: #272731;
+    border-radius: @default-border-radius;
+    overflow: hidden;
+  }
+  .ant-layout-footer {
+    margin-top: 12px;
+    padding: 0;
+    background-color: #272731;
+    border-radius: @default-border-radius;
+    // overflow: hidden;
+  }
+
+  section {
+    height: 100%;
+  }
+}

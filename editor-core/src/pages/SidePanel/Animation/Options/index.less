@@ -1,0 +1,140 @@
+@import '/src/global.less';
+
+.animation-list {
+  height: 100%;
+  overflow-y: auto;
+}
+
+.text-animation-header {
+  height: inherit;
+  // display: flex;
+  // align-items: center;
+  font-weight: 500;
+  color: #484e5f;
+}
+.text-animation-header-item {
+  height: inherit;
+  cursor: pointer;
+  margin-right: 24px;
+  color: #484e5f;
+}
+
+.text-animation-header-active {
+  border-bottom: 2px solid @primary-color;
+}
+
+.animation-classify-name {
+  color: #262e48;
+  padding-left: 16px;
+  margin-top: 16px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.default-background {
+  background-color: #e1e1e1;
+  width: 62px;
+  height: 62px;
+  font-size: 40px;
+  border-radius: 4px;
+  &:hover {
+    border: 1px solid @primary-color;
+  }
+}
+
+.animation-item {
+  display: inline-block;
+  margin-left: 14px;
+  margin-top: 16px;
+  cursor: pointer;
+  text-align: center;
+
+  &:hover,
+  &.animation-item-selected {
+    img,
+    .xiudodo-video-wrapper {
+      outline: 1.5px solid @primary-color;
+      outline-offset: 2px;
+    }
+  }
+
+  img {
+    width: 62px;
+    height: 62px;
+    border-radius: 4px;
+  }
+
+  .xiudodo-video-wrapper {
+    background-color: #fff;
+    width: 60px;
+    height: 60px;
+    position: relative;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+}
+.animation-title {
+  color: #7e8aa9;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+.animation-time-box {
+  width: 100%;
+  background: #fff;
+  padding: 16px;
+
+  .animation-time-slider-wrap {
+    padding-top: 16px;
+
+    .ant-slider-track {
+      background-color: @primary-color;
+    }
+
+    .animation-time-slider-range {
+      .ant-slider-track {
+        background-color: #eaeaea;
+      }
+      .ant-slider-rail {
+        background-color: @primary-color;
+      }
+
+      .xiu-animationRange-handle {
+        &:nth-child(0) {
+          svg {
+            font-size: 32px;
+          }
+        }
+      }
+    }
+
+    .ant-slider-handle {
+      width: 12px;
+      height: 18px;
+      border-radius: 0 0 8px 8px;
+      top: -4px;
+      border: 1px solid @primary-color;
+    }
+
+    .ant-slider-rail,
+    .ant-slider-track,
+    .ant-slider-step {
+      height: 7px;
+    }
+  }
+
+  .animation-time-label {
+    font-size: 12px;
+    color: #484e5f;
+  }
+
+  .animation-time-input {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-between;
+
+    .ant-input-number-out-of-range input {
+      color: rgba(0, 0, 0, 0.85);
+    }
+  }
+}

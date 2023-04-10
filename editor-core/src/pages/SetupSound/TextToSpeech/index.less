@@ -1,0 +1,171 @@
+.textToSpeechModal {
+  width: 381px;
+  height: 631px;
+  background: #ffffff;
+  box-shadow: 0px 0px 10px 0px rgba(197, 197, 197, 0.5);
+  border-radius: 6px;
+  border: 1px solid #e3e4ea;
+  padding: 24px 23px 35px 20px;
+
+  .textToSpeechTitle {
+    width: 100%;
+    font-size: 18px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #262e48;
+    line-height: 25px;
+    letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+  }
+  .textToSpeechTextArea {
+    margin-top: 27px;
+  }
+  .textToSpeechRole {
+    margin-top: 27px;
+    .textToSpeechRoleTitle {
+      height: 20px;
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #484e5f;
+      line-height: 20px;
+    }
+    .textToSpeechRoleContent {
+      margin-top: 11px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      .textToSpeechRoleContentItem {
+        margin-bottom: 15px;
+        width: 72px;
+        height: 30px;
+        background: #ffffff;
+        border-radius: 2px;
+        border: 1px solid #5a4cdb;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #484e5f;
+        line-height: 17px;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .textToSpeechSlider {
+    margin-top: 12px;
+
+    .ant-slider {
+      margin: 10px 0;
+      &:hover {
+        .ant-slider-rail {
+          background-color: #d3d7df;
+        }
+        .ant-slider-track {
+          background-color: @primary-color;
+        }
+      }
+      .ant-slider-rail {
+        background-color: #d3d7df;
+      }
+      .ant-slider-track {
+        background-color: @primary-color;
+      }
+    }
+
+    .textToSpeechSliderBottom {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      span {
+        width: 35px;
+        height: 25px;
+        border-radius: 2px;
+        float: right;
+        padding: 0 8px;
+        line-height: 22px;
+        color: #484e5f;
+        background-color: #fff;
+        border: 1px solid #ededed;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .audition {
+    margin-top: 15px;
+    .auditionTitle {
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #484e5f;
+      line-height: 20px;
+    }
+    .auditionBottom {
+      margin-top: 10px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      .auditionBottomLeft {
+        font-size: 25px;
+        color: #484e5f;
+      }
+      .auditionBottomRight {
+        padding-left: 12px;
+        margin-left: 11px;
+        width: 284px;
+        height: 37px;
+        background: #e2e4e7;
+        border-radius: 3px;
+        position: relative;
+        display: flex;
+        align-items: center;
+        color: #262e48;
+        .auditionBottomRightRight {
+          width: 0;
+          height: 0;
+          border-top: 5px solid transparent;
+          border-right: 8px solid #e2e4e7;
+          border-bottom: 5px solid transparent;
+          position: absolute;
+          top: 50%;
+          margin-top: -5px;
+          left: -8px;
+        }
+        .rightTime {
+          margin-left: 26px;
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #262e48;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+  .textToSpeechButton {
+    margin-top: 52px;
+    margin-left: 26px;
+    width: 289px;
+    height: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background: #5a4cdb;
+    border-radius: 4px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 20px;
+  }
+}

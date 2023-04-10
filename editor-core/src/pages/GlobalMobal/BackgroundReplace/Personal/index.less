@@ -1,0 +1,62 @@
+.personalWarp {
+  padding: 12px 0px;
+  width: 100%;
+  height: 100%;
+
+  .personalWarpTabRight {
+    // width: 190px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 30px;
+  }
+  :global {
+    .ant-upload-drag {
+      border: none;
+    }
+
+    .ant-tabs-nav {
+      padding: 0 30px;
+    }
+
+    .ant-upload {
+      padding: 0px !important;
+    }
+    .ant-upload.ant-upload-drag {
+      background-color: transparent;
+    }
+    .ant-tabs-extra-content {
+      padding: 16px;
+    }
+  }
+}
+.upload-button-item {
+  width: 150px;
+  padding: 5px 0px;
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  &:hover {
+    :global {
+      .upload-help-tips-icon {
+        display: inline-block;
+      }
+    }
+  }
+  :global {
+    .upload-help-tips-icon {
+      display: none;
+      width: 14px;
+      height: 14px;
+      line-height: 14px;
+      text-align: 14px;
+      margin-left: 8px;
+      font-size: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.45);
+    }
+  }
+}

@@ -1,0 +1,45 @@
+@root-asset-url: '//js.xiudodo.com/xiudodo/image/';
+.getAssetUrl(@fileUrl) {
+  @targetUrl: '@{root-asset-url}@{fileUrl}';
+}
+
+.absolute-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.absolute-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.absolute-bottom-left {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.absolute-top-right {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+.xiudodo-hidden {
+  display: none;
+}
+
+.xiudodo-default-background {
+  background-color: #e3e7eb;
+  background-image: url('//js.xiudodo.com/xiudodo-editor/image/logo/logo.png');
+  background-repeat: no-repeat;
+  background-size: 50%;
+  background-position: center;
+}
+
+.text-ellipsis {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

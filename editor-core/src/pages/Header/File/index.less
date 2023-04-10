@@ -1,0 +1,69 @@
+@import '/src/global.less';
+
+.file {
+  // margin-left: 16px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.fileDropdownMenu {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+
+  .fileDropdownMenuXs {
+    margin-left: 18px;
+    margin-top: 22px;
+    font-size: 12px;
+    font-weight: 400;
+    color: #7e8aa9;
+    line-height: 17px;
+    margin-bottom: 6px;
+  }
+  .fileDropdownMenuPicId {
+    font-size: 14px;
+    font-weight: 400;
+    color: #262e48;
+    margin-top: 8px;
+    margin-bottom: 17px;
+    margin-left: 18px;
+  }
+
+  .fileDropdownMenuLine {
+    margin: 0 auto;
+    width: 226px;
+    height: 1px;
+    border-bottom: 1px dashed #e2e4e7;
+  }
+
+  .fileDropdownMenuWork {
+    height: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    color: #484e5f;
+    line-height: 20px;
+    display: flex;
+    align-items: center;
+
+    &:hover {
+      background: #f3f3f5;
+    }
+  }
+}
+
+.referenceLineDropdown {
+  :global {
+    .ant-dropdown-menu {
+      width: 248px;
+      background: #ffffff;
+      border-radius: 6px;
+      margin-top: 4px;
+    }
+  }
+}

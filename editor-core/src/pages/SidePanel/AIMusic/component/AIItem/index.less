@@ -1,0 +1,53 @@
+.ai-item{
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.ai-item-icon{
+  width: 25px;
+  height: 25px;
+  min-width: 25px;
+  min-height: 25px;
+  background: #484E5F;
+  border-radius: 50%;
+  font-size: 12px;
+  color: #FFFFFF;
+  text-align: center;
+  line-height: 25px;
+  margin-right: 11px;
+  margin-left: 11px;
+  cursor: pointer;
+}
+.ai-item-music{
+  width: 247px;
+  height: 37px;
+  background: #F5F5F5;
+  font-size: 12px;
+  font-weight: 400;
+  color: #262E48;
+  line-height: 37px;
+  padding:0 17px;
+  position: relative;
+  border-radius: 4px;
+  &:hover{
+    color: @primary-color;
+  }
+  .triangle{
+    transform: translate(0px,19px) rotate(
+45deg);
+    position: absolute;
+    left: -5px;
+    top: -5px;
+    display: block;
+    width: 10px;
+    height: 10px;
+    margin: auto;
+    background-color: #F5F5F5;
+    content: "";
+    pointer-events: auto;
+  }
+}
+.music-playing{
+  color: @primary-color !important;
+}

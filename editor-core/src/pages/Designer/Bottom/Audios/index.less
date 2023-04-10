@@ -1,0 +1,45 @@
+@import '/src/style/designer.theme.less';
+
+.audio-track {
+  height: 28px;
+  position: relative;
+  margin-bottom: 8px;
+  // margin-top: 12px;
+  transition: all 0.3s;
+  &:hover {
+    z-index: 1000;
+  }
+
+  .ant-tooltip-placement-bottom {
+    top: 26px !important;
+  }
+  .ant-tooltip-placement-top {
+    top: -26px !important;
+  }
+}
+
+.audio-collapsed {
+  height: 20px !important;
+
+  .clip-handler {
+    display: none;
+  }
+  .audio-title {
+    opacity: 0;
+  }
+
+  &.xiudodo-bottom-audios {
+    min-height: 20px;
+  }
+  .audio-track {
+    margin: 4px 0;
+  }
+  .audio-track-collapsed {
+    height: 6px;
+    .audio-clip {
+      .audio-title {
+        display: none;
+      }
+    }
+  }
+}

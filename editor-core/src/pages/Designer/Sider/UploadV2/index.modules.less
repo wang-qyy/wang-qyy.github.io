@@ -1,0 +1,45 @@
+.upload-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 18px;
+    span {
+      color: #fff;
+    }
+  }
+
+  .upload-list-tabs {
+    flex: 1;
+    :global {
+      .ant-tabs-nav {
+        &::before {
+          border-bottom: none;
+        }
+      }
+      .ant-tabs-nav-wrap {
+        padding: 0 18px;
+        .ant-tabs-tab {
+          color: #fff;
+        }
+      }
+      .ant-tabs-content-holder {
+        flex: 1;
+        .ant-tabs-content {
+          height: 100%;
+        }
+      }
+
+      .xiudd-skeleton-wrap {
+        display: grid;
+        gap: 16px;
+        grid-template-columns: repeat(auto-fill, minmax(98px, 1fr));
+        align-content: flex-start;
+      }
+    }
+  }
+}

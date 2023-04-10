@@ -1,0 +1,92 @@
+@import '/src/global.less';
+.element-warp {
+  position: relative;
+  height: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+  // overflow: hidden;
+  // margin-top: 2px;
+  // margin-left: 2px;
+  &:hover {
+    outline: 1px solid @primary-color;
+    .element-action {
+      opacity: 1;
+    }
+    // .element-actions-wrap {
+    //   display: block;
+    // }
+    // .element-duration {
+    //   display: none;
+    // }
+  }
+
+  .element-duration {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    z-index: 3;
+    padding: 0 6px;
+    border-radius: 4px;
+
+    font-size: 12px;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.element-actions-wrap {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: none;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+.element-action {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+
+  border-radius: 50%;
+  position: absolute;
+  color: #fff;
+  bottom: 4px;
+  z-index: 2;
+
+  &.element-action-add {
+    right: 4px;
+    background-color: @primary-color;
+  }
+  &.element-action-replace {
+    left: 4px;
+    background-color: #000;
+  }
+  &.background-replace {
+    left: 4px;
+    img {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}
+
+.asset-action {
+  .ant-tooltip-content {
+    margin-bottom: -5px;
+  }
+  .ant-tooltip-arrow {
+    bottom: -10px;
+  }
+  .ant-tooltip-inner {
+    min-width: auto;
+    min-height: auto;
+    padding: 2px 4px;
+    font-size: 12px;
+  }
+}

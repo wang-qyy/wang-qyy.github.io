@@ -1,0 +1,58 @@
+.xiudodo-exam-preview {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  background: black !important;
+  position: relative;
+  overflow: hidden;
+}
+.exam-preview-video {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  .preview-video-wrap {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black !important;
+  }
+}
+.exam-preview-video-status {
+  width: 50px;
+  height: 50px;
+  background-color: rgba(0, 0, 0, 0.25);
+  color: rgba(255, 255, 255, 0.95);
+  border-radius: 50%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%) translateY(-50%);
+  font-size: 20px;
+  z-index: 2;
+}
+.exam-preview-action {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  color: #fff;
+  padding: 0 10px;
+}
+.exam-preview-action-slider {
+  height: 200px;
+}
+.exam-preview-action-volume {
+  margin-left: 10px;
+}

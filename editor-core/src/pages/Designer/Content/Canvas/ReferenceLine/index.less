@@ -1,0 +1,101 @@
+.hoverLineX {
+  position: absolute;
+  right: 0;
+  min-width: 100%;
+  height: 1px;
+  z-index: 100000;
+  border-top: 1px solid #ff18fd;
+}
+
+.referenceLineX {
+  position: absolute;
+  height: 9px;
+  z-index: 100000;
+  cursor: ns-resize;
+  border-top: 1px solid #ff18fd;
+}
+
+.hoverLineY {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  min-height: 100%;
+  z-index: 100000;
+  border-left: 1px solid #ff18fd;
+}
+
+.referenceLineY {
+  position: absolute;
+  width: 9px;
+  z-index: 100000;
+  cursor: ew-resize;
+  border-left: 1px solid #ff18fd;
+}
+
+.referenceLineXTip {
+  position: absolute;
+  z-index: 100000;
+  left: 26px;
+  padding: 0 1px;
+  height: 14px;
+  font-size: 12px;
+  background: #ff18fd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.referenceLineYTip {
+  position: absolute;
+  top: 26px;
+  padding: 0 1px;
+  z-index: 100000;
+  height: 14px;
+  font-size: 12px;
+  background: #ff18fd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+}
+
+.designer_corner_block {
+  grid-area: designer_corner_block;
+  background-color: #272731;
+  z-index: 100001;
+}
+
+.designerHorizontal {
+  min-width: 100%;
+  position: sticky;
+  top: 0;
+  height: 26px;
+  z-index: 100001;
+  display: flex;
+  justify-content: center;
+  grid-area: designerHorizontal;
+  background-color: #272731;
+}
+
+.designer_vertical {
+  background-color: #272731;
+  width: 26px;
+  z-index: 100001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-area: designer_vertical;
+  position: sticky;
+  left: 0;
+  flex-shrink: 0;
+}
+
+.designer_vertical_content {
+  height: 26px;
+  transform: rotate(90deg);
+  margin: auto;
+  background-color: transparent;
+  position: sticky;
+  left: 0;
+}

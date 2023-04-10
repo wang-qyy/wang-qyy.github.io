@@ -1,0 +1,60 @@
+.imagesWarp {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  .topInput {
+    padding: 14px 18px;
+    height: 65px;
+    top: 0;
+    background: #272731;
+
+    :global {
+      .ant-input-affix-wrapper-lg {
+        height: 37px;
+        background: #fff;
+      }
+      .ant-input-clear-icon {
+        svg {
+          font-size: 18px;
+          border-radius: 50%;
+          color: #e1e1e1;
+        }
+      }
+      .ant-input:focus {
+        color: #272731;
+        font-size: 12px;
+      }
+      .ant-input {
+        font-size: 12px;
+
+        &::-webkit-input-placeholder {
+          color: #1c1c26;
+        }
+      }
+      .ant-input-prefix {
+        color: #272731;
+      }
+      .ant-input-clear-icon {
+        color: #e1e1e1;
+      }
+    }
+
+    .suffix {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      font-size: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #e1e1e1;
+      color: #4d4d54;
+      cursor: pointer;
+
+      &:hover {
+        background: #5646ed;
+        color: #fff;
+      }
+    }
+  }
+}

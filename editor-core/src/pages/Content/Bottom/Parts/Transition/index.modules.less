@@ -1,0 +1,72 @@
+@import '/src/global.less';
+
+.flex-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrap {
+  height: 24px;
+  flex: 1 1 0;
+  cursor: pointer;
+  .flex-box;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.partTransition {
+  width: 24px;
+  position: absolute;
+  right: -12px;
+  z-index: 99999;
+  box-shadow: 0px 0px 2px 0px rgba(0, 0, 0, 0.5);
+  font-size: 14px;
+  background-color: #fff;
+  border-radius: 12px;
+  .flex-box;
+  flex-direction: column;
+}
+.cover-dropdown {
+  :global {
+    .ant-dropdown-menu-title-content {
+      display: inline-block;
+      width: 100%;
+      text-align: center;
+    }
+
+    .ant-dropdown-menu-item {
+      color: #484e5f;
+    }
+
+    .ant-dropdown-menu-item:hover,
+    .ant-dropdown-menu-submenu-title:hover {
+      color: @primary-color !important;
+    }
+  }
+}
+
+.transfer-opt-item {
+  width: 24px;
+  height: 24px;
+  .flex-box;
+  border-radius: 50%;
+  &:hover {
+    background-color: #eeeff2;
+    color: @primary-color;
+  }
+}
+
+.add-tooltip {
+  top: -30px !important;
+}
+
+.icon {
+  color: #484e5f;
+  &:hover {
+    color: @primary-color;
+  }
+}
+.iconChoosed {
+  color: @primary-color !important;
+}

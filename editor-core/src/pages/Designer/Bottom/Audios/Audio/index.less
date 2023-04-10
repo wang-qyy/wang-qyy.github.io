@@ -1,0 +1,128 @@
+.audio-clip {
+  position: absolute;
+  border-radius: 4px;
+  height: 100%;
+  cursor: pointer;
+  &.audio-incliping {
+    cursor: ew-resize;
+  }
+  .wave-wrap {
+    position: relative;
+    height: 100%;
+    z-index: 10;
+
+    &:hover {
+      .audio-title {
+        display: block !important;
+      }
+    }
+  }
+
+  &.clip-asset-item-active {
+    outline: none;
+  }
+
+  .clip-handler {
+    background-color: rgba(0, 0, 0, 0.56);
+    opacity: 0;
+    max-width: 10px !important;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+  .clip-handler-left {
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+  }
+  .clip-handler-right {
+    border-bottom-right-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+}
+
+.audio-default-bg {
+  background: rgba(86, 70, 237, 0.7);
+}
+
+.audio-info-wrap {
+  max-width: 60%;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.72);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  z-index: 35;
+  border-radius: 10px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+
+.audio-title {
+  left: 18px;
+  padding: 0 2px;
+  background-color: #fff;
+  color: #484e5f;
+  .audio-ai-icon {
+    display: inline-block;
+    width: 17px;
+    height: 17px;
+    line-height: 17px;
+    background: #cfcfcf;
+    font-size: 12px;
+    border-radius: 50%;
+    margin-right: 4px;
+    color: #000;
+    text-align: center;
+  }
+}
+
+.audio-duration {
+  left: 18px;
+}
+
+.audio-more-action {
+  right: 18px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-align: center;
+}
+
+.cutted-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 30;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.audio-clip-fade {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border: solid #fff;
+  border-top-width: 28px;
+  opacity: 0.56;
+  border-bottom: 0 transparent;
+  z-index: 34;
+  pointer-events: none;
+  top: 0px;
+}
+.audio-clip-fadeIn {
+  left: 0;
+  border-right-color: transparent;
+  border-right-width: 22px; // 变量
+  border-left-width: 0px;
+}
+.audio-clip-fadeOut {
+  right: 0;
+  border-left-color: transparent;
+  border-right-width: 0px;
+  border-left-width: 58px; // 变量
+}

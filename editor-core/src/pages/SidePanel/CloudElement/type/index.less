@@ -1,0 +1,52 @@
+.catalogList {
+  width: 100%;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+
+  .catalog {
+    width: 71px;
+    height: 71px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #ffffff;
+    line-height: 17px;
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+    cursor: pointer;
+    &:hover {
+      ::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.02);
+      }
+    }
+    .catalogPic {
+      width: 24px;
+      height: 24px;
+      margin-top: 17px;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .catalogTitle {
+      width: 100%;
+      padding: 0 5px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}

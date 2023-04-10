@@ -1,0 +1,34 @@
+
+.Card {
+  border-radius: 5px;
+  background-color: #EDEFF0;
+  position: relative;
+  margin: 12px auto;
+  font-size: 12px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  overflow: hidden;
+
+  &.active {
+    border-color: #5A4CDB;
+  }
+
+  &:hover {
+    .hidden {
+      opacity: 1;
+    }
+    .show {
+      opacity: 0;
+    }
+  }
+
+  .hidden {
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .show {
+    transition: opacity 0.3s;
+    opacity: 1;
+  }
+}

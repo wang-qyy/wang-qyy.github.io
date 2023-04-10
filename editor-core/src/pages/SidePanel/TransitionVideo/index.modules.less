@@ -1,0 +1,149 @@
+@import '/src/global.less';
+.transitionPanel {
+  width: 100%;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 0px 20px 20px;
+}
+.duration {
+  position: absolute;
+  top: 4px;
+  right: 10px;
+  color: #fff;
+  font-size: 12px;
+  z-index: 10;
+}
+.transitionItem {
+  width: 148px;
+  display: flex;
+  flex-direction: column;
+  color: #7e8aa9;
+  font-size: 12px;
+}
+.item {
+  width: 144px;
+  height: 83px;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  background: #e3e7eb;
+  cursor: pointer;
+  margin-bottom: 7px;
+  &:hover,
+  &.active {
+    outline: 2px solid @primary-color;
+  }
+  .itemVideo {
+    width: 144px;
+    height: 83px;
+  }
+  .itemName {
+    width: 100%;
+    margin-top: 7px;
+  }
+  :global {
+    .xiudd-lottie {
+      width: 100%;
+    }
+  }
+}
+.transitionBottom {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  padding: 11px 17px;
+  button {
+    width: 151px;
+    height: 44px;
+    &:hover {
+      color: @primary-color;
+    }
+    &:active {
+      background-color: @primary-color;
+      color: #fff;
+    }
+  }
+}
+.transitionTitle {
+  width: 100%;
+  font-size: 14px;
+  font-weight: 400;
+  color: #484e5f;
+  line-height: 20px;
+  margin-bottom: 11px;
+}
+.transitionDown {
+  width: 100%;
+  display: flex;
+  flex-flow: wrap;
+  gap: 16px;
+  align-content: flex-start;
+  padding: 2px 0px;
+  margin-bottom: 25px;
+  &:last-child {
+    margin-bottom: 0px;
+  }
+}
+
+.transAction {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 10px 0;
+  padding-right: 16px;
+}
+.transActionItem {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.transActionItemRow {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  position: relative;
+  :global {
+    .ant-slider {
+      width: 100%;
+      margin-left: 0px;
+    }
+    .ant-slider-rail {
+      background: #cacdd4;
+    }
+    .ant-slider-track {
+      background-color: @primary-color;
+    }
+    .ant-input-number-input {
+      height: 100% !important;
+    }
+    .img-filter-slider {
+      width: 100%;
+    }
+  }
+  .rowTip {
+    width: 50px;
+    height: 26px;
+    background: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #d8d8d8;
+    font-size: 14px;
+    line-height: 26px;
+    font-weight: 400;
+    color: #262e48;
+    position: absolute;
+    top: 0;
+    right: 0;
+    text-align: center;
+  }
+}
+.transActionItemRowColor {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: 1px solid #d2d6da;
+  margin-top: 12px;
+  margin-right: 13px;
+  cursor: pointer;
+}

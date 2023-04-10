@@ -1,0 +1,552 @@
+.registration {
+  @reg-height: 470px;
+  overflow: hidden;
+  width: 638px;
+  height: @reg-height;
+
+  .i-check-mark {
+    display: inline-block;
+    background: url('data:image/svg+xml;base64,PHN2ZyBpZD0i57uEXzkxIiBkYXRhLW5hbWU9Iue7hCA5MSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgd2lkdGg9IjE1IiBoZWlnaHQ9IjEwIiB2aWV3Qm94PSIwIDAgMTUgMTAiPgogIDxkZWZzPgogICAgPHN0eWxlPgogICAgICAuY2xzLTEgewogICAgICAgIGZpbGw6ICNmZmY7CiAgICAgIH0KCiAgICAgIC5jbHMtMiB7CiAgICAgICAgY2xpcC1wYXRoOiB1cmwoI2NsaXAtcGF0aCk7CiAgICAgIH0KICAgIDwvc3R5bGU+CiAgICA8Y2xpcFBhdGggaWQ9ImNsaXAtcGF0aCI+CiAgICAgIDxyZWN0IGlkPSLnn6nlvaJfMTc0IiBkYXRhLW5hbWU9IuefqeW9oiAxNzQiIGNsYXNzPSJjbHMtMSIgd2lkdGg9IjE1IiBoZWlnaHQ9IjEwIi8+CiAgICA8L2NsaXBQYXRoPgogIDwvZGVmcz4KICA8ZyBpZD0i57uEXzkwIiBkYXRhLW5hbWU9Iue7hCA5MCIgY2xhc3M9ImNscy0yIiB0cmFuc2Zvcm09InRyYW5zbGF0ZSgwIDApIj4KICAgIDxwYXRoIGlkPSLot6/lvoRfNjkiIGRhdGEtbmFtZT0i6Lev5b6EIDY5IiBjbGFzcz0iY2xzLTEiIGQ9Ik0tMTQuMjc3LDE5OS43MjFhLjUxNC41MTQsMCwwLDAtLjczLDBsLTguNDg5LDcuMzJhLjU1Ny41NTcsMCwwLDEtLjY3NywwbC00LjA2My0zLjA1YS41MTQuNTE0LDAsMCwwLS43MywwLC40ODUuNDg1LDAsMCwwLDAsLjcxMmw0Ljc5Miw0LjY3N2EuNTE0LjUxNCwwLDAsMCwuNzMsMGw5LjE2OC04Ljk0N2EuNDg1LjQ4NSwwLDAsMCwwLS43MTJabTAsMCIgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjkuMTE4IC0xOTkuNTU0KSIvPgogIDwvZz4KPC9zdmc+Cg==');
+    background-size: 100% 100%;
+  }
+
+  .reg-content-left {
+    width: 230px;
+    float: left;
+    height: @reg-height;
+    background: url('//js.xiudodo.com/xiudodo/image/login/login-bg.png?v=1')
+      no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+    box-sizing: border-box;
+    padding: 0 34px;
+    @media screen and (min-width: 2400px) {
+      background: url('//js.xiudodo.com/xiudodo/image/login/login-bg@2x.png')
+        no-repeat;
+      background-size: 100% 100%;
+    }
+
+    .reg-slogan {
+      margin-top: 75px;
+
+      h2 {
+        font-size: 24px;
+        line-height: 24px;
+        margin-bottom: 33px;
+        color: #ffffff;
+        font-weight: 400;
+        position: relative;
+        display: flex;
+        white-space: nowrap;
+        align-items: center;
+        .h2Label {
+          height: 20px;
+          background: linear-gradient(270deg, #ffda99 0%, #ffc252 100%);
+          border-radius: 10000px 10000px 10000px 10000px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #7b4d00;
+          line-height: 20px;
+          text-align: center;
+          margin-left: 5px;
+          padding: 0 6px;
+        }
+        &:after {
+          content: '';
+          display: inline-block;
+          width: 20px;
+          height: 1px;
+          background-color: #fff;
+          position: absolute;
+          left: 0;
+          bottom: -17px;
+        }
+      }
+
+      p {
+        width: 144px;
+        font-size: 20px;
+        font-weight: 400;
+        line-height: 20px;
+        color: #ffffff;
+        margin-bottom: 12px;
+        text-align-last: justify;
+
+        &:last-child {
+          font-size: 18px;
+          margin-bottom: 24px;
+        }
+      }
+    }
+
+    .reg-tips {
+      margin-top: 29px;
+
+      p {
+        box-sizing: border-box;
+        margin-bottom: 20px;
+        width: 217px;
+        height: 16px;
+
+        i {
+          width: 15px;
+          height: 10px;
+          display: inline-block;
+          margin-right: 10px;
+        }
+
+        span {
+          font-size: 14px;
+          font-weight: 400;
+          color: #ffffff;
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  .reg-content {
+    width: 408px;
+    height: @reg-height;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 1);
+    position: relative;
+    float: right;
+
+    .icon-close {
+      display: inline-block;
+      position: absolute;
+      right: 18px;
+      top: 18px;
+      font-size: 16px;
+      color: #a7adb5;
+      z-index: 99;
+      line-height: 16px;
+    }
+
+    .protocol {
+      width: 100%;
+      height: 39px;
+      background: #f8f9fc;
+      line-height: 39px;
+      font-size: 12px;
+      color: #969696;
+      position: absolute;
+      bottom: 0;
+      text-align: center;
+      z-index: 9;
+
+      p {
+        transform: scale(0.92);
+      }
+
+      a {
+        color: #575c69;
+      }
+    }
+
+    .res-qq-login {
+      position: absolute;
+      bottom: 55px;
+      z-index: 9;
+      text-align: center;
+      font-size: 12px;
+      width: 100%;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+
+      #tel-login,
+      #qq_refer,
+      #wx-login {
+        width: 75px;
+        font-size: 14px;
+        cursor: pointer;
+        font-weight: 400;
+        color: #575c69;
+        display: inline-block;
+        text-align: center;
+
+        &:hover {
+          [class*='login-logo'] {
+            border: 1px solid #5a4cdb;
+            background: #f2f7fe;
+          }
+        }
+
+        [class*='login-logo'] {
+          margin: 0 auto 4px;
+          width: 38px;
+          height: 38px;
+          border: 1px solid #d3d9eb;
+          border-radius: 50%;
+          background: #ffffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          .anticon {
+            font-size: 20px;
+          }
+        }
+      }
+
+      #tel-login,
+      #wx-login {
+        color: #969696;
+        margin-left: 40px;
+      }
+
+      #qq_refer {
+        display: inline-block; /*width: 154px;*/ /*height: 42px;*/ /*background: rgba(255,255,255,1);*/ /*border-radius: 2px;*/
+        text-align: center; /*line-height: 40px;*/ /*border:1px #dcdcdc solid;*/
+        color: #969696; /*margin-bottom:6px;*/
+        cursor: pointer;
+
+        &:hover {
+          .icon-enroll {
+            color: #14b1eb;
+          }
+        }
+      }
+
+      #tel-login {
+        &:hover {
+          .icon-enroll {
+            color: #ff8830;
+          }
+        }
+      }
+
+      #wx-login {
+        &:hover {
+          .icon-enroll {
+            color: #5dbb1e;
+          }
+        }
+      }
+    }
+
+    .tel-login-title {
+      margin-top: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      line-height: 20px;
+      color: #000000;
+
+      span {
+        position: relative;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+
+    #tel-login-box {
+      display: block;
+      position: absolute;
+      height: 100%;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 1);
+      border-radius: 0 10px 10px 0;
+
+      .tel-login-input-area {
+        text-align: left;
+        width: 266px;
+        margin: 0 auto;
+      }
+
+      input[type='text'],
+      input[type='tel'] {
+        outline: none;
+        border: none;
+        box-sizing: border-box;
+        width: 280px;
+        height: 40px;
+        background: #f6f8fc;
+        opacity: 1;
+        border-radius: 4px;
+        padding: 0 20px;
+        margin-bottom: 14px;
+      }
+
+      .tel-login-number {
+        width: 226px;
+      }
+
+      .tel-login-img-code {
+        width: 110px;
+        float: left;
+        margin-right: 6px;
+      }
+
+      .tel-login-img-code {
+        width: 110px;
+        float: left;
+      }
+
+      .tel-login-code-img {
+        width: 110px;
+        height: 36px;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+
+      .tel-login-send-code {
+        width: 280px;
+        height: 40px;
+        display: flex;
+        justify-content: space-between;
+
+        .submit-disabled {
+          background: rgb(223, 223, 223) !important;
+        }
+
+        span {
+          display: inline-block;
+          width: 88px;
+          height: 40px;
+          background: #3d7bff;
+          line-height: 40px;
+          opacity: 1;
+          border-radius: 4px;
+          font-size: 12px;
+          font-weight: 400;
+          color: #ffffff;
+          text-align: center;
+          cursor: pointer;
+        }
+
+        .tel-login-tel-code {
+          display: inline-block;
+          width: 176px;
+        }
+      }
+
+      .tel-login-error {
+        color: #ff0101;
+        text-align: left;
+        font-size: 12px;
+        padding-left: 20px;
+        opacity: 0;
+        user-select: none;
+        height: 16px;
+        display: block;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .tel-login-checking {
+        width: 280px;
+        height: 40px;
+        background: #f6f8fc;
+        border-radius: 4px;
+        margin-bottom: 14px;
+      }
+
+      .tel-login-submit {
+        cursor: pointer;
+        display: block;
+        .tel-login-checking;
+        text-align: center;
+        color: #fff;
+        line-height: 40px;
+        background: #3d7bff;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+    }
+
+    #res-wechat-login {
+      #login_account_tip {
+        text-align: center;
+        margin-top: 12px;
+
+        span {
+          font-size: 12px;
+          font-weight: 400;
+          line-height: 12px;
+          color: #808692;
+        }
+      }
+
+      .res-head {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 14px;
+        font-size: 18px;
+        line-height: 20px;
+        font-weight: bold;
+        color: #000000;
+      }
+
+      .res-head-tip {
+        font-size: 14px;
+        line-height: 16px;
+        font-weight: 400;
+        color: #575c69;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .res-qrcode-box {
+        width: 136px;
+        height: 136px;
+        text-align: center;
+        margin: 0 auto;
+        color: #384044;
+        font-size: 18px;
+        position: relative;
+        cursor: pointer;
+
+        &.show-mask {
+          .res-mask {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+
+          .res-qrcode {
+            filter: blur(3px);
+          }
+        }
+
+        .res-qrcode {
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+
+        .res-mask {
+          display: none;
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          border: solid 1px transparent;
+          background: rgba(0, 0, 0, 0.5);
+          z-index: 1;
+          color: #ffffff;
+          font-size: 12px;
+        }
+
+        &.mask {
+          .res-mask {
+            display: -webkit-flex;
+            display: flex;
+            -webkit-align-items: center;
+            align-items: center;
+            -webkit-justify-content: center;
+            justify-content: center;
+            cursor: pointer;
+          }
+
+          .res-qrcode {
+            -webkit-filter: blur(3px); /* Chrome, Opera */
+            -moz-filter: blur(3px);
+            -ms-filter: blur(3px);
+            filter: blur(3px);
+            filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=3, MakeShadow=false);
+          }
+        }
+
+        .wx-sys {
+          width: 136px;
+          height: 136px;
+          border: solid 1px #dcdcdc;
+        }
+
+        .wechat-logo {
+          color: #444444;
+          font-size: 28px;
+          margin-right: 6px;
+          vertical-align: -4px;
+        }
+      }
+    }
+
+    .reg-pullNew {
+      width: 100%;
+
+      > p {
+        width: 300px;
+        height: 40px;
+        background: rgba(247, 155, 0, 0.15);
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 400;
+        color: #db8700;
+        line-height: 40px;
+        text-align: center;
+        margin: auto;
+        span {
+          color: #ef1d1d;
+        }
+      }
+    }
+  }
+}
+
+.registration-bg {
+  .res-head {
+    width: 100%;
+    text-align: center;
+
+    .res-logo {
+      width: 158px;
+      margin-top: 66px;
+    }
+
+    .res-gift-tip {
+      background: #ffe5e5;
+      border-radius: 4px;
+      width: 208px;
+      height: 26px;
+      line-height: 28px;
+      margin: 8px auto;
+      font-size: 12px;
+      color: #ff787e;
+      letter-spacing: 0;
+      position: relative;
+
+      .vip-logo {
+        height: 16px;
+        vertical-align: -2px;
+      }
+
+      &:before {
+        display: block;
+        content: '';
+        position: absolute;
+        border-right: 1px solid #ffe5e5;
+        border-bottom: 1px solid #ffe5e5;
+        width: 8px;
+        height: 8px;
+        transform: rotate(-135deg);
+        left: 30px;
+        top: -5px;
+        background: #ffe5e5;
+      }
+    }
+  }
+}
+
+.no-title-modal {
+  .ant-modal-body {
+    padding: 0;
+  }
+  .ant-modal-content {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}

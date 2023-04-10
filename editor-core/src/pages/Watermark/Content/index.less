@@ -1,0 +1,63 @@
+@aside-panel-width: 350px;
+
+.xiudodo-tools-main {
+  display: flex;
+  height: 100%;
+  .xiudodo-tools-aside {
+    width: @aside-panel-width;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.62);
+  }
+
+  .xiudodo-tools-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    // align-items: center;
+    overflow: auto;
+    .xiudodo-tools-canvas {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+}
+.warp {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .button {
+    font-size: 26px;
+    margin-right: 28px;
+    cursor: pointer;
+  }
+  .TimeAxis {
+    width: 838px;
+    // height: 52px;
+    :global {
+      .ant-slider-track {
+        height: 6px;
+        background: #484e5f;
+      }
+      .ant-slider-handle {
+        border: solid 2px #979797;
+      }
+      .ant-slider-rail {
+        height: 6px;
+      }
+    }
+  }
+  .time {
+    margin-left: 30px;
+    width: 79px;
+    height: 20px;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #262e48;
+    line-height: 20px;
+  }
+}

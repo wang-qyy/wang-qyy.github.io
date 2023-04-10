@@ -1,0 +1,104 @@
+@import '/src/global.less';
+
+.common-img-item {
+  width: 150px;
+  position: absolute;
+  border-radius: 4px;
+  overflow: hidden;
+  // border: 1px solid #d6dbe1;
+  // margin: 6px 0;
+  cursor: pointer;
+  .xiudodo-default-background;
+  &:hover {
+    .img-mask .common-img-fav-tag {
+      display: block;
+      z-index: 100;
+    }
+  }
+}
+
+.img-mask {
+  display: none;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+
+  .img-title {
+    display: inline-block;
+    max-width: 115px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-indent: 8px;
+
+    color: #fff;
+  }
+  button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+  }
+}
+.img_bottom {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  bottom: 9px;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  color: #ffffff;
+
+  .img_bottom_left {
+    position: absolute;
+    left: 13px;
+    width: 22px;
+    height: 22px;
+    background: #000000;
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &:hover {
+      background: #5a4cdb;
+      color: #ffffff;
+    }
+  }
+
+  .img_bottom_right {
+    position: absolute;
+    right: 13px;
+    width: 22px;
+    height: 22px;
+    background: #5a4cdb;
+    border-radius: 11px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+.common-img-fav-tag {
+  display: none;
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  background-color: #fff;
+  text-align: center;
+  line-height: 18px;
+  color: #a6a6a6;
+  z-index: 2;
+
+  &.common-img-fav-tag-active {
+    color: @primary-color;
+  }
+}

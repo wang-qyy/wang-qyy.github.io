@@ -1,0 +1,595 @@
+.slideWarp {
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  margin-right: 280px;
+  // align-items: center;
+
+  .slideLeft {
+    width: 280px;
+    display: flex;
+    flex-direction: row;
+    margin-top: 30px;
+    .slideLeftLeft {
+      width: 193px;
+      display: flex ;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      .slidePlay {
+        width: 39px;
+        height: 39px;
+        background: #484e5f;
+        margin-bottom: 11px;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #ffffff;
+        cursor: pointer;
+      }
+      .slideTime {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #484e5f;
+        line-height: 20px;
+      }
+    }
+    .slideLeftRight {
+      width: 87px;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #484e5f;
+      line-height: 20px;
+      .rightSpan1 {
+        margin-top: 17px;
+      }
+      .rightSpan2 {
+        margin-top: 26px;
+      }
+      .rightSpan3 {
+        margin-top: 21px;
+      }
+    }
+  }
+  .slideRightWarp {
+    // margin-left: 30px;
+    width: 70%;
+    position: relative;
+    .slideRightTime {
+      z-index: 1002;
+      width: 1px;
+      height: 178px;
+      top: -22px;
+      position: absolute;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #ffffff;
+      line-height: 17px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      .time {
+        margin-left: -10px;
+        width: 58px;
+        height: 18px;
+        background: #5a4cdb;
+        border-radius: 2px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+
+      }
+      .sanjiao {
+        height: 5px;
+        display: block;
+        margin-left: -3px;
+
+        width: 0;
+        height: 0;
+        overflow: hidden;
+        line-height: 0;
+        font-size: 0;
+        vertical-align: middle;
+        border-top: 5px solid #5a4cdb;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 0 none;
+      }
+      .slide {
+        width: 1px;
+        height: 160px;
+        border-left: 2px solid #5a4cdb;
+        cursor: e-resize;
+      }
+    }
+    .slideRight {
+      width: 100%;
+
+      //  flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+
+      .ruler-wrap {
+        width: 100%;
+        // max-width: 600px;
+        height: 30px;
+        line-height: 1px;
+        cursor: pointer;
+        // overflow: hidden;
+        // margin: 0 auto 50px;
+      }
+    }
+
+    :global {
+      .ant-tooltip-arrow {
+        display: none !important;
+      }
+      .ant-slider {
+        margin: 0;
+      }
+      .ant-tooltip-inner {
+        position: absolute !important;
+        width: 113px;
+        border: none;
+        left: 3px;
+        top: 17px;
+        height: 26px;
+        min-height: 10px;
+        // margin-top: 10px;
+        background-color: #ebedef;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #484e5f;
+        line-height: 17px;
+        box-shadow: 0 0 0 0px rgba(90, 76, 219, 0.12);
+      }
+    }
+  }
+}
+.slidewarp1 {
+  height: 26px;
+  width: 100%;
+  margin-top: 6px;
+
+  :global {
+    .ant-slider-dot-active {
+      display: none;
+    }
+    .ant-tooltip-arrow {
+      display: none !important;
+    }
+    .ant-tooltip-inner {
+      position: absolute !important;
+      top: 50px !important;
+      margin-top: 10px;
+    }
+    .ant-slider-rail {
+      width: 100%;
+      height: 26px;
+      background: #b3bac1;
+      border-radius: 4px;
+    }
+    .ant-slider-step {
+      height: 26px;
+      background: #b3bac1;
+      // border-radius: 4px;
+    }
+    .ant-slider-handle {
+      display: none;
+    }
+    .ant-slider-handle:focus {
+      display: none;
+    }
+    .ant-slider-mark-text {
+      top: -10px;
+    }
+  }
+  .kuang {
+    background: chartreuse;
+    width: 80px;
+    height: 26px;
+  }
+}
+
+.audioWarp {
+  width: 100%;
+  position: relative;
+  height: 26px;
+  margin-top: 20px;
+  .addAudioButton {
+    position: absolute;
+    top: 25%;
+    width: 80px;
+    z-index: 10;
+    margin-left: 27px;
+    font-size: 12px;
+    cursor: pointer;
+  }
+
+  :global {
+    .ant-slider-dot-active {
+      display: none;
+    }
+    .ant-tooltip-arrow {
+      display: none !important;
+    }
+    .ant-tooltip-inner {
+      position: absolute !important;
+      top: 50px !important;
+      margin-top: 10px;
+      width: 58px !important;
+      height: 18px !important;
+      background: #5a4cdb !important;
+      border-radius: 2px;
+    }
+    .ant-slider-rail {
+      width: 100%;
+      height: 26px;
+      background: #ebedef;
+      border-radius: 4px;
+    }
+    .ant-slider-step {
+      height: 26px;
+      background: #ebedef;
+      // border-radius: 4px;
+    }
+    .ant-slider-handle {
+      display: none;
+
+      // transition: left 0.2s;
+    }
+    .ant-slider-handle:focus {
+      display: none;
+    }
+    .ant-slider-mark-text {
+      top: -10px;
+      z-index: 1000;
+      position: absolute;
+      width: 100%;
+      transform: translateX(0) !important;
+    }
+  }
+  .kuang {
+    background: chartreuse;
+    height: 26px;
+    position: absolute;
+  }
+}
+.addBgmWarp {
+  margin-top: 18px;
+
+  height: 30px;
+  width: 100%;
+  position: relative;
+  :global {
+    .ant-slider-dot-active {
+      display: none;
+    }
+    .ant-tooltip-arrow {
+      display: none !important;
+    }
+    .ant-tooltip-inner {
+      position: absolute !important;
+      top: 50px !important;
+      margin-top: 10px;
+    }
+    .ant-slider-rail {
+      width: 100%;
+      height: 26px;
+      background: #ebedef;
+      border-radius: 4px;
+    }
+    .ant-slider-step {
+      height: 26px;
+      background: #ebedef;
+      // border-radius: 4px;
+    }
+    .ant-slider-handle {
+      display: none;
+    }
+    .ant-slider-handle:focus {
+      display: none;
+    }
+    .ant-slider-mark-text {
+      top: -10px;
+    }
+  }
+  .kuang {
+    background: chartreuse;
+    width: 80px;
+    height: 26px;
+  }
+}
+
+.bgmWarp {
+  margin-top: 22px;
+  position: relative;
+  height: 26px;
+  width: 100%;
+  background: #e7e4ff;
+  border-radius: 4px;
+  // border: 1px solid #5a4cdb;
+  .slidewarp5Img {
+    margin-top: 4px;
+    height: 16px;
+    // background: url('../../../assets/image/haveolor.png');
+    background-size: contain;
+  }
+  :global {
+    .ant-slider-dot-active {
+      display: none;
+    }
+    .ant-slider {
+      padding: 0px !important;
+    }
+    .ant-slider-track {
+      display: none;
+    }
+    .ant-slider-rail {
+      width: 100%;
+      height: 20px;
+      background-color: #e7e4ff;
+      border-radius: 4px;
+    }
+    .ant-slider-step {
+      height: 16px;
+      background: url('../../../assets/image/haveolor.png');
+      // background-size: contain;
+      background-size: 28px 100%
+      // border-radius: 4px;
+    }
+    .ant-slider-handle {
+      display: none;
+    }
+    .ant-slider-handle:focus {
+      display: none;
+    }
+    .ant-slider-mark-text {
+      top: -10px;
+    }
+  }
+  .name {
+    position: absolute;
+    top: 50%;
+    left: 22px;
+    padding: 0 5px;
+    transform: translate(0, -50%);
+    z-index: 2;
+    height: 20px;
+    background: #ffffff;
+    border-radius: 3px;
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #484e5f;
+    line-height: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    span {
+      margin-left: 5px;
+    }
+  }
+}
+
+.bottomTrackPopover {
+  padding: 12px 0 13px 20px;
+  width: 132px;
+  height: 120px;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ededed;
+  .bottomTrackPopoverItem {
+    margin-bottom: 9px;
+    height: 17px;
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #484e5f;
+    line-height: 17px;
+  }
+  .bottomTrackPopoverItem:hover {
+    color: #5a4cdb;
+  }
+}
+
+
+.backgroundMusicPopover {
+  position: fixed;
+  z-index: 2000;
+  padding: 13px 13px 17px 22px;
+  width: 243px;
+  height: 94px;
+  background: #ffffff;
+  border-radius: 4px;
+  border: 1px solid #ededed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transform: translate(-55%,-115%);
+  .backgroundMusicPopoverTop {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .backgroundMusicPopoverButton {
+      width: 55px;
+      height: 27px;
+      background: #f3f5f6;
+      border-radius: 2px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #484e5f;
+      line-height: 17px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .backgroundMusicPopoverButton:hover {
+      background: #5a4cdb;
+      color: #ffffff;
+    }
+  }
+
+  .backgroundMusicPopoverBottom {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    .backgroundMusicPopoverBottomLeft {
+      margin-left: 5px;
+      width: 15px;
+      height: 14px;
+    }
+    .backgroundMusicPopoverBottomRight {
+      width: 177px;
+      margin-left: 7px;
+
+      :global {
+        .ant-slider {
+          height: 7px;
+        }
+        .ant-slider-rail {
+          height: 7px;
+        }
+        .ant-slider-track {
+          height: 7px;
+          background: #5a4cdb;
+        }
+        .ant-slider-step {
+          height: 7px;
+        }
+        .ant-slider-handle {
+          margin-top: -3px;
+        }
+      }
+    }
+  }
+}
+
+.drag {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  .dragLeft {
+    top: 5px;
+    height: 100%;
+    cursor: e-resize;
+    z-index: 1002;
+    position: absolute;
+    width: 9px;
+    height: 24px !important;
+    font-size: 6px;
+     background: #5a4cdb;
+    border-radius: 3px 0px 0px 3px;
+    display: flex;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+  }
+  .dragRight {
+    top: 5px;
+    height: 24px !important;
+    cursor: e-resize;
+    z-index: 1002;
+    position: absolute;
+    width: 9px;
+    // background: #ffffff;
+    background: #5a4cdb;
+    border-radius: 0px 3px 3px 0px;
+    font-size:6px;
+    display: flex;
+    color: #ffffff;
+    justify-content: center;
+    align-items: center;
+  }
+  .dragLeftactive {
+    top: 5px;
+    height: 100%;
+    cursor: e-resize;
+    z-index: 1002;
+    position: absolute;
+    width: 9px;
+    height: 24px !important;
+    // background: #ffffff;
+    border: 4px solid #5a4cdb;
+    border-radius: 4px 0px 0px 4px;
+  }
+  .dragRightactive {
+    top: 5px;
+    height: 24px !important;
+    cursor: e-resize;
+    z-index: 1002;
+    position: absolute;
+    width: 9px;
+    // background: #ffffff;
+    border: 4px solid #5a4cdb;
+    border-radius: 0px 4px 4px 0px;
+  }
+
+  // .active {
+  //   background: #5a4cdb !important;
+  //   border-radius: 3px !important;
+  //   color: #ffffff !important;
+  //   border: 1px solid #5a4cdb;
+  //   height: 24px !important;
+  //   // top: 4px !important;
+  // }
+  .dragItem {
+    position: absolute;
+    overflow: hidden;
+    height: 24px;
+    border-radius: 3px;
+
+    background: url('../../../assets/image/shengbo.png');
+    background-size: 28px 100%;
+    top: 5px;
+    z-index: 1001;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #ffffff;
+    line-height: 17px;
+    display: flex;
+    align-items: center;
+    .dragItemWarp{
+      margin-left: 12px;
+      display: flex;
+      flex-direction: row;
+      height: 19px;
+      background: #FFFFFF;
+      border-radius: 2px;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #262E48;
+
+    }
+    .dragItemIcon {
+      margin-left: 6px;
+    }
+    .dragItemName {
+      margin:0 7px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+}
+
+.tooltipInner {
+  // width: 30px;
+}

@@ -1,0 +1,51 @@
+@import '/src/global.less';
+.audio-context-menu {
+  width: 98px;
+  .ant-menu-item {
+    height: auto;
+    text-align: center;
+    line-height: 22px;
+  }
+
+  .ant-dropdown-menu-item-disabled {
+    color: #404042;
+  }
+
+  .ant-dropdown-menu-item {
+    justify-content: center;
+    color: #262e48;
+    &:hover {
+      color: @primary-color;
+    }
+  }
+}
+
+.audio-context-menu-dark {
+  .ant-dropdown-menu-item {
+    justify-content: center;
+    color: #838390;
+    &:hover {
+      color: #fff;
+    }
+  }
+  .ant-dropdown-menu-item-disabled {
+    &:hover {
+      color: #404042;
+      background-color: #32323b;
+    }
+  }
+}
+
+.audio-context-overlay-dropdown {
+}
+
+.audio-context-overlay-dropdown-dark {
+  .ant-dropdown-menu-light {
+    background-color: #272731;
+  }
+  .ant-dropdown-menu-item {
+    &.ant-dropdown-menu-item-active {
+      background-color: #32323b !important;
+    }
+  }
+}

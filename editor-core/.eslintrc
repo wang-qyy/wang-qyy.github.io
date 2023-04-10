@@ -1,0 +1,48 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "craigz/typescript-react",
+    "plugin:react/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
+  "overrides": [
+    {
+      "files": [
+        "*.ts",
+        "*.mts",
+        "*.cts",
+        "*.tsx"
+      ],
+      "rules": {
+        "no-undef": "off"
+      }
+    }
+  ],
+  "rules": {
+    "no-use-before-define": "off",
+    "camelcase": "off",
+    "import/prefer-default-export": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-shadow": "warn",
+    "max-classes-per-file": "warn",
+    "no-useless-constructor": "warn",
+    "@typescript-eslint/no-useless-constructor": "warn",
+    "no-lonely-if": "off",
+    "jsx-a11y/media-has-caption": "off",
+    "react/no-string-refs": "off",
+    "@typescript-eslint/no-unused-vars": "warn",
+    "no-restricted-syntax": "warn",
+    "@typescript-eslint/prefer-namespace-keyword": "off",
+    "@typescript-eslint/no-namespace": "off",
+    "@typescript-eslint/no-use-before-define": [
+      "error"
+    ],
+    "react/prop-types": "off"
+  }
+}

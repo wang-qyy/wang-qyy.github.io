@@ -1,0 +1,60 @@
+.title {
+  color: #fff;
+  padding: 12px 18px;
+  padding-bottom: 0px;
+  font-size: 14px;
+}
+.overlayRow {
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+.overlay {
+  // padding: 18px 0;
+}
+
+.radioGroup {
+  padding: 12px 18px;
+  color: #7e8792;
+
+  :global {
+    .ant-radio-wrapper {
+      color: #7e8792;
+    }
+  }
+}
+
+.overlayColor {
+  display: flex;
+  align-items: center;
+  padding: 18px;
+
+  .overlayLabel {
+    margin-right: 16px;
+  }
+
+  .colorSelector {
+    width: 100px;
+    height: 30px;
+    border: 1px solid #d2d6da;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+
+  :global {
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      height: 30px;
+    }
+  }
+}
+
+.slider {
+  padding: 10px 18px;
+
+  :global {
+    .img-filter-label {
+      min-width: 42px;
+    }
+  }
+}

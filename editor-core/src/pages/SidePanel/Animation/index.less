@@ -1,0 +1,168 @@
+@import '/src/global.less';
+
+.animation-control-panel {
+  .animation-selected {
+    position: relative;
+    margin-bottom: 24px;
+    border-radius: 4px;
+    color: #262e48;
+  }
+
+  .side-panel-content {
+    padding: 16px;
+    overflow-y: auto;
+  }
+  .animation-type {
+    display: flex;
+    justify-content: space-between;
+    color: #9398aa;
+    margin-bottom: 6px;
+    .animation-preview {
+      color: @primary-color;
+      cursor: pointer;
+    }
+  }
+
+  .animation-add {
+    color: #7e8aa9;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &:hover {
+      color: @primary-color;
+      .animation-add-icon {
+        background-color: #f4f3ff;
+      }
+    }
+    .animation-add-icon {
+      width: 60px;
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+      background-color: #eff1f8;
+      border-radius: 4px;
+      margin-right: 16px;
+      font-size: 16px;
+    }
+  }
+
+  .animation-detail {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &:hover {
+      color: @primary-color;
+    }
+  }
+
+  .animation-speed {
+    background-color: #f0f2f4;
+    border-radius: 4px;
+    margin-top: 16px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+
+    .ant-radio-wrapper {
+      color: #262e48;
+    }
+
+    .animation-time {
+      width: 40px;
+    }
+
+    .animation-speed-label {
+      color: '#484E5F';
+    }
+
+    .animation-time-slider {
+      flex: 1;
+      height: 4px;
+      position: relative;
+      margin: 0 20px;
+
+      .animation-time-slider-rail {
+        border-radius: 4px;
+        background-color: #e1e1e1;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+      }
+
+      .animation-time-slider-track {
+        background-color: #dcd4ff;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+      }
+
+      .animation-time-slider-handle {
+        width: 14px;
+        height: 14px;
+        border: solid 2px #dcd4ff;
+        background-color: #fff;
+        border-radius: 50%;
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .open-animation-popover {
+    transform: rotate(90deg);
+    transition: all 0.3s;
+    color: @primary-color;
+  }
+}
+.animation-options-popover {
+  .ant-popover-arrow {
+    display: none;
+  }
+  .ant-popover-inner-content {
+    width: 318px;
+    height: 440px;
+    padding: 6px 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &.animation-options-out {
+    .ant-popover-inner-content {
+      height: 316px;
+    }
+  }
+
+  .animation-list {
+    flex: 1;
+  }
+  .asset-clear-animation {
+    padding: 8px 12px;
+    display: flex;
+    justify-content: center;
+    button {
+      width: 100%;
+      height: 44px;
+      background-color: #eeeff2;
+      color: #262e48;
+      border: none;
+      &:hover {
+        color: @primary-color;
+      }
+      &:active {
+        background-color: @primary-color;
+        color: #fff;
+      }
+    }
+  }
+
+  @media screen and (min-width: 1440px) {
+    .ant-popover-inner-content {
+      height: 480px !important;
+    }
+  }
+}

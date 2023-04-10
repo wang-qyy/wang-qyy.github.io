@@ -1,0 +1,20 @@
+@import '/src/global.less';
+.parts-wrap{
+  display: flex;
+  flex-wrap: nowrap;
+}
+.parts {
+  display: flex;
+  transition: all 0.3s;
+  position: relative;
+  min-height: 50px;
+  align-items: center;
+}
+
+.part-draging {
+  .part-clip-handler,
+  .xiudodo-bottom-part-duration,
+  .xiudodo-bottom-add {
+    display: none;
+  }
+}

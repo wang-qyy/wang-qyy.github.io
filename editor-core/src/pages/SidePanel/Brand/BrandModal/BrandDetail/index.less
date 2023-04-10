@@ -1,0 +1,101 @@
+.brandDetail {
+  margin: 30px 0;
+  height: 640px;
+  overflow-y: auto;
+  padding: 0 30px;
+
+  .brandDetailWarp {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    position: relative;
+  }
+
+  .brandDetailTitle {
+    font-size: 18px;
+    font-weight: 500;
+    color: #262E48;
+
+    .itemFooterTopRightIsExport {
+      .itemFooterTopInput {
+        display: flex !important;
+      }
+
+      .itemFooterTopRightWarp {
+        display: none !important;
+      }
+
+      .itemFooterTopRightIcon {
+        display: none !important;
+
+      }
+    }
+
+    .itemFooterTopRight {
+      display: flex;
+      flex-direction: row;
+      max-width: 100%;
+      height: 40px;
+      font-size: 25px;
+      font-weight: 500;
+      color: #181F35;
+
+      &:hover {
+        .itemFooterTopRightName {
+          border-bottom: 1px dashed #D5D7DA !important;
+        }
+
+        .itemFooterTopRightIcon {
+          display: flex !important;
+        }
+      }
+
+      .itemFooterTopInput {
+        display: none;
+      }
+
+      .itemFooterTopRightWarp {
+        display: flex;
+        max-width: 100%;
+
+        .itemFooterTopRightName {
+          height: 40px;
+          font-size: 25px;
+          font-weight: 500;
+          color: #181F35;
+          line-height: 30px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          border-bottom: 1px solid rgba(43, 59, 74, 0);
+
+        }
+
+        .itemFooterTopRightIcon {
+          margin-top: 4px;
+          margin-left: 12px;
+          width: 30px;
+          font-size: 25px;
+          line-height: 27px;
+          display: none;
+          cursor: pointer;
+        }
+
+      }
+
+      :global {
+        .ant-input {
+          height: 30px;
+          padding: 0px !important;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          font-size: 25px;
+          font-weight: 500;
+          color: #181F35;
+          line-height: 30px;
+        }
+      }
+    }
+  }
+}

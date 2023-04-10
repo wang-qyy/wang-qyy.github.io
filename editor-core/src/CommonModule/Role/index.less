@@ -1,0 +1,118 @@
+.RolePageWarp {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  .moreShow {
+    height: 100%;
+  }
+  .simpleShow {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 16px;
+    // padding: 0 18px;
+    // padding-top: 13px;
+    .simpleShowTop {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      // margin-bottom: 12px;
+      .simpleShowTopLeft {
+        font-size: 14px;
+        color: #484d5fff;
+        line-height: 17px;
+      }
+      .simpleShowTopRight {
+        padding: 3px 12px;
+        height: 24px;
+        // background: #2e2e39;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 400;
+        color: #c0c0cd;
+        line-height: 17px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+          color: #5a4cdb;
+        }
+      }
+    }
+    .simpleShowContent {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, 95px);
+      grid-gap: 12px;
+      align-content: flex-start;
+      margin-top: 12px;
+
+      .item {
+        width: 95px;
+        height: 95px;
+        background-color: #fff;
+        border-radius: 4px;
+      }
+    }
+  }
+}
+.rolePopoverWarp {
+  display: flex;
+  flex-direction: column;
+  .rolePopoverWarpTitle {
+    height: 17px;
+    font-size: 12px;
+    color: #484d5fff;
+    line-height: 17px;
+    margin-bottom: 16px;
+  }
+  .rolePopoverWarpContent {
+    display: flex;
+    flex-wrap: wrap;
+    .rolePopoverWarpItem4 {
+      margin-right: 0px !important;
+    }
+    .rolePopoverWarpItem {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-right: 11px;
+      cursor: pointer;
+
+      .rolePopoverWarpItemImg {
+        width: 77px;
+        height: 77px;
+        background-color: #f6f7f7ff;
+        border-radius: 4px;
+        margin-bottom: 11px;
+        &:hover {
+          box-shadow: 0 0 3px #5646ed inset;
+        }
+      }
+      .rolePopoverWarpItemName {
+        height: 17px;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #838390;
+        line-height: 17px;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.rolePopover {
+  :global {
+    .ant-popover-arrow {
+      display: none;
+    }
+    .ant-popover-inner {
+      width: 375px;
+      max-height: 418px;
+      // background: #2e2e39;
+      border-radius: 4px;
+      // border: 1px solid #474756;
+      padding: 20px 15px;
+    }
+  }
+}

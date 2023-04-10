@@ -1,0 +1,87 @@
+.designerColorPopover {
+  width: 436px !important;
+  background: #353540 !important;
+  box-shadow: none !important;
+  border: none !important;
+  color: #B9B9B9 !important;
+
+
+
+  :global {
+    .ant-tabs-tab {
+      font-size: 12px;
+      font-weight: 400;
+      color: #B9B9B9 !important;
+    }
+
+    .ant-tabs {
+      color: #B9B9B9 !important;
+    }
+
+    .ant-tabs-nav::before {
+      border-bottom: 1px solid #454551 !important;
+    }
+  }
+}
+
+:global {
+  .colorPopover {
+    .ant-popover-inner {
+      background-color: transparent;
+    }
+  }
+}
+
+.colorPopover {
+  width: 332px;
+  background: #FFFFFF;
+  box-shadow: 0px 0px 12px 0px #E1E5E9;
+  border-radius: 4px;
+  border: 1px solid #E1E5E9;
+  padding: 10px 0 10px 12px;
+
+  .colorPopoverRight {
+    padding-right: 12px;
+    font-size: 12px;
+    font-weight: 400;
+    cursor: pointer;
+
+    &:hover {
+      color: #5A4CDB;
+    }
+  }
+
+  .colorWarp {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+
+    .colorWarpItem {
+      margin-right: 8px;
+      margin-bottom: 8px;
+      width: 34px;
+      height: 34px;
+      border-radius: 4px;
+
+      // border: 1px solid #E9E9E9;
+      &:hover {
+        transform: scale(1.1);
+      }
+
+    }
+  }
+
+  :global {
+    .ant-tabs-tab {
+      font-size: 12px;
+      font-weight: 400;
+      color: #484E5F;
+    }
+
+    .ant-tabs {
+      color: #484E5F;
+    }
+
+  }
+}

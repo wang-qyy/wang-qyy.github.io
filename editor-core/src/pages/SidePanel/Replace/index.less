@@ -1,0 +1,54 @@
+@import '/src/global.less';
+.replace-header-item {
+  height: inherit;
+  cursor: pointer;
+  margin-right: 24px;
+  color: #484e5f;
+}
+
+.replace-header-active {
+  border-bottom: 2px solid @primary-color;
+}
+
+.replace-panel-wrap {
+  .side-panel-content {
+    height: 100%;
+  }
+}
+
+.replace-tabpanel {
+  height: 100%;
+  .ant-tabs-nav {
+    margin-bottom: 0;
+  }
+  .ant-tabs-nav-wrap {
+    padding-left: 16px;
+  }
+  .ant-tabs-content,
+  .ant-tabs-tabpane {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.replace-element-list {
+  display: grid;
+  gap: 16px;
+
+  grid-template-columns: repeat(auto-fill, 148px);
+
+  &.replace-element-list-small {
+    grid-template-columns: repeat(auto-fill, 92px);
+  }
+
+  .replace-element-item {
+    width: 148px;
+    height: 86px;
+  }
+
+  .replace-element-item-small {
+    width: 92px;
+    height: 96px;
+  }
+}

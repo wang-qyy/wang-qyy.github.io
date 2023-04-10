@@ -1,0 +1,56 @@
+@import '/src/global.less';
+
+.xiudodo-bottom-part-action-wrap {
+  min-width: 24%;
+  display: flex;
+  input {
+    text-align: center;
+  }
+}
+.xiudodo-bottom-part-action {
+  font-size: 16px;
+  color: #262e48;
+  display: flex;
+  align-items: center;
+  margin-right: 2px;
+  margin-right: 6px;
+  border-radius: 3px;
+  padding: 4px 6px;
+  cursor: pointer;
+  position: relative;
+
+  &:hover,
+  &.xiudodo-bottom-part-action-active {
+    color: @primary-color;
+    background: #f3f5f6;
+  }
+
+  .action-name {
+    margin-left: 4px;
+    font-size: 12px;
+    line-height: 12px;
+  }
+  .action-Beta {
+    width: 80px;
+    height: 34px;
+    background: #1fc99d;
+    border-radius: 8px 8px 8px 0px;
+    color: #ffffff;
+    position: absolute;
+    right: -50px;
+    top: -15px;
+    font-size: 20px;
+    transform: scale(0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.xiudodo-bottom-part-action-disabled {
+  cursor: not-allowed;
+  color: #c7c7c7;
+  &:hover {
+    color: #c7c7c7;
+  }
+}

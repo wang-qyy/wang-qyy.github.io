@@ -1,0 +1,34 @@
+.brandFontDropdown {
+  width: 301px;
+  min-width: 301px !important;
+}
+
+.brandFontStyleItem {
+  width: 734px;
+  padding: 9px 24px;
+  background: #EAECEF;
+  border-radius: 4px;
+  margin-bottom: 11px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  .leftSpan {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap; // 默认不换行；
+  }
+
+  .rightSpan {
+    width: 22px;
+    font-size: 22px;
+  }
+
+  &:hover {
+    .rightSpan {
+      color: #5A4CDB
+    }
+  }
+}

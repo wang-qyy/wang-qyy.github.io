@@ -1,0 +1,41 @@
+@import '/src/global.less';
+.sliderText {
+  display: flex;
+  flex-wrap: nowrap;
+}
+.slider {
+  width: 248px;
+  height: 4px;
+  border-radius: 4px;
+  :global {
+    .ant-slider-rail {
+      background: #17171e !important;
+    }
+    .ant-slider-track {
+      background: #eeeff2 !important;
+    }
+    .ant-slider-handle {
+      background: #eeeff2 !important;
+    }
+  }
+}
+.input {
+  width: 56px;
+  height: 26px;
+  background: #17171e;
+  border-radius: 4px;
+  border: none;
+  input {
+    height: 26px;
+    color: #d8d8d8;
+    line-height: 26px !important;
+    text-align: center !important;
+  }
+  :global {
+    .ant-input-number-handler-wrap {
+      width: 0;
+      background: #17171e;
+      border: none;
+    }
+  }
+}

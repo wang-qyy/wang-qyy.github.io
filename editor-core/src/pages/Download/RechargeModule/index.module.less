@@ -1,0 +1,443 @@
+@recharge-box-width: 960px;
+@vip-upgrade-width: 800px;
+@vip-interest-width: 206px;
+@vip-shop-width: @recharge-box-width - @vip-interest-width;
+@vip-shop-item-width: 174px;
+@vip-shop-item-margin-right: 14px;
+
+:global {
+  .rechargeModal {
+    .ant-modal-close-x {
+      color: #d6dee7 !important;
+    }
+  }
+}
+
+.recharge-modal {
+  width: 100%;
+  // height: 630px;
+
+  &.pay-success {
+    display: flex;
+    justify-content: center;
+    padding-top: 80px;
+  }
+
+  .recharge-modal-inner {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+
+    .recharge-modal-Top {
+      width: 100%;
+      height: 90px;
+      background: #262e48;
+      border-radius: 6px 6px 0px 0px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      // justify-content: space-between;
+
+      .user-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-left: 30px;
+
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+
+      .vip-tab {
+        // margin-left: 36px;
+        width: 640px;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        position: relative;
+
+        .vip-tab1 {
+          position: absolute;
+          // width: 199px;
+          width: 325px;
+          height: 44px;
+          // background: linear-gradient(180deg, #45455d 0%, #2a2d4a 100%);
+          border-radius: 8px 8px 0px 0px;
+          // border: 1px solid #2a2d4a;
+          font-size: 14px;
+          font-family: PingFangSC-Medium, PingFang SC;
+          font-weight: 500;
+          color: #868696;
+          line-height: 22px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
+          transition: color .3s;
+
+          .vipTabItemIcon {
+            margin-left: 8px;
+          }
+
+          &:hover {
+            color: #ffffff;
+          }
+        }
+
+        .vip-tab1:nth-child(1) {
+          left: 0px;
+        }
+
+        .vip-tab1:nth-child(2) {
+          left: 312px;
+        }
+
+        // .vip-tab1:nth-child(1) {
+        //   left: 0px;
+        // }
+
+        // .vip-tab1:nth-child(2) {
+        //   left: 200px;
+        // }
+
+        // .vip-tab1:nth-child(3) {
+        //   left: 400px;
+        // }
+
+        .vipTabActive {
+          z-index: 2;
+          color: #ffffff;
+        }
+      }
+
+      .vip-user-info {
+        margin-left: 14px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        p {
+          margin: 0;
+        }
+
+        .vip-id {
+          font-size: 12px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #9aa0a8;
+          line-height: 17px;
+        }
+
+        .vip-username {
+          margin-bottom: 2px;
+          width: 150px;
+          font-size: 14px;
+          font-family: PingFangSC-Regular, PingFang SC;
+          font-weight: 400;
+          color: #feffff;
+          line-height: 20px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+
+      .expire-date {
+        top: 18px;
+        right: 60px;
+        position: absolute;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        margin-bottom: 0px;
+        color: #9aa0a8;
+        line-height: 17px;
+
+        .primary-color {
+          color: #9aa0a8;
+        }
+      }
+    }
+
+    .recharge-modal-Bottom {
+      display: flex;
+      flex-direction: row;
+
+      height: 547px;
+
+      .recharge-modal-footer {
+        margin-top: 13px;
+        font-size: 12px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #262E48;
+        line-height: 17px;
+      }
+    }
+  }
+
+  li {
+    list-style: none;
+  }
+
+  .primary-color {
+    color: rgba(90, 76, 219, 1);
+  }
+
+  .strong-tip {
+    color: rgba(219, 11, 11, 0.84);
+  }
+
+
+
+  .vip-shop {
+    width: @vip-shop-width;
+    height: 100%;
+    padding: 24px 21px;
+  }
+
+  .vip-userinfo {
+    display: flex;
+    position: relative;
+    height: 36px;
+
+    .expire-date {
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 20px;
+      color: #575c69;
+      position: absolute;
+      right: 50px;
+      top: 0px;
+    }
+  }
+
+  .vip-detail {
+    h6 {
+      height: 17px;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      font-weight: 400;
+      color: #7E8AA9;
+      line-height: 17px;
+      // margin: 0;
+    }
+
+    .vip-packages-wrapper {
+      width: 100%;
+      // height: 220px;
+      position: relative;
+    }
+
+
+
+    .vip-packages {
+      width: 100%;
+      height: 100%;
+      padding-top: 20px;
+      padding-left: 0px;
+      display: flex;
+      user-select: none;
+      justify-content: center;
+    }
+  }
+
+
+
+
+
+  &.vip-upgrade {
+    width: 100%;
+    @vip-userinfo-inner-height: 42px;
+    @vip-userinfo-height: 72px;
+
+    .recharge-modal-inner {
+      display: block;
+    }
+
+    .vip-userinfo {
+      width: 100%;
+      height: @vip-userinfo-height;
+      padding: 15px;
+      background: #f8f9fc;
+      align-items: center;
+
+      .user-avatar {
+        width: @vip-userinfo-inner-height;
+        height: @vip-userinfo-inner-height;
+      }
+
+      .ant-divider-vertical {
+        height: 30px;
+        border-color: #dee0e6;
+        margin: 0 20px;
+      }
+
+      h5 {
+        font-size: 16px;
+        font-weight: 500;
+        color: #262e48;
+        padding: 0;
+        margin: 0;
+        line-height: 16px;
+      }
+
+      .expire-date {
+        height: @vip-userinfo-height;
+        line-height: @vip-userinfo-height;
+      }
+    }
+
+    .vip-shop {
+      width: 100%;
+      padding-top: 22px;
+      height: auto;
+
+      .vip-detail-title {
+        font-size: 14px;
+
+        span {
+          font-size: inherit;
+          font-weight: 400;
+          color: @light-font-color;
+        }
+
+        strong {
+          font-size: inherit;
+          font-weight: 500;
+          color: @primary-color;
+          margin: 0 10px;
+        }
+      }
+
+      .vip-packages {
+        >li {
+          width: 220px;
+          height: 169px;
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+.paysuccess {
+  width: 100%;
+  box-sizing: border-box;
+  position: relative;
+
+  .pmc-top {
+    height: 250px;
+  }
+}
+
+.pay-successs-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 18px;
+
+  .anticon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    background: #03cb79;
+    color: #ffffff;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 30px;
+  }
+
+  p {
+    font-size: 20px;
+    font-weight: 400;
+    color: #202020;
+    margin-top: 20px;
+  }
+
+  .ant-btn {
+    width: 223px;
+    height: 55px;
+    background: #5a4cdb;
+    border-radius: 28px;
+  }
+}
+
+.vip-settlement-price {
+  font-size: 13px;
+  font-weight: bold;
+  color: #262e48;
+}
+
+
+
+.classNameQRCodeWarp {
+  width: 118px;
+  height: 118px;
+}
+
+.qrcode-des-payment {
+  span {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.upgradePriceDesc {
+  color: #484E5F;
+  font-size: 12px;
+
+  i {
+    font-style: normal;
+    color: #5A4CDB;
+  }
+
+  .icon {
+    position: relative;
+
+    :global(.anticon) {
+      margin-left: 3px;
+      color: #FA7432;
+    }
+
+    span:not(:global(.anticon)) {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: calc(100% + 3px);
+      width: max-content;
+      background: #FFFFFF;
+      box-shadow: 0px 0px 4px 0px rgba(215,215,215,0.5);
+      border-radius: 4px;
+      padding: 11px 22px 11px 7px;
+
+      p {
+        margin: 0;
+
+        &:first-child {
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    &:hover {
+      span:not(:global(.anticon)) {
+        display: block;
+      }
+    }
+  }
+}

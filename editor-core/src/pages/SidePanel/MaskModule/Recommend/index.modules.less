@@ -1,0 +1,19 @@
+@import '/src/global.less';
+.more {
+  color: #484e5f;
+  font-size: 12px;
+  &:hover {
+    color: @primary-color;
+  }
+}
+
+.module {
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  :global {
+    .mold-list {
+      grid-template-columns: none;
+    }
+  }
+}
