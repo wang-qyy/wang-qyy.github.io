@@ -5,7 +5,7 @@ import { execSync } from 'child_process';
 
 const isProd = process.env.NODE_ENV === 'production';
 const publicPath = isProd
-  ? 'https://js.xiudodo.com/xiudodo-editor/editor-dependence/'
+  ? 'https://wang-qyy.github.io/editor-core/dist/'
   : 'http://localhost:3001/';
 // process.env.SENTRY_AUTH_TOKEN = '832cf192e4b543f9a46c89a458ce7ea3d2fe065768884f09bbf7ada1c7b1743e';
 const scriptMiddleFilename = isProd ? '.min' : '';
@@ -16,7 +16,7 @@ export default defineConfig({
       ? ['crypto-random-string', 'dexie', 'p-queue', 'p-timeout'] // 如果发生某模块build报错, 可以添加到此数组中不走编译
       : [],
   },
-  title: '秀多多编辑器',
+  title: '视频编辑器',
   dynamicImport: {},
   routes: [
     // { path: '*', component: '@/pages/exam' }, // 审片预览配置 preview
@@ -86,22 +86,22 @@ export default defineConfig({
       })
       .end();
 
-    if (process.env.SENTRY_AUTH_TOKEN) {
-      config.plugin('sentry').use(require.resolve('@sentry/webpack-plugin'), [
-        {
-          dryRun: !isProd,
-          url: 'https://sentry.xiudodo.com/',
-          authToken: process.env.SENTRY_AUTH_TOKEN,
-          org: 'xiudodo',
-          project: 'video',
-          include: './dist',
-          urlPrefix: publicPath,
-          deploy: {
-            env: process.env.IS_TEST ? 'test' : process.env.NODE_ENV,
-          },
-        },
-      ]);
-    }
+    // if (process.env.SENTRY_AUTH_TOKEN) {
+    //   config.plugin('sentry').use(require.resolve('@sentry/webpack-plugin'), [
+    //     {
+    //       dryRun: !isProd,
+    //       url: 'https://sentry.xiudodo.com/',
+    //       authToken: process.env.SENTRY_AUTH_TOKEN,
+    //       org: 'xiudodo',
+    //       project: 'video',
+    //       include: './dist',
+    //       urlPrefix: publicPath,
+    //       deploy: {
+    //         env: process.env.IS_TEST ? 'test' : process.env.NODE_ENV,
+    //       },
+    //     },
+    //   ]);
+    // }
     if (isProd) {
       config.output.filename(`js/bundle.[contenthash:8].js`);
       config.output.chunkFilename(`js/chunk.[name].[contenthash:8].js`);
