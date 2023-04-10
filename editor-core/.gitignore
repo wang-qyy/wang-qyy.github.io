@@ -7,7 +7,7 @@
 /package-lock.json
 
 # production
-/dist
+# /dist
 .history/
 # misc
 .DS_Store
