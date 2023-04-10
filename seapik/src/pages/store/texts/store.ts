@@ -16,7 +16,7 @@ class TextsStore {
 
   constructor() {
     makeObservable(this);
-    this.getTexts();
+    // this.getTexts();
   }
 
   @flow
