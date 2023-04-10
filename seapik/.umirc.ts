@@ -5,7 +5,7 @@ import { cdnHost } from './src/config/urls';
 const isProd = process.env.NODE_ENV === 'production';
 
 const publicPath = isProd
-  ? 'https://wang-qyy.github.io/editor-core/dist/'
+  ? 'https://wang-qyy.github.io/seapik/dist/'
   : 'http://localhost:8888/';
 const scriptMiddleFilename = isProd ? '.min' : '';
 
