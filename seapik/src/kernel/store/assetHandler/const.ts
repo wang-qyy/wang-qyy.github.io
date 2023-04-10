@@ -20,5 +20,3 @@ export const DEFAULT_VIDEO_INFO: TemplateVideoInfo = {
   offsetTime: [0, 0],
   allAnimationTimeBySpeed: 0,
 };
-
-export const DEFAULT_FONT_FAMILY = '';

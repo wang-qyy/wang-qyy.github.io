@@ -9,6 +9,8 @@ interface UrlParams {
   h: string;
   is_designer?: '0' | '1'; // 1-内容生产
   draft_id?: number; // 草稿ID
+  model?: 'ppt' | '';
+  tid?: string; // ppt模板ID
 }
 
 export default () => {
@@ -18,7 +20,7 @@ export default () => {
 
     let tempArr;
 
-    params = {};
+    params = {} as UrlParams;
 
     tempArr = tempStr.split('?');
     tempArr = tempArr[1] ? tempArr[1] : '';

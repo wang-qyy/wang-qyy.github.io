@@ -1,19 +1,38 @@
 import type { Asset } from '@kernel/typing';
-import { EventHooks } from '@kernel/typing';
+import { AeA, EventHooks } from '@kernel/typing';
 import { debounce } from 'lodash-es';
 import { CacheFetch } from '@kernel/utils/single';
 import { PlayStatus } from '@kernel/utils/const';
-import { getFontFamilyByFontName } from './defaultConfig';
+import { fontListMap, getFontFamilyByFontName } from './defaultConfig';
 
 export const baseFrames = 30;
 export const frameRat = 16.7;
-
+export const videoTimerSrc =
+  '//js.xiudodo.com//xiudodo-editor/video/empty_video.mp4';
 export const defaultGetImgUrl =
   '//js.xiudodo.com//xiudodo-editor/video/empty_video.mp4';
 export const defaultFontURl = `//js.xiudodo.com/fonts/`;
+/** @types {object} 用于在没有 asset.attribute.aeA 时提供默认动画播放速度 */
 
 // 蒙版底图
 export const maskModelUrl = `https://js.xiudodo.com/editor/mask/maskModel.png`;
+export const getDefaultPlaybackRate = (): AeA => ({
+  i: {
+    pbr: 1,
+    kw: undefined,
+    duration: 0,
+  },
+  o: {
+    pbr: 1,
+    kw: undefined,
+    duration: 0,
+  },
+  s: {
+    pbr: 1,
+    kw: undefined,
+    duration: 0,
+  },
+});
 
 export interface ConfigApis {
   getSpecificWord: string;
@@ -22,14 +41,17 @@ export interface ConfigApis {
 }
 
 export interface CustomConfigType extends EventHooks {
+  videoTimerSrc: string;
   hostName: string;
   cdnHost: string;
   handImgSrc: string;
   fontsPath: string;
   hpMode: boolean;
   wholeTemplate: boolean;
-  autoCalcTemplateEndTime?: boolean;
+  autoCalcTemplateEndTime: boolean;
+  backgroundEditable: boolean;
   apis: Partial<ConfigApis>;
+  container?: string; // 画布父元素容器 用来计算tooltip位置
   assetHoverTip?: boolean; // 除文字元素外，其他元素是否需要hover提示
 }
 
@@ -47,6 +69,8 @@ function onAssetChange() {
 export type CreateClassName = (asset: Asset, showOnly: boolean) => string;
 
 class Config {
+  videoTimerSrc?: string = '';
+
   // 性能模式，会在元素不在场时自动卸载
   hpMode = true;
 
@@ -56,7 +80,12 @@ class Config {
   // 自动计算模板持续时间，一般用于设计师端
   autoCalcTemplateEndTime = false;
 
+  // 背景元素是否允许用户选中，移动位置（一般用于设计师端）
+  backgroundEditable = false;
+
   PlayStatus = PlayStatus;
+
+  getDefaultPlaybackRate = getDefaultPlaybackRate;
 
   // 最大zIndex
   maxZIndex = 99999;
@@ -76,11 +105,16 @@ class Config {
 
   frameInterval: number = 1 / this.baseFrames;
 
+  // ae动画的基准动画时间
+  aeAnimationBaseTime = 500;
+
   precision?: number;
 
-  imageTypes: string[] = ['image'];
+  videoTypes: string[] = ['video', 'videoE'];
 
-  useContainerSizeTypes: string[] = ['image'];
+  imageTypes: string[] = ['image', 'background', 'pic'];
+
+  useContainerSizeTypes: string[] = ['image', 'background', 'pic'];
 
   canUseTextEditor: string[] = ['text'];
 
@@ -95,9 +129,9 @@ class Config {
   getFontFamily: GetFontFamily = getFontFamilyByFontName;
 
   // 可以操作的元素
-  editAble = ['text', 'image'];
+  editAble = ['text', 'image', 'pic', 'videoE'];
 
-  replaceable = ['image', 'SVG', 'lottie', 'mask'];
+  replaceable = ['image', 'pic', 'videoE', 'SVG', 'lottie', 'mask'];
 
   apis: ConfigApis = {
     getSpecificWord: '',
@@ -213,8 +247,24 @@ class Config {
     return Number.isNaN(result) ? 0 : result;
   };
 
+  /**
+   * 生成根据需求生成classname (主要为了兼容图怪兽逻辑，后期可以考虑剔除)
+   * @param asset
+   * @param showOnly
+   */
+  createClassName = (asset: Asset, showOnly: boolean): string => {
+    if (this.classNameCreator) {
+      return this.classNameCreator(asset, showOnly);
+    }
+    let assetClassName = asset.meta.className ?? '';
+    if (showOnly) {
+      assetClassName += `_showOnly_${assetClassName}`;
+    }
+    return assetClassName;
+  };
+
   updateConfig = (newConfig: Partial<CustomConfigType>) => {
-    Object.keys(newConfig).forEach((key) => {
+    Object.keys(newConfig).forEach(key => {
       // @ts-ignore
       if (newConfig[key] !== undefined) {
         // @ts-ignore
@@ -225,6 +275,23 @@ class Config {
 }
 
 const config = new Config({ baseFrames });
+
+function initFontFamily() {
+  if (document.getElementById('fontFamilyScope')) {
+    return;
+  }
+  const FontFamilyScope = document.createElement('style');
+  FontFamilyScope.id = 'fontFamilyScope';
+  document.head.appendChild(FontFamilyScope);
+  let fontFamilyInit = '';
+  Object.keys(fontListMap).forEach(key => {
+    // @ts-ignore
+    const fontFamily = fontListMap[key];
+    const url = `${config.fontsPath}${fontFamily}.woff`;
+    fontFamilyInit += `@font-face {font-family: '${key}';src:url('${url}') format('truetype');}`;
+  });
+  FontFamilyScope.appendChild(document.createTextNode(fontFamilyInit));
+}
 
 export function customConfig(newConfig: CustomConfigType) {
   config.updateConfig(newConfig);

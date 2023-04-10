@@ -1,6 +1,7 @@
-import { useMemo, SyntheticEvent } from 'react';
+import React, { useMemo, SyntheticEvent } from 'react';
 import { observer } from 'mobx-react';
 import { assetHandler, toggleAssetEditStatus } from '@kernel/store';
+import { config } from '@kernel/utils/config';
 import {
   composeResizeItem,
   PointNode,
@@ -10,6 +11,7 @@ import TransformPoints from '@kernel/Components/TransformPoints';
 
 import classnames from 'classnames';
 import { TransformerProps } from '@kernel/Components/Transformer/typing';
+import { RectLimit } from '@/kernel';
 import { useSizeRotate, useResize } from './hooks';
 
 const { RotatePoint } = TransformPoints;

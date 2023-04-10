@@ -45,6 +45,7 @@ export class HandleFilter {
     this._initImage();
   }
 
+  // 参考图怪兽逻辑
   // 过滤掉默认值
   _formatFilters = () => {
     const filters = [];
@@ -55,7 +56,7 @@ export class HandleFilter {
 
     const strong = formattedFilters?.strong ?? 1;
 
-    ['brightness', 'saturate', 'hue', 'contrast', 'blur'].forEach((k) => {
+    ['brightness', 'saturate', 'hue', 'contrast', 'blur'].forEach(k => {
       const key = k as keyof Filters;
       const defaultVal = defaultFilters[key];
       const currentVal = formattedFilters![key];
@@ -75,7 +76,7 @@ export class HandleFilter {
         ? 1
         : (formattedFilters['gamma-b'] - 1) * strong + 1,
     ];
-    if (gamma.some((t) => t !== 1)) {
+    if (gamma.some(t => t !== 1)) {
       filters.push({ key: 'gamma', value: gamma });
     }
 
@@ -192,7 +193,7 @@ export class HandleFilter {
   _initImage = (src?: string) => {
     fabric.Image.fromURL(
       src || this.src,
-      (image) => {
+      image => {
         const ele = this.canvas.getElement();
         // 在切换画布时候(比如专业版切到极速版)，会导致Element元素丢失
         if (!ele) return;
@@ -240,8 +241,6 @@ export class HandleFilter {
   updateImage = async (width: number, height: number, src: string) => {
     this.width = width;
     this.height = height;
-
-    console.log('updateImage', src !== this.src);
 
     if (!this.image) {
       this.src = src;

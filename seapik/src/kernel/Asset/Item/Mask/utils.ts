@@ -4,13 +4,13 @@ import { useSvgHelper } from '@AssetCore/Item/SVG/utils';
 
 export { useSvgHelper };
 
-export function useContainerSize(asset: AssetClass | Asset) {
+export function useContainerStyle(asset: AssetClass | Asset) {
   const { width, height } = asset.attribute;
-  const size: CSSProperties = {
+  const assetElementStyle: CSSProperties = {
     width,
     height,
   };
   return {
-    size,
+    assetElementStyle,
   };
 }

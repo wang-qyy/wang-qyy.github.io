@@ -6,7 +6,7 @@ export enum PlayStatus {
   Playing,
 }
 // 蒙版子元素类型
-export const MaskChildAssetType = ['image'];
+export const MaskChildAssetType = ['image', 'pic', 'video', 'videoE'];
 
 // 滤镜调节默认值
 export const defaultFilters: Filters = {
@@ -34,4 +34,4 @@ export const defaultEffect: EffectInfo = {
 };
 
 // 元素id前缀
-export const assetIdPrefix = 'pngtree-asset-';
+export const assetIdPrefix = 'xdd-asset-';

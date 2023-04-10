@@ -118,16 +118,20 @@ export function getRectCenter({
  * @description 获取矩形的中心点坐标
  * @param asset
  */
-export function getAssetCenterScale(
-  position: {
-    left: number;
-    top: number;
-  },
-  size: { width: number; height: number },
-): Coordinate {
+export function getAssetCenterScale(asset: AssetClass): Coordinate {
   return getRectCenter({
-    ...position,
-    ...size,
+    ...asset.assetPositionScale,
+    ...asset.assetSizeScale,
+  });
+}
+/**
+ * @description 获取矩形的中心点坐标
+ * @param asset
+ */
+export function getAssetCenter(asset: AssetClass): Coordinate {
+  return getRectCenter({
+    ...asset.assetPosition,
+    ...asset.assetSize,
   });
 }
 
@@ -262,7 +266,7 @@ export function rotatePoint(
   point: Coordinate,
   center: Coordinate,
   rotateNumber: number,
-): Coordinate {
+) {
   const matrix = rotate(angleToRadian(rotateNumber), center.x, center.y);
   return applyToPoint(matrix, point) as Coordinate;
 }

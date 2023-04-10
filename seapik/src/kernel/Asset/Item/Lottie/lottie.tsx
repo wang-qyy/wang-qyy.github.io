@@ -32,6 +32,7 @@ export default observer((props: AssetItemProps) => {
   const {
     startTime = 0,
     endTime = 1000,
+    loopTimes = 1,
     isLoop = false,
     textEditor,
     rt_url,
@@ -41,6 +42,8 @@ export default observer((props: AssetItemProps) => {
     height,
   } = asset.attribute;
 
+  const { isTextEditor = false } = asset.meta;
+  const lottieReadOnly = showOnly;
   const { lottieWidth = -1 } = lottieHandler.current?.getAnimationData() ?? {};
 
   const { canEdit, lottieId, containerStyle, lottieStyle, editablePanelStyle } =
@@ -63,6 +66,9 @@ export default observer((props: AssetItemProps) => {
 
   function onUpdate() {
     if (lottieHandler.current) {
+      // 设置动画次数 ---  是否循环播放 lottieLoop==true时设置次数无效
+      // if((!lottieReadOnly || isPreviewMovie) && currentTime <= endTime && (lottieLoop || (curLottieTime <= lottieTimes))){
+      /* isLoop == false && loopTimes 找出其最后动画结束的时间记录 ---> endLoopTimes */
       const unEnd = currentTime <= endTime;
       const inStart = currentTime >= startTime;
 
@@ -164,6 +170,8 @@ export default observer((props: AssetItemProps) => {
     }
   }
 
+  function replaceLottie() {}
+
   function previewOver() {
     setState({
       preview: false,
@@ -188,7 +196,13 @@ export default observer((props: AssetItemProps) => {
         onDoubleClick={editLottie}
         data-asset-id={`${assetIdPrefix}${asset.id}`}
       />
-
+      {/* <div className="lottie_show_area"
+                    style = {editPanelShowStyle}
+                    // onDoubleClick = {((isTextEditor || isImageEditor) && !assetProps.showOnly) ? this.editLottie.bind(this) : ''}
+                    ref = {ref => this.lottieTextShowConRef = ref }
+                >
+                    {editPanelShowText}
+                </div> */}
       {canEdit && (
         <div
           className="lottie-editable-panel"

@@ -8,4 +8,20 @@ export const hostName = isProd
 export const cdnHost = `https://js.${hostName}`;
 export const fontsPath = `${cdnHost}/fonts/`;
 
-export const iconSrc = '//at.alicdn.com/t/c/font_3765410_9fvnwdhzye.js';
+export const iconSrc = '//at.alicdn.com/t/c/font_3765410_n5nwxenvlm.js';
+
+const pngtreeSrc = {
+  logo: 'https://js.pngtree.com/web3/images/spring-logo.jpg',
+  ico: 'https://pngtree.com/favicon.ico',
+  home: 'https://pngtree.com/free-backgrounds',
+};
+
+const seapikSrc = {
+  logo: '//js.seapik.com/static/seapik_v1.png',
+  ico: '//js.seapik.com/static/favicon.png',
+  home: 'https://test.seapik.com/popular-images',
+};
+export const globalLink =
+  isProd && window.location.host === 'edit.pngtree.com'
+    ? pngtreeSrc
+    : seapikSrc;

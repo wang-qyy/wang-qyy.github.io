@@ -2,7 +2,7 @@ import { observer } from 'mobx-react';
 import type { AssetItemProps, AssetIndex } from '@kernel/typing';
 import AssetItem from '@kernel/Asset/Item';
 import { CSSProperties } from 'react';
-import { useContainerSize } from './utils';
+import { useContainerStyle } from './utils';
 import { useMaskHandler } from './hooks';
 import DragView from './dragView';
 
@@ -20,7 +20,7 @@ const Mask = (props: AssetItemProps) => {
     isPreviewMovie = false,
     prefix = '',
   } = props;
-  const { size } = useContainerSize(asset);
+  const { assetElementStyle } = useContainerStyle(asset);
   const { assets, tempData, attribute } = asset;
   const rt_asset = tempData?.rt_asset;
   const { MaskContainer, clipPath, loading } = useMaskHandler(
@@ -52,7 +52,7 @@ const Mask = (props: AssetItemProps) => {
         className="assetElement"
         style={{
           overflow: 'hidden',
-          ...size,
+          ...assetElementStyle,
           position: 'relative',
         }}
       >

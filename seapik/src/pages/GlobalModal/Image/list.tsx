@@ -9,27 +9,24 @@ import {
   removeTemplate,
 } from '@/kernel';
 import { newAssetTemplate } from '@/kernel/utils/assetTemplate';
+import { handleReplaceAsset } from '@/utils/assetHandler/replace';
 
 import IconFont from '@/components/Icon';
 import imagesMock from '@/mock/images';
 import { getScale } from '@/utils';
 import { setUrl } from '@/pages/store/canvas';
 import { openImgModal } from '@/pages/store/global';
+import { getImagesList } from '@/apis/images';
+import emptyImg from '@/assets/image/not-so.svg';
+import image_list from '@/mock/image_list';
 
 import './list.less';
 
-function testReq(page = 1, pageSize = 10) {
-  const start = (page - 1) * pageSize;
-  const list = imagesMock.slice(start, start + pageSize);
-
+// 列表测试接口
+function testReq(params = { p: 1, pageSize: 30 }) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve({
-        code: 200,
-        list,
-        page,
-        pageTotal: Math.ceil(imagesMock.length / pageSize),
-      });
+      resolve(imagesMock);
     }, 1000);
   });
 }
@@ -65,7 +62,7 @@ export default function List() {
   const [keywords, _keywords] = useState('');
 
   let { data, loading, loadMore, loadingMore, noMore } = useInfiniteScroll(
-    (res) => testReq(res?.page ? res?.page + 1 : 1, 10),
+    (res) => getImagesList({ p: res?.page ? res?.page + 1 : 1 }),
     {
       target: listRef,
       isNoMore: (res) => res?.pageTotal <= res?.page,
@@ -73,33 +70,49 @@ export default function List() {
     },
   );
 
-  function replaceBg(image: any) {
-    const currentTmp = getCurrentTemplate();
+  // function replaceBg(image: any) {
+  //   const currentTmp = getCurrentTemplate();
 
-    if (currentTmp) {
-      removeTemplate(currentTmp.id);
+  //   if (currentTmp) {
+  //     removeTemplate(currentTmp.id);
 
-      buildAsset(image);
-      openImgModal(false);
-    }
+  //     buildAsset(image);
+  //     openImgModal(false);
+  //   }
+  // }
+
+  async function replaceBg(image: any) {
+    await handleReplaceAsset({
+      params: {
+        meta: { type: 'image' },
+        attribute: {
+          width: image.width,
+          height: image.height,
+          picUrl: image.image_url,
+          resId: image.resId,
+        },
+      },
+    });
+
+    openImgModal(false);
   }
 
   return (
     <Spin spinning={loading || loadingMore}>
-      <Input
+      {/* <Input
         placeholder="Search image"
         onPressEnter={(e) => _keywords(e.target.value)}
         suffix={<IconFont type="iconsearch" />}
         allowClear
         onBlur={(e) => _keywords(e.target.value)}
-      />
+      /> */}
       <div
         className="image-list"
         ref={listRef}
         style={{ height: 600, overflow: 'auto' }}
       >
-        {data?.list.map((image) => {
-          const rw = (Number(image.width) / Number(image.height)) * 120;
+        {[...image_list, ...(data?.list ?? [])]?.map((image) => {
+          const rw = (Number(image.width) / Number(image.height)) * 150;
           return (
             <div
               key={`image-${image.resId}`}
@@ -115,13 +128,17 @@ export default function List() {
                   }%`,
                 }}
               >
-                <img src={image.image_url} />
+                <img src={image.img} />
               </div>
             </div>
           );
         })}
-        {!loading && !loadingMore && !data?.list.length && (
-          <Empty description="No result found" style={{ width: '100%' }} />
+        {!loading && !loadingMore && !data?.list?.length && (
+          <Empty
+            image={<img src={emptyImg} />}
+            description="No result found"
+            style={{ width: '100%' }}
+          />
         )}
       </div>
     </Spin>

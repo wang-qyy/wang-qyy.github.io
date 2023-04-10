@@ -5,7 +5,7 @@ import {
   AssetCoordinate,
   calculateRotatedPointCoordinate,
   positionToCoordinate,
-  coordinateToPosition,
+  coordinateTOPosition,
 } from '@kernel/utils/mouseHandler/mouseHandlerHelper';
 
 export function getEmptyContainer() {
@@ -134,7 +134,7 @@ export class MaskClipperHandler {
         -rotate,
       );
 
-      Object.assign(style, coordinateToPosition(originAttributePosition));
+      Object.assign(style, coordinateTOPosition(originAttributePosition));
     }
     return style;
   };
@@ -203,7 +203,7 @@ export class MaskClipperHandler {
         rotatedAttributeCenter,
         -rotate,
       );
-      Object.assign(style, coordinateToPosition(originAttributePosition));
+      Object.assign(style, coordinateTOPosition(originAttributePosition));
     }
     return style;
   };

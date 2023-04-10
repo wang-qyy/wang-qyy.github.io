@@ -16,15 +16,13 @@ import {
   replaceAssetBySelf,
 } from '@/kernel/store';
 import AssetItemState from '@/kernel/store/assetHandler/asset';
-import {
-  assetBlur,
-  setInMaskStatus,
-} from '@/kernel/store/assetHandler/adapter';
+import { setInMaskStatus } from '@/kernel/store/assetHandler/adapter';
 import { buildTransform } from '@/kernel/store/assetHandler/utils';
 import { buildNewSizeByOrigin } from '@/kernel/utils/assetHelper/formater/dataBuilder';
 import { replaceSvgModelPic } from '@/kernel/utils/single';
+import { setVideoClipTime } from '@/kernel/storeAPI/Asset/Handler/Updater';
 import { setAssetActiveHandler } from '@kernel/store/assetHandler/adapter';
-import { setEditAsset } from './Updater';
+import { formatEffectColorData } from '..';
 
 export { assetUpdater, replaceWholeAssetByAssetId, replaceAssetBySelf };
 
@@ -39,8 +37,6 @@ export function addAssetClassInTemplate(
 ) {
   const { currentTemplate } = assetHandler;
   const target = template ?? currentTemplate;
-
-  asset.transform.zindex = target.zIndex.max + 1;
   if (target) {
     target.addAssets([asset]);
   }
@@ -63,16 +59,27 @@ export async function addAssetInTemplate(
   // 如果添加的元素是背景元素 先判断是否有背景元素  如果有 把背景删除掉
   if (asset.meta.isBackground) {
     const backgroundAsset = template.assets.find(
-      (item) => item.meta.isBackground,
+      item => item.meta.isBackground,
     );
     if (backgroundAsset) {
       removeAssetInTemplate(template, backgroundAsset);
     }
     getAssetRtInfo(asset);
+  } else if (asset.meta.isOverlay) {
+    // 如果添加的元素是视频特效元素 先判断是否有视频特效元素  如果有 把视频特效元素删除掉
+    const effectAsset = template.assets.find(item => item.meta.isOverlay);
+    if (effectAsset) {
+      removeAssetInTemplate(template, effectAsset);
+    }
+    getAssetRtInfo(asset);
   } else {
     await getAssetRtInfo(asset);
   }
-
+  if (asset.attribute.effectColorful) {
+    asset.attribute.effectColorful.effect = formatEffectColorData(
+      asset.attribute.effectColorful.effect,
+    );
+  }
   reportChange('addAssetInTemplate', true);
   return template.addAsset(asset, (asset: AssetClass) => {
     if (asset.meta.type === 'lottie') {
@@ -85,6 +92,7 @@ export async function addAssetInTemplate(
 }
 
 interface AddCopiedAssetParams {
+  meta?: { trackId: string };
   transform?: {
     posX: number;
     posY: number;
@@ -98,18 +106,46 @@ interface AddCopiedAssetParams {
 export function addCopiedAsset(asset: Asset, data: AddCopiedAssetParams) {
   const assetClass = new AssetItemState(asset);
 
-  const { transform } = data;
+  const { transform, attribute, meta } = data;
   assetClass.update({
+    meta: { ...meta, trackId: undefined },
     transform: {
       ...transform,
       zindex: assetHandler.currentTemplate.zIndex.max + 1,
     },
   });
 
+  assetClass.updateAssetDuration(attribute);
+
   addAssetClassInTemplate(assetClass, assetHandler.currentTemplate);
 
   reportChange('addCopiedAsset', true);
   return assetClass;
+}
+
+/**
+ * @description 订阅视频裁剪数据
+ */
+export function useVideoClipByObserver(record?: AssetItemState) {
+  let asset = record || assetHandler?.active;
+
+  if (asset) {
+    const { meta, assets } = asset;
+    if (meta.type === 'mask' && assets?.length) {
+      [asset] = assets;
+    }
+  }
+
+  const state = {
+    startTime: asset?.attribute?.cst ?? -1,
+    endTime: asset?.attribute?.cet ?? -1,
+    isLoop: !!asset?.attribute?.isLoop,
+  };
+
+  return {
+    update: setVideoClipTime,
+    value: state,
+  };
 }
 
 /**
@@ -127,27 +163,6 @@ export function removeMaskAsset(asset: AssetClass) {
   }
 }
 
-export function removeModuleChild(asset: AssetClass) {
-  const { parent } = asset;
-
-  if (parent) {
-    moduleToMultiSelect(parent);
-
-    const { multiSelect } = assetHandler.currentTemplate;
-    multiSelect.delete(asset);
-    removeAsset(asset);
-
-    if (multiSelect.size > 1) {
-      const newModule = multiSelectToModule();
-      if (newModule?.assets[0]) {
-        activeEditableAsset(newModule.assets[0]);
-      }
-    } else {
-      assetBlur();
-    }
-  }
-}
-
 /**
  * @description 删除元素
  * @param asset asset.meta.id
@@ -156,7 +171,7 @@ export function removeAsset(asset: AssetClass) {
   if (isTempModuleType(asset)) {
     const { assets } = asset;
 
-    assets.forEach((item) => {
+    assets.forEach(item => {
       removeAssetInTemplate(item.template, asset);
     });
 
@@ -196,7 +211,7 @@ export function activeEditableAssetInTemplate(
 
   const assetList = parent ? parent.assets : assets;
 
-  const asset = assetList.find((item) => item.meta.id === assetId);
+  const asset = assetList.find(item => item.meta.id === assetId);
   if (asset) {
     activeEditableAsset(asset);
   }
@@ -288,9 +303,9 @@ export function useAssetReplaceByObserver() {
   };
 }
 
-export function unGroupModule(asset: AssetClass) {
+export function ungroupModule(asset: AssetClass) {
   moduleToMultiSelect(asset);
-  reportChange('unGroupModule', true);
+  reportChange('ungroupModule', true);
 }
 
 export function groupModule() {
@@ -333,7 +348,7 @@ export function splitMaskAsset() {
  */
 export function highlightEditableAssets(assets: AssetClass[]) {
   highlightAssetsHandler.set(
-    assets.filter((o) => o.meta.type !== 'effect'),
+    assets.filter(o => o.meta.type !== 'effect'),
     3000,
   );
 }
@@ -343,7 +358,7 @@ export function highlightEditableAssets(assets: AssetClass[]) {
  * @param ids
  */
 export function removeAssetBatch(ids: number[]) {
-  ids.forEach((item) => {
+  ids.forEach(item => {
     assetHandler.currentTemplate.removeAsset(item);
   });
   reportChange('removeAssetBatch', true);
@@ -429,8 +444,4 @@ export default function setAssetChildren(childAsset: Asset[]) {
 
 export function multiSelectAsset(asset: AssetClass) {
   setAssetActiveHandler.toggleSelect(asset);
-}
-
-export function isInCropping() {
-  return assetHandler.status.inMask;
 }

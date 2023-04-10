@@ -16,6 +16,7 @@ import {
   assetUpdater,
   getCanvasInfo,
   deleteAssetInTemplate,
+  useAniPathEffect,
 } from '@kernel/store';
 import { stopPropagation } from '@kernel/utils/single';
 import {
@@ -98,6 +99,7 @@ const TextEditor = forwardRef(
 );
 
 function TextEditorWrapper() {
+  const { inAniPath, changStatue } = useAniPathEffect();
   const textEditAsset = getTextEditAsset();
   const container = useRef(null);
   const { scale } = getCanvasInfo();
@@ -135,6 +137,22 @@ function TextEditorWrapper() {
               width,
             }),
           );
+          if (assetCache?.attribute?.stayEffect?.graph) {
+            const bounds = assetCache?.attribute?.stayEffect?.graph.toBounds[0];
+            bounds.width = width;
+            assetUpdater(
+              assetCache,
+              buildAttribute({
+                stayEffect: {
+                  ...assetCache?.attribute?.stayEffect,
+                  graph: {
+                    ...assetCache?.attribute?.stayEffect?.graph,
+                    toBounds: [bounds],
+                  },
+                },
+              }),
+            );
+          }
         }
       } else {
         if (height !== attribute.height) {
@@ -144,6 +162,22 @@ function TextEditorWrapper() {
               height,
             }),
           );
+          if (assetCache?.attribute?.stayEffect?.graph) {
+            const bounds = assetCache?.attribute?.stayEffect?.graph.toBounds[0];
+            bounds.height = height;
+            assetUpdater(
+              assetCache,
+              buildAttribute({
+                stayEffect: {
+                  ...assetCache?.attribute?.stayEffect,
+                  graph: {
+                    ...assetCache?.attribute?.stayEffect?.graph,
+                    toBounds: [bounds],
+                  },
+                },
+              }),
+            );
+          }
         }
       }
     }
@@ -206,6 +240,10 @@ function TextEditorWrapper() {
         textEditAsset.setRtRelativeByParent();
         setChangeText('');
       };
+    }
+    // 编辑文字时候，清空路径动画编辑
+    if (inAniPath) {
+      changStatue(-1);
     }
   }, [textEditAsset]);
 
@@ -313,6 +351,10 @@ function TextEditorWrapper() {
           )}
         </div>
       </div>
+
+      {/* {textEditAsset && !textEditAsset?.parent && currentEditText.length > 0 && (
+        <TextContainer asset={textEditAsset} text={currentEditText} />
+      )} */}
     </>
   );
 }

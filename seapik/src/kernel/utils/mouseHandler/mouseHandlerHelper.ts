@@ -64,7 +64,7 @@ export function getAssetCenterPoint(asset: Asset | AssetClass, scale = 1) {
   );
 }
 
-export function coordinateToPosition(coordinate: Coordinate) {
+export function coordinateTOPosition(coordinate: Coordinate) {
   return {
     left: coordinate.x,
     top: coordinate.y,
@@ -82,7 +82,7 @@ export function positionToCoordinate(position: Position) {
  * @description 计算元素所有坐标点
  */
 export class AssetCoordinate {
-  static coordinateToPosition = coordinateToPosition;
+  static coordinateTOPosition = coordinateTOPosition;
 
   static positionToCoordinate = positionToCoordinate;
 

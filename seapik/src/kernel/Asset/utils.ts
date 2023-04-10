@@ -1,10 +1,16 @@
 import { CSSProperties, useMemo } from 'react';
-import { sortBy } from 'lodash-es';
-
 import { RGBAToString, transferGradientToString } from '@kernel/utils/single';
-import { AssetClass, CanvasInfo, PageAttr } from '@kernel/typing';
+import {
+  AssetClass,
+  CanvasInfo,
+  EffectInfo,
+  PageAttr,
+  RGBA,
+} from '@kernel/typing';
 import { getTemplateBackgroundByPageAttr } from '@kernel/PreviewCanvas/utils';
 import { backupFontFamily } from '@kernel/utils/defaultConfig';
+import { handleAddAsset } from '@/utils/assetHandler';
+import { sortBy } from 'lodash-es';
 import AssetItemState from '../store/assetHandler/asset';
 
 export function useCanvasBackground(
@@ -99,7 +105,7 @@ export interface EffectAsset {
 export const formatEffectAssets = (assets: AssetItemState[]) => {
   const newAssets: Array<AssetItemState | EffectAsset> = [];
   let current = newAssets;
-  sortBy(assets, (o) => -o.transform.zindex).forEach((asset) => {
+  sortBy(assets, o => -o.transform.zindex).forEach(asset => {
     const {
       meta: { type },
     } = asset;
@@ -118,3 +124,26 @@ export const formatEffectAssets = (assets: AssetItemState[]) => {
   });
   return newAssets;
 };
+
+const addEffect = async (opt: {
+  info: EffectInfo;
+  rt_url?: string;
+  picUrl?: string;
+  overlayType?: string;
+}) => {
+  const { info, rt_url, picUrl, overlayType } = opt;
+  await handleAddAsset({
+    attribute: {
+      effectInfo: info,
+      rt_url,
+      picUrl,
+    },
+    meta: {
+      type: 'effect',
+      overlayType,
+    },
+  });
+};
+
+// TODO: 测试代码
+window._addEffect = addEffect;

@@ -1,4 +1,11 @@
-import { action, computed, makeObservable, observable, reaction } from 'mobx';
+import {
+  action,
+  computed,
+  makeObservable,
+  observable,
+  reaction,
+  toJS,
+} from 'mobx';
 import type { IObservableArray } from 'mobx';
 import type { Asset } from '@kernel/typing';
 import { isEqual } from 'lodash-es';
@@ -20,6 +27,7 @@ import {
 import AssetItemState from '@kernel/store/assetHandler/asset';
 import { deepCloneJson } from '@kernel/utils/single';
 import { getAssetIndexById, getTargetAsset, getTargetAssetById } from './utils';
+import CameraState from './template/camera';
 
 class AssetHandler {
   @observable.shallow templates: IObservableArray<TemplateClass> =
@@ -62,10 +70,12 @@ class AssetHandler {
   // 蒙版中移动的元素
   @observable moveActiveMask?: AssetClass;
 
+  // 编辑中的镜头
+  @observable editCamera?: CameraState;
+
   @observable status = {
     // 是否裁剪中
     inClipping: false,
-
     // 替换中
     inReplacing: false,
 
@@ -83,10 +93,23 @@ class AssetHandler {
 
     // 鼠标的位置信息
     mousePosition: { left: 0, top: 0 },
+
+    // 路径动画的状态 -1: 为处于使用路径动画 0:正在绘制路径点 1:编辑路径点 2:展现首尾数据
+    inAniPath: -1,
+
+    // 旋转动画 true：正在设置旋转中心点
+    inWhirl: false,
+    // 是否显示镜头画布交互内容
+    inCamera: false,
   };
 
   /**
-   * @description 自动清除loading状态
+   * 违规图层数据
+   */
+  @observable lllegelAssets = [];
+
+  /**
+   * @description 自动清楚loading状态
    */
   _reactionAutoRemoveLoading = () => {
     reaction(
@@ -117,6 +140,11 @@ class AssetHandler {
   }
 
   @computed
+  get currentCamera() {
+    return this.editCamera;
+  }
+
+  @computed
   get assets() {
     return this.currentTemplate?.assets || [];
   }
@@ -140,6 +168,15 @@ class AssetHandler {
   }
 
   @computed
+  get allTemplateVideoTime() {
+    let time = 0;
+    this.templates.forEach(item => {
+      time += Number(item.videoInfo.allAnimationTimeBySpeed);
+    });
+    return time;
+  }
+
+  @computed
   get assetLoaded() {
     if (this.assets) {
       // return this.assets.every(item => item.rt_assetLoadComplete);
@@ -148,12 +185,34 @@ class AssetHandler {
   }
 
   @computed
+  get watermark() {
+    let watermark;
+
+    if (this.assets) {
+      watermark = this.assets.find(
+        item => item.meta.isWatermark && !item.meta.hidden,
+      );
+    }
+    return watermark;
+  }
+
+  @computed
+  get logo() {
+    let logo;
+
+    if (this.assets) {
+      logo = this.assets.find(item => item.meta.isLogo && !item.meta.hidden);
+    }
+    return logo;
+  }
+
+  @computed
   get timeScale() {
     const timeScale = [];
     let startTimeMark = 0;
     // eslint-disable-next-line no-restricted-syntax
     for (const item of this.templates) {
-      const { allAnimationTimeBySpeed } = item.videoInfo;
+      const { allAnimationTime, allAnimationTimeBySpeed } = item.videoInfo;
       const endTime = startTimeMark + allAnimationTimeBySpeed;
       timeScale.push([startTimeMark, endTime]);
       startTimeMark = endTime;
@@ -192,6 +251,10 @@ class AssetHandler {
   @action
   setEditActive = (active: AssetClass | undefined) => {
     this.active = active;
+    // 如果包含路径动画，开启显示
+    if (active?.attribute.stayEffect?.graph) {
+      this.status.inAniPath = 2;
+    }
   };
 
   @action
@@ -217,6 +280,11 @@ class AssetHandler {
   @action
   setMoveActiveMask = (active: AssetClass | undefined) => {
     this.moveActiveMask = active;
+  };
+
+  @action
+  seteditCamera = (active: CameraState | undefined) => {
+    this.editCamera = active;
   };
 
   getAssetIndexById = (assetId: number, templateIndex?: number) => {
@@ -250,7 +318,7 @@ class AssetHandler {
   addTemplate = (templates: RawTemplateData[], index = -1) => {
     this.initTemplateStatus();
     let target = index;
-    templates.forEach((item) => {
+    templates.forEach(item => {
       if (target > -1) {
         // 如果存在指定添加位置，则需要通过插入的方式添加，每次插入，需要将索引指针向后移位
         this.templates.splice(target, 0, new TemplateState(item));
@@ -306,8 +374,8 @@ class AssetHandler {
   @action
   restoreAllTemplate = (data: RawTemplateWithRender[]) => {
     const newTemplate: TemplateClass[] = [];
-    data.forEach((template) => {
-      const target = this.templates.find((i) => i.id === template.id);
+    data.forEach(template => {
+      const target = this.templates.find(i => i.id === template.id);
       if (target) {
         target.restore(template);
         newTemplate.push(target);
@@ -331,6 +399,15 @@ class AssetHandler {
   @action
   setLogoAsset = (asset: Asset, type: LogoType) => {
     this.logoAsset[type] = asset ? new AssetItemState(asset) : undefined;
+  };
+
+  /**
+   * 设置违规资源数据
+   * @param list
+   */
+  @action
+  setLllegelAssets = (list: any) => {
+    this.lllegelAssets = list;
   };
 }
 

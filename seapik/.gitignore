@@ -5,15 +5,17 @@
 /npm-debug.log*
 /yarn-error.log
 /package-lock.json
+
 # production
 # /dist
-
+.history/
 # misc
 .DS_Store
-
+.history
 # umi
 /src/.umi
 /src/.umi-production
 /src/.umi-test
 /.env.local
+.idea
 .vscode

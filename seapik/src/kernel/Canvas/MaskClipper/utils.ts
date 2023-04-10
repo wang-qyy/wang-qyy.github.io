@@ -3,7 +3,6 @@ import {
   AssetClass,
   AssetSizeAndPosition,
   Coordinate,
-  CropInfo,
   Position,
   RectLimit,
 } from '@kernel/typing';
@@ -17,13 +16,14 @@ import {
   getRectLimitCoordinate,
   rotatePoint,
 } from '@kernel/utils/mouseHandler/reactHelper';
-import { ResizePointStatic } from '@kernel/Components/TransformPoints/handler';
+import {
+  ResizePoint,
+  ResizePointStatic,
+} from '@kernel/Components/TransformPoints/handler';
 import {
   ChangeType,
   TransformerProps,
 } from '@kernel/Components/Transformer/typing';
-
-import { coordinateToPosition } from '@kernel/utils/mouseHandler/mouseHandlerHelper';
 
 /**
  * 获取蒙版子元素旋转后的坐标
@@ -155,10 +155,10 @@ export function getMaskAssetLimit(
   newStyle: AssetSizeAndPosition,
 ): RectLimit {
   return {
-    xMin: 0,
-    xMax: newStyle.width - maskStyle.width,
-    yMin: 0,
-    yMax: newStyle.height - maskStyle.height,
+    xMin: maskStyle.width - newStyle.width,
+    xMax: 0,
+    yMin: maskStyle.height - newStyle.height,
+    yMax: 0,
   };
 }
 
@@ -171,28 +171,26 @@ export function checkMaskAssetCrossBorder(
   position: Coordinate,
   limit: RectLimit,
 ) {
-  const newPosition = { ...position };
-
+  const newPosition = {
+    ...position,
+  };
   if (newPosition.x > limit.xMax) {
     newPosition.x = limit.xMax;
+  }
+  if (newPosition.y > limit.yMax) {
+    newPosition.y = limit.yMax;
   }
 
   if (newPosition.x < limit.xMin) {
     newPosition.x = limit.xMin;
   }
-
-  if (newPosition.y > limit.yMax) {
-    newPosition.y = limit.yMax;
-  }
-
   if (newPosition.y < limit.yMin) {
     newPosition.y = limit.yMin;
   }
-
   return newPosition;
 }
 
-export function calcChildAbsoluteByMask(mask: AssetClass, crop: CropInfo) {
+export function calcChildAbsoluteByMask(mask: AssetClass, child: AssetClass) {
   const { posX: pLeft, posY: pTop, rotate: pRotate = 0 } = mask.transform;
   let moduleCenter: Coordinate | undefined;
   const hasRotate = pRotate % 360 > 0;
@@ -202,23 +200,23 @@ export function calcChildAbsoluteByMask(mask: AssetClass, crop: CropInfo) {
       ...mask.assetPosition,
     });
   }
-  const {
-    position: { x: posX, y: posY },
-  } = crop;
-
+  const { posX, posY, rotate = 0 } = child.transform;
   const transform = {
     posX: posX + pLeft,
     posY: posY + pTop,
-    rotate: pRotate,
+    rotate: rotate + pRotate,
   };
   if (moduleCenter) {
     const center = getRectCenter({
-      ...crop.size,
+      ...child.containerSize,
       left: transform.posX,
       top: transform.posY,
     });
     const centerRotated = rotatePoint(center, moduleCenter, pRotate);
-    const newPos = getRectLeftTopByCenterAndSize(crop.size, centerRotated);
+    const newPos = getRectLeftTopByCenterAndSize(
+      child.containerSize,
+      centerRotated,
+    );
     Object.assign(transform, {
       posX: newPos.x,
       posY: newPos.y,
@@ -333,6 +331,11 @@ export function calcRectOverBorderMax(
     };
   }
 
+  // const leftMinDiff = targetRect.xMin - borderRect.xMin;
+  // const topMinDiff = targetRect.yMin - borderRect.yMin;
+  // const leftMaxDiff = borderRect.xMax - targetRect.xMax;
+  // const topMaxDiff = borderRect.yMax - targetRect.yMax;
+
   if (resizePoint === 'left_top') {
     const leftMinDiff = targetRect.xMin - borderRect.xMin;
     const topMinDiff = (targetRect.yMin - borderRect.yMin) * scale;
@@ -388,8 +391,6 @@ export function calcMaxStyle(
   const borderRect = getRectLimitCoordinate(border);
 
   if (limit.yMax !== undefined && targetRect.yMax > limit.yMax) {
-    console.log(111);
-
     const height = borderRect.yMax - targetRect.yMin;
     let width: number;
     if (isScale) {
@@ -421,7 +422,6 @@ export function calcMaxStyle(
   }
 
   if (limit.yMin !== undefined && targetRect.yMin < limit.yMin) {
-    console.log(333);
     const height = targetRect.yMax - borderRect.yMin;
     let width: number;
 
@@ -454,8 +454,6 @@ export function calcMaxStyle(
   }
 
   if (limit.xMax !== undefined && targetRect.xMax > limit.xMax) {
-    console.log(222);
-
     const width = borderRect.xMax - targetRect.xMin;
     let height: number;
     if (isScale) {
@@ -485,7 +483,6 @@ export function calcMaxStyle(
       height,
     };
   }
-
   if (limit.xMin !== undefined && targetRect.xMin < limit.xMin) {
     const width = targetRect.xMax - borderRect.xMin;
     let height: number;

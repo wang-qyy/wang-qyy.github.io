@@ -14,6 +14,7 @@ import {
   getModuleData,
 } from '@kernel/store/assetHandler/adapter';
 
+import { getCanvasInfo } from '@kernel/store/global/adapter';
 import AssetItemState from '@kernel/store/assetHandler/asset';
 import { isModuleType, isTempModuleType } from '@/kernel';
 import { getRectCenter } from '@kernel/utils/mouseHandler/reactHelper';
@@ -76,7 +77,7 @@ export const setTempModuleInfo = (module: AssetClass, assets: AssetClass[]) => {
  * @description 根据多选数据，更新缓存组的子元素
  */
 const setModuleChildrenTempData = (module: AssetClass) => {
-  module.assets.forEach((asset) => {
+  module.assets.forEach(asset => {
     asset.setRtRelativeByParent();
   });
 };
@@ -110,7 +111,7 @@ export const MultiSelectHandler = {
   deleteMultiSelect: () => {
     const { currentTemplate } = assetHandler;
     if (currentTemplate) {
-      currentTemplate.multiSelect.forEach((item) => {
+      currentTemplate.multiSelect.forEach(item => {
         currentTemplate.removeAsset(item.id);
       });
       currentTemplate.clearMultiSelect();
@@ -185,7 +186,7 @@ export const multiSelectToModule = () => {
       startTime: -1,
       endTime: -1,
     };
-    list.forEach((item) => {
+    list.forEach(item => {
       if (
         assetTime.startTime < 0 ||
         item.assetDuration.startTime > assetTime.startTime
@@ -208,7 +209,7 @@ export const multiSelectToModule = () => {
     module.setChildren([...list], false);
     module.setModuleStyleByChildren();
 
-    list.forEach((item) => {
+    list.forEach(item => {
       assetAbsoluteToRelative(module, item);
       // 当父元素样式计算完毕，则根据当前父元素的值，计算出相对数据
       item.setRtRelativeByParent();
@@ -218,7 +219,6 @@ export const multiSelectToModule = () => {
     currentTemplate.clearMultiSelect(false);
     currentTemplate.addAssets([module]);
     setEditActive(module);
-    return module;
   }
 };
 // module转换为多选元素
@@ -233,22 +233,21 @@ export const moduleToMultiSelect = (moduleAsset: AssetClass) => {
   if (currentTemplate) {
     const { tempModule, setMultiSelect, addAssets, removeAsset } =
       currentTemplate;
-
     const assets = [...moduleAsset.assets];
-
-    assets.forEach((item) => {
+    assets.forEach(item => {
       item.setParent(tempModule);
       assetRelativeToAbsolute(moduleAsset, item);
       item.autoUpdateAuxiliary();
 
       item.transform.zindex = currentTemplate.zIndex.max + 1;
+      delete item.meta.trackId;
     });
     // 因为module的子数据都保存在自己的assets中，所以这里需要把module的子数据添加到template中
     addAssets(assets);
     // 将字数据重新选中到虚拟组
     setMultiSelect(assets);
     setTimeout(() => {
-      assets.forEach((item) => {
+      assets.forEach(item => {
         item.setRtRelativeByParent();
       });
     }, 10);
@@ -259,9 +258,10 @@ export const moduleToMultiSelect = (moduleAsset: AssetClass) => {
 };
 
 export const boxSelection = (box: AssetSizeAndPosition) => {
+  const { scale } = getCanvasInfo();
   const boxRect = calcRectCoords(box);
   const assets = getEditableAssetOnCurrentTime();
-  assets.forEach((item) => {
+  assets.forEach(item => {
     if (!isTempModuleType(item)) {
       const itemRect = getAssetCoords(item);
       if (isAssetInSelectBox(itemRect, boxRect)) {
@@ -281,7 +281,7 @@ export const boxSelectionEnd = () => {
   if (multiSelect.size === 0) {
     assetBlur();
   } else if (multiSelect.size === 1) {
-    multiSelect.forEach((item) => {
+    multiSelect.forEach(item => {
       setEditActive(item);
     });
     MultiSelectHandler.clear();

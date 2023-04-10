@@ -9,7 +9,7 @@ import {
 import { calcRectCoords } from '../store';
 import AssetItemState from '../store/assetHandler/asset';
 import { getAssetInnerDragViewScale } from '../store/assetHandler/utils';
-import { CanvasInfo } from '../typing';
+import { CanvasInfo, SignatureEffectWord } from '../typing';
 
 // 允许选中 但不可操作元素
 export function isNonEditable(asset?: AssetClass) {
@@ -20,9 +20,41 @@ export function isNonEditable(asset?: AssetClass) {
 export function assetIsEditable(asset: AssetClass) {
   if (asset) {
     const { meta } = asset;
+    // 转场动画不可编辑和选中
+    if (meta.isTransfer || meta.isLogo || meta.type === 'effect') {
+      return false;
+    }
+
+    if (config.backgroundEditable) {
+      return !meta.locked;
+    }
 
     return !meta.isBackground && !meta.locked;
   }
+  return false;
+}
+
+/**
+ * @description 判断是否是旧版动画
+ * @param attribute
+ */
+export function isAssetAnimation(attribute?: Attribute) {
+  if (!attribute) return false;
+  const { animation, stayEffect, bgAnimation = { id: 0 } } = attribute;
+  if (animation || bgAnimation || stayEffect) {
+    const animationEnterBaseId = animation?.enter?.baseId ?? 0;
+    const animationExitBaseId = animation?.exit?.baseId ?? 0;
+    const animationStayBaseId = animation?.stay?.baseId ?? 0;
+
+    return (
+      animationEnterBaseId > 0 ||
+      animationExitBaseId > 0 ||
+      animationStayBaseId > 0 ||
+      bgAnimation.id > 0 ||
+      stayEffect
+    );
+  }
+
   return false;
 }
 
@@ -34,16 +66,28 @@ export function isModuleType(asset?: AssetClass) {
   return asset?.meta?.type === 'module';
 }
 
-export function isCrop(asset?: AssetClass) {
-  return asset?.attribute.crop;
-}
-
 /**
  * @description 判断是否是模块类型
  * @param asset
  */
 export function isTempModuleType(asset?: AssetClass) {
   return asset?.meta?.type === '__module';
+}
+
+/**
+ * @description 判断是否是模块类型
+ * @param asset
+ */
+export function isTransferAsset(asset?: AssetClass) {
+  return asset?.meta?.isTransfer;
+}
+
+/**
+ * @description 判断是否是模块类型
+ * @param asset
+ */
+export function isLogoAsset(asset?: AssetClass) {
+  return asset?.meta?.isLogo;
 }
 
 /**
@@ -89,13 +133,63 @@ export function isImageAsset(asset?: AssetClass | Asset) {
   return asset && IMAGE_TYPES.includes(asset.meta.type);
 }
 
+/**
+ * @description 是否是视频元素
+ * @param asset
+ */
+export function isVideoAsset(asset?: AssetClass | Asset) {
+  return asset && VIDEO_TYPES.includes(asset.meta.type);
+}
+
 // 是否允许用户选中
 export function assetIsSelectable(asset: AssetClass | Asset) {
   if (asset) {
     const { meta } = asset;
+    // 转场动画不可编辑和选中
+    if (meta.isTransfer || meta.isLogo || meta.isWatermark) {
+      return false;
+    }
+
+    if (config.backgroundEditable) {
+      return true;
+    }
     return !meta.isBackground;
   }
   return false;
+}
+
+/**
+ * @description 元素在某个时间段是否可编辑
+ * @param asset
+ * @param currentTime
+ */
+export function assetCanEditInTargetTime(
+  asset: AssetClass | undefined,
+  currentTime: number,
+) {
+  if (!asset) {
+    return false;
+  }
+
+  // 如果不允许修改直接返回数据，避免后续计算消耗性能
+  if (asset.meta.hidden) {
+    return false;
+  }
+  const { startTime, endTime } = asset.assetDuration;
+  // 处于播放中
+  return currentTime >= startTime && currentTime < endTime;
+}
+
+/**
+ * @description 元素是否可编辑
+ * @param asset
+ * @param videoStatus
+ */
+export function assetCanEdit(
+  asset: AssetClass | undefined,
+  videoStatus: VideoStatus,
+) {
+  return assetCanEditInTargetTime(asset, videoStatus.currentTime);
 }
 
 /**
@@ -114,7 +208,7 @@ export function assetAlwaysVisible(asset?: AssetClass | Asset) {
  * @param assets
  */
 export function hasTempModuleInAssets(assets: AssetClass[]) {
-  return assets.some((asset) => isTempModuleType(asset));
+  return assets.some(asset => isTempModuleType(asset));
 }
 
 /**
@@ -130,6 +224,18 @@ export function hasRotate(asset?: AssetClass | Asset) {
     return false;
   }
   return rotate % 360 !== 0;
+}
+
+/**
+ * @description 是否是有效数据
+ * @param asset
+ */
+export function isValidAssets(asset?: AssetClass | Asset) {
+  if (!asset) {
+    return false;
+  }
+  const { type, isTransfer, isLogo, isWatermark } = asset.meta;
+  return !isLogo && !isTransfer && !isWatermark;
 }
 
 /**
@@ -185,4 +291,23 @@ export function effectColorfulIsLinear(id: string | number) {
 }
 export function effectTextIsLinear(id: string | number) {
   return CANT_SET_TEXT_ANIMATION.includes(Number(id));
+}
+
+export function canSetTextAnimation(asset?: AssetClass) {
+  if (!asset) {
+    return false;
+  }
+  if (asset?.meta.type !== 'text') {
+    return false;
+  }
+  let sign = true;
+  const { effectColorful, effect } = asset.attribute;
+  if (effectColorful && effectColorful.resId) {
+    sign = !effectColorfulIsLinear(effectColorful.resId);
+  }
+  if (effect) {
+    const effectId = Number(effect.split('@')[0]);
+    sign = !effectTextIsLinear(effectId);
+  }
+  return sign;
 }

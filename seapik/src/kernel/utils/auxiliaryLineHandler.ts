@@ -1,4 +1,10 @@
-import { Auxiliary, AssetBaseSize, Coordinate, Position } from '@kernel/typing';
+import {
+  Asset,
+  Auxiliary,
+  AssetBaseSize,
+  Coordinate,
+  Position,
+} from '@kernel/typing';
 import { calculateRotatedPointCoordinate } from '@kernel/utils/mouseHandler/mouseHandlerHelper';
 import { CSSProperties } from 'react';
 
@@ -92,7 +98,7 @@ function getPointWithRotate(
    * 需要遍历元素坐标，保证newPosition的xy坐标是最小的，newSymmetry的坐标是最大的
    * 否则如果旋转角度不同，计算的结果也会出现差异
    */
-  Object.keys(coordinate).forEach((key) => {
+  Object.keys(coordinate).forEach(key => {
     const item = coordinate[key as keyof typeof coordinate];
     if (item.x < newPosition.x) {
       newPosition.x = item.x;

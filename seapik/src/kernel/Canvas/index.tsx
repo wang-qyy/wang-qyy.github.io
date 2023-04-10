@@ -16,7 +16,7 @@ const Index = observer((props: React.PropsWithChildren<CanvasProps>) => {
   const { canvasInfo, onChange, onError, wholeTemplate = true } = props;
   useEffect(() => {
     setCanvasInfo(canvasInfo);
-  }, [canvasInfo.width, canvasInfo.scale, canvasInfo.height]);
+  }, [canvasInfo.width, canvasInfo.scale, canvasInfo]);
 
   useEffect(() => {
     loadHooks({

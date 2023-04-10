@@ -2,8 +2,8 @@ import fabric from 'fabric';
 import type { Asset, Filters, RGBA, ImageEffects } from '@kernel/typing';
 
 interface FilterBaseValueType {
-  flipX: number;
-  flipY: number;
+  horizontalFlip: number;
+  verticalFlip: number;
   width: number;
   height: number;
 }
@@ -34,8 +34,8 @@ export class HandleFilter {
   };
 
   filterBaseValueListen: FilterBaseValueType = {
-    flipX: 0,
-    flipY: 0,
+    horizontalFlip: 0,
+    verticalFlip: 0,
     width: 0,
     height: 0,
   };
@@ -259,7 +259,7 @@ export class HandleFilter {
 
       let filter_value;
       if (key === 'gamma') {
-        filter_value = filterValueList[key].map((value) => {
+        filter_value = filterValueList[key].map(value => {
           return (value - 1) * strong + 1;
         });
       } else {
@@ -369,7 +369,7 @@ export class HandleFabric {
 
   replaceImageEffect = ({ instances }: { instances: any }) => {
     if (this.imageEffectsInstance) {
-      this.imageEffectsInstance.forEach((item) => {
+      this.imageEffectsInstance.forEach(item => {
         this.canvas && this.canvas.remove(item);
       });
     }
@@ -378,7 +378,7 @@ export class HandleFabric {
 
   updateImageEffect = () => {
     if (this.imageEffectsInstance && this.canvas) {
-      this.imageEffectsInstance.forEach((item) => {
+      this.imageEffectsInstance.forEach(item => {
         this.canvas?.add(item);
         this.canvas?.sendBackwards(item);
       });

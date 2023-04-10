@@ -7,7 +7,7 @@ export function useAssetsSelect() {
   const editAsset = getEditAsset();
   // 移动元素时不显示
   return !(moveAsset || (editAsset && editAsset.tempData.rt_inTransforming))
-    ? multiSelect.map((item) => {
+    ? multiSelect.map(item => {
         return buildGeneralStyleInHandler(item);
       })
     : [];

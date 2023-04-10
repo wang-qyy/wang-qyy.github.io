@@ -88,7 +88,7 @@ export function useMoveInMask(moveAsset?: AssetClass) {
     const maskList = assets.filter(
       (item: AssetClass) => item.meta.type === 'mask' && !item.meta.locked,
     );
-    return orderBy(maskList, (item) => item.transform.zindex, 'desc');
+    return orderBy(maskList, item => item.transform.zindex, 'desc');
   }, [moveAsset]);
 
   // 检查元素是否能碰撞进蒙版
@@ -113,7 +113,7 @@ export function useMoveInMask(moveAsset?: AssetClass) {
     const newMask = assets.filter(
       (item: AssetClass) => !item.meta.locked && item.meta.type === 'mask',
     );
-    newArray.forEach((item) => {
+    newArray.forEach(item => {
       deleteAssetInTemplate(item.meta.id);
     });
     if (newMask.length > 0) {
@@ -121,6 +121,8 @@ export function useMoveInMask(moveAsset?: AssetClass) {
         if (item.tempData.rt_asset) {
           item.update({
             attribute: {
+              aeA: item.tempData?.rt_asset.attribute.aeA,
+              animation: item.tempData?.rt_asset.attribute.animation,
               startTime: item.tempData?.rt_asset.attribute.startTime,
               endTime: item.tempData?.rt_asset.attribute.endTime,
             },
@@ -132,6 +134,8 @@ export function useMoveInMask(moveAsset?: AssetClass) {
 
           const childAsset = item.tempData.rt_asset;
           childAsset.meta.id = newId();
+          childAsset.attribute.aeA = undefined;
+          childAsset.attribute.animation = undefined;
           // 修正蒙版子图层的方案
           childAsset.transform.posX =
             (item.attribute.width - childAsset.attribute.width) / 2;

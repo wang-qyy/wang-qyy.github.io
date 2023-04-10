@@ -9,7 +9,10 @@ import AssetHighlight from '@kernel/Canvas/AssetHighlight';
 import MultiSelect from '@kernel/Canvas/MultiSelect';
 import ModuleItemActive from '@kernel/Canvas/ModuleItemActive';
 import MaskClipper from './MaskClipper';
-import BackgroundCrop from './BackgroundCrop';
+import CameraSelection from './CameraSelection';
+import EditPathAnimation from './EditPathAnimation';
+import PathAnimationAsset from './PathAnimationAsset';
+import WhirlAnimationWrap from './WhirlAnimation';
 
 const CanvasHandler = observer(() => (
   <div className="hc-core-canvas-handler">
@@ -19,10 +22,18 @@ const CanvasHandler = observer(() => (
     <TextEditor />
     {/* <ImageClipper /> */}
     <MaskClipper />
-    <BackgroundCrop />
     <AssetHighlight />
     <MultiSelect />
     <ModuleItemActive />
+    {/* 镜头交互 */}
+    <CameraSelection />
+
+    {/* 停留特效自由打点 */}
+    <EditPathAnimation />
+    {/* 停留特效选中元素展现操作 */}
+    <PathAnimationAsset />
+    {/* 旋转动画设置旋转中心 */}
+    <WhirlAnimationWrap />
   </div>
 ));
 export default CanvasHandler;

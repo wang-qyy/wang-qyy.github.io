@@ -278,14 +278,34 @@ export function getFontNameValueList(): Record<string, string> {
   }
   const fontNameList = getFontNameList();
 
-  Object.keys(fontNameList).forEach((key) => {
+  Object.keys(fontNameList).forEach(key => {
     fontNameValueList[fontNameList[key]] = key;
   });
 
   return fontNameValueList;
 }
 
-export const backupFontFamily = 'Montserrat Light';
+const defaultFontURl = `//js.xiudodo.com/fonts/`;
+
+function isFontLoaded(
+  fontFamily: string,
+  callBack?: (status: boolean) => void,
+) {
+  WebFont.load({
+    custom: {
+      families: [fontFamily],
+    },
+    timeout: 60000,
+    active: () => {
+      callBack && callBack(true);
+    },
+    inactive: () => {
+      callBack && callBack(false);
+    },
+  });
+}
+
+export const backupFontFamily = 'font130';
 
 export function getFontFamilyByFontName(fontFamily: string) {
   const fontNameValueList = getFontNameValueList();

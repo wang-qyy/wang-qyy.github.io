@@ -70,6 +70,8 @@ const TransformHelper = observer(({ asset }: { asset: AssetClass }) => {
   const resizeItem = useMemo<ResizePoint[]>(() => {
     let nodes = unLRTB;
     switch (meta.type) {
+      case 'background':
+      case 'pic':
       case 'image':
       case 'mask':
       case 'SVG':
@@ -83,6 +85,8 @@ const TransformHelper = observer(({ asset }: { asset: AssetClass }) => {
           nodes = [...unLRTB, ...LR];
         }
         break;
+      case 'video':
+      case 'videoE':
       case 'module':
       case '__module':
         nodes = unLRTB;
@@ -197,17 +201,17 @@ const TransformHelper = observer(({ asset }: { asset: AssetClass }) => {
 
 function AssetOnTransform() {
   const editAsset = getEditAsset();
-  const { inMask } = getAssetStatus();
-
+  const { inMask, inAniPath } = getAssetStatus();
   let show =
     editAsset &&
     !editAsset.tempData.rt_hideInCanvas &&
     !inMask &&
+    !editAsset.attribute.rt_previewAeA &&
+    inAniPath === -1 &&
     !isNonEditable(editAsset);
   if (editAsset && isTempModuleType(editAsset)) {
     show = !!editAsset?.assets.length;
   }
-
   return <>{show && <TransformHelper asset={editAsset!} />}</>;
 }
 

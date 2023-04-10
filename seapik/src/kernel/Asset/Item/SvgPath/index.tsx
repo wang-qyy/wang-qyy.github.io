@@ -3,7 +3,7 @@ import { AssetItemProps, SvgInfo } from '@/kernel/typing';
 import StaticPathSvg from '@/kernel/Components/StaticPathSvg';
 import { generatePath, formatToPath } from '@/kernel/utils/svgPath';
 import { RGBAToString } from '@/kernel/utils/single';
-import { getDefaultSvgInfo } from '@kernel/utils/svgHandler';
+import { getDefaultSvgInfo } from '@/components/SvgEditor/options';
 import { observer } from 'mobx-react';
 // import styles from './index.less';
 
@@ -54,8 +54,8 @@ const SvgPath = (props: AssetItemProps) => {
   return (
     <div
       style={{
-        transform: `scaleX(${asset.transform.flipX ? -1 : 1}) scaleY(${
-          asset.transform.flipY ? -1 : 1
+        transform: `scaleX(${asset.transform.horizontalFlip ? -1 : 1}) scaleY(${
+          asset.transform.verticalFlip ? -1 : 1
         })`,
       }}
     >

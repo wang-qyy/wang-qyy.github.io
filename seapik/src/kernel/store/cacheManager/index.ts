@@ -30,6 +30,7 @@ export interface HasDataCached<T> {
 export type SvgCached = HasDataCached<string>;
 export type AeACached = HasDataCached<any>;
 export type FontEffectCached = HasDataCached<any>;
+export type FontEffecttColorfulCached = HasDataCached<any>;
 export type LottieCachedCached = HasDataCached<any>;
 
 class CacheStatus {
@@ -38,35 +39,64 @@ class CacheStatus {
 
   videoStores: Record<string, HTMLVideoElement> = {};
 
+  // 是否可以开始检测音频加载状态
+  @observable audioInitOver = true;
+
+  @observable videoCached: BaseCached = {};
+
   @observable imageCached: BaseCached = {};
+
+  @observable audioCached: BaseCached = {};
 
   @observable fontFamilyCached: BaseCached = {};
 
   @observable svgCached: SvgCached = {};
 
+  @observable aeACached: AeACached = {};
+
   @observable lottieCached: LottieCachedCached = {};
 
   @observable fontEffectCached: FontEffectCached = {};
 
+  @observable fontEffectColorfulCached: FontEffecttColorfulCached = {};
+
   loadedKeys = [
+    'videoLoaded',
     'imageLoaded',
+    'audioLoaded',
     'fontFamilyLoaded',
     'lottieLoaded',
     'svgLoaded',
+    'aeALoaded',
     'fontEffectLoaded',
+    'fontEffectColorfulLoaded'
   ];
 
   loadCachedStateMap = {
+    videoCached: 'videoLoaded',
     imageCached: 'imageLoaded',
+    audioCached: 'audioLoaded',
     fontFamilyCached: 'fontFamilyLoaded',
     lottieCached: 'lottieLoaded',
     svgCached: 'svgLoaded',
+    aeACached: 'aeALoaded',
     fontEffectCached: 'fontEffectLoaded',
+    fontEffectColorfulCached: 'fontEffectColorfulLoaded',
   };
+
+  @computed
+  get videoLoaded() {
+    return this.loadTest(this.videoCached);
+  }
 
   @computed
   get imageLoaded() {
     return this.loadTest(this.imageCached);
+  }
+
+  @computed
+  get audioLoaded() {
+    return this.loadTest(this.audioCached);
   }
 
   @computed
@@ -80,6 +110,11 @@ class CacheStatus {
   }
 
   @computed
+  get aeALoaded() {
+    return this.loadTest(this.aeACached);
+  }
+
+  @computed
   get lottieLoaded() {
     return this.loadTest(this.lottieCached);
   }
@@ -88,12 +123,38 @@ class CacheStatus {
   get fontEffectLoaded() {
     return this.loadTest(this.fontEffectCached);
   }
-
+  @computed
+  get fontEffectColorfulLoaded() {
+    return this.loadTest(this.fontEffectColorfulCached);
+  }
   @computed
   get allLoaded() {
-    if (this.templateInitOver) {
+    // const {
+    //   videoLoaded,
+    //   imageLoaded,
+    //   audioLoaded,
+    //   fontFamilyLoaded,
+    //   svgLoaded,
+    //   aeALoaded,
+    //   fontEffectLoaded,
+    //   lottieLoaded,
+    // } = this;
+    // console.log({
+    //   videoLoaded,
+    //   imageLoaded,
+    //   audioLoaded,
+    //   fontFamilyLoaded,
+    //   svgLoaded,
+    //   aeALoaded,
+    //   fontEffectLoaded,
+    //   lottieLoaded,
+    // });
+    // return videoLoaded && imageLoaded && audioLoaded && fontFamilyLoaded && svgLoaded && aeALoaded && fontEffectLoaded;
+    // 如果元素添加完毕，则开始检测元素load情况
+
+    if (this.templateInitOver && this.audioInitOver) {
       // @ts-ignore
-      return this.loadedKeys.every((key) => this[key]);
+      return this.loadedKeys.every(key => this[key]);
     }
     return false;
   }
@@ -103,7 +164,7 @@ class CacheStatus {
   }
 
   loadTest = (data: any) => {
-    return Object.keys(data).every((key) => {
+    return Object.keys(data).every(key => {
       return data[key].loaded;
     });
   };
@@ -130,7 +191,11 @@ class CacheStatus {
   };
 
   @action
-  setDomCached = (type: 'image', key: string, status?: boolean) => {
+  setDomCached = (
+    type: 'video' | 'audio' | 'image',
+    key: string,
+    status?: boolean,
+  ) => {
     const targetDom = this[`${type}Cached`];
     if (!targetDom[key]?.loaded) {
       targetDom[key] = this.getStatus(status);
@@ -165,6 +230,19 @@ class CacheStatus {
   };
 
   @action
+  setAEACached = (key: string, params?: DataCachedParams) => {
+    this.setCached(this.aeACached, key, params);
+  };
+
+  @action
+  setFontEffectCached = (key: string, params?: DataCachedParams) => {
+    this.setCached(this.fontEffectCached, key, params);
+  };
+  @action
+  setFontEffectColorfulCached = (key: string, params?: DataCachedParams) => {
+    this.setCached(this.fontEffectColorfulCached, key, params);
+  };
+  @action
   setLottieCached = (key: string, params?: DataCachedParams) => {
     this.setCached(this.lottieCached, key, params);
   };
@@ -172,6 +250,11 @@ class CacheStatus {
   @action
   setTemplateInitOver = (status: boolean) => {
     this.templateInitOver = status;
+  };
+
+  @action
+  setAudioInitOver = (status: boolean) => {
+    this.audioInitOver = status;
   };
 }
 

@@ -26,13 +26,13 @@ export function buildPureAssets(assets: AssetClass[]) {
 }
 
 export function buildPureTemplates(templates: TemplateClass[]) {
-  return templates.map((item) => {
+  return templates.map(item => {
     return item.getTemplateCloned();
   });
 }
 
 export function buildPureTemplatesWithRender(templates: TemplateClass[]) {
-  return templates.map((item) => {
+  return templates.map(item => {
     return item.getTemplateClonedWithRender();
   });
 }
@@ -52,22 +52,38 @@ export function formatRawTemplateData(data: RawTemplateData): RawTemplateData {
         pageTime,
         baseTime: baseTime || pageTime,
       },
+      sound: {
+        list: [],
+      },
     },
     templateId: data.templateId,
+    BGMIndex: 0,
   };
 }
 
 export function newMask(child: Asset): Asset {
   const { meta, transform, attribute } = child;
-  const { width, height, container, startTime, endTime, dropShadow } =
-    attribute;
-
+  const {
+    width,
+    height,
+    container,
+    startTime,
+    endTime,
+    aeA,
+    kw,
+    animation,
+    stayEffect,
+    dropShadow,
+  } = attribute;
+  const size = width > height ? height : width;
   const maskData = {
     meta: {
       locked: false,
       index: meta.index,
       name: '',
+      group: '',
       type: 'mask',
+      isQuickEditor: child.meta.isQuickEditor ?? false,
       isClip: false,
     },
     attribute: {
@@ -75,6 +91,10 @@ export function newMask(child: Asset): Asset {
       height,
       startTime,
       endTime,
+      aeA,
+      kw,
+      animation,
+      stayEffect,
       dropShadow,
       assetHeight: 0,
       assetWidth: 0,
@@ -87,8 +107,8 @@ export function newMask(child: Asset): Asset {
     },
     transform: {
       ...transform,
-      flipX: false,
-      flipY: false,
+      horizontalFlip: false,
+      verticalFlip: false,
     },
     assets: [],
   };
@@ -98,13 +118,11 @@ export function newMask(child: Asset): Asset {
     } else {
       runInAction(() => {
         let svgString = '';
-        getSvg(container.source_key).then((res) => {
+        getSvg(container.source_key).then(res => {
           svgString = res;
         });
         svgString = replaceSvgModelPic(svgString);
-        Object.assign(maskData.attribute, {
-          mask: { rt_svgString: svgString, source_key: container.source_key },
-        });
+        maskData.attribute.rt_svgString = svgString;
       });
     }
     maskData.meta.isClip = true;
@@ -161,16 +179,17 @@ export function containerToMask(asset: Asset) {
     height: clipH = 0,
   } = asset.attribute.container || {};
   const { width: imageW = 0, height: imageH = 0 } = asset.attribute || {};
-  const { flipX = false, flipY = false } = asset.transform || {};
+  const { horizontalFlip = false, verticalFlip = false } =
+    asset.transform || {};
 
   let posX = imageX;
   let posY = imageY;
 
-  if (flipX) {
+  if (horizontalFlip) {
     const gap = imageW - clipW - Math.abs(imageX);
     posX = -gap;
   }
-  if (flipY) {
+  if (verticalFlip) {
     const gap = imageH - clipH - Math.abs(imageY);
 
     posY = -gap;
@@ -180,6 +199,9 @@ export function containerToMask(asset: Asset) {
     attribute: {
       ...asset.attribute,
       container: undefined,
+      aeA: undefined,
+      animation: undefined,
+      kw: undefined,
     },
     transform: {
       ...asset.transform,
@@ -310,6 +332,8 @@ export function assetToMask(asset: AssetClass) {
   });
   asset.update({
     attribute: {
+      aeA: undefined,
+      animation: undefined,
       container: undefined,
     },
     transform: {

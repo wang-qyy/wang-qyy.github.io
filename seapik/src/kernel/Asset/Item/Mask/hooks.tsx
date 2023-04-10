@@ -16,13 +16,7 @@ export function useMaskHandler(
   const [loading, setLoading] = useState(true);
   // svg viewBox的尺寸
   const [vSize, setVSize] = useState({ viewBoxWidth: 0, viewBoxHeight: 0 });
-
-  const {
-    width,
-    height,
-    crop,
-    mask: { rt_svgString, source_key } = { rt_svgString: '', source_key: '' },
-  } = attribute;
+  const { width, height, rt_svgString, source_key } = attribute;
 
   function replaceSvg(svg: SVGElement) {
     if (MaskContainer.current) {

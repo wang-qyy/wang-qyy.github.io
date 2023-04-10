@@ -34,7 +34,7 @@ export const checkPdGround = function (config: {
 };
 
 export const loadImage = (url: string) => {
-  return new Promise<HTMLImageElement>((resolve) => {
+  return new Promise<HTMLImageElement>(resolve => {
     const img = new Image();
     img.src = url;
     img.onload = () => {

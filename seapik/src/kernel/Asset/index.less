@@ -12,14 +12,176 @@
     height: 100%;
   }
 
-  .text-asset-render {
-    z-index: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
+  .movie-video-mp4-container {
+    height: 100%;
+
+    .video-element {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  .assetTextEditor {
+    position: relative;
     text-decoration: inherit;
+
+    .specificWordArea {
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      text-decoration: inherit;
+    }
+
+    .mouldText {
+      animation: mymove 2s 2;
+      -moz-animation: mymove 2s 2; /* Firefox */
+      -webkit-animation: mymove 2s 2; /* Safari and Chrome */
+      -o-animation: mymove 2s 2; /* Opera */
+      display: none;
+      position: absolute;
+      width: 100%;
+      height: 100%;
+    }
+
+    .public-DraftStyleDefault-block {
+      // white-space: normal;
+    }
+
+    @keyframes mymove {
+      0% {
+        background: #000d88;
+        opacity: 0.1;
+        border: 1px solid #0ff9dc;
+      }
+
+      50% {
+        background: #000d88;
+        opacity: 0.2;
+        border: 1px solid #0ff9dc;
+      }
+
+      100% {
+        background: #000d88;
+        opacity: 0;
+        border: 1px solid #0ff9dc;
+      }
+    }
+
+    @-moz-keyframes mymove /* Firefox */ {
+      0% {
+        background: #000d88;
+        opacity: 0.1;
+        border: 1px solid #0ff9dc;
+      }
+
+      50% {
+        background: #000d88;
+        opacity: 0.2;
+        border: 1px solid #0ff9dc;
+      }
+
+      100% {
+        background: #000d88;
+        opacity: 0;
+        border: 1px solid #0ff9dc;
+      }
+    }
+
+    @-webkit-keyframes mymove /* Safari and Chrome */ {
+      0% {
+        background: #000d88;
+        opacity: 0.1;
+        border: 1px solid #0ff9dc;
+      }
+
+      50% {
+        background: #000d88;
+        opacity: 0.2;
+        border: 1px solid #0ff9dc;
+      }
+
+      100% {
+        background: #000d88;
+        opacity: 0;
+        border: 1px solid #0ff9dc;
+      }
+    }
+
+    &.isActive:hover {
+      &:after {
+        letter-spacing: initial;
+        content: '双击修改文字';
+        font-family: initial;
+        height: 30px;
+        line-height: 30px;
+        padding: 0 15px;
+        color: #ffffff;
+        -webkit-text-stroke: 0 #ffffff;
+        background: rgba(0, 0, 0, 0.5);
+        border-radius: 4px;
+        white-space: nowrap;
+        position: absolute;
+        top: -40px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 9999;
+        font-size: 12px;
+        text-align: center;
+        writing-mode: horizontal-tb;
+      }
+    }
+
+    .specificWordArea {
+      z-index: 0;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      text-decoration: inherit;
+
+      .specificLayer {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        text-decoration: inherit;
+
+        .specificLayerContent {
+        }
+      }
+    }
+  }
+
+  .movie-assets-animation-container {
+    .movie-animation-AniIn {
+      .movie-animation-rubIn {
+        //擦入
+      }
+
+      .ani-texteffect-writeline {
+        .ani-text-container {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+
+          .specificLayer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            text-decoration: inherit;
+          }
+        }
+      }
+    }
   }
 
   * {

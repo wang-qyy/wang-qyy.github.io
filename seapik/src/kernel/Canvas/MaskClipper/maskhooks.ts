@@ -14,9 +14,7 @@ export function useMaskHandler(asset: AssetClass) {
   // 缩放值
   const [vScale, setVScale] = useState({ scaleX: -1, scaleY: -1 });
 
-  const { width, height } = attribute;
-
-  const { rt_svgString = '', source_key } = attribute.mask || {};
+  const { rt_svgString = '', width, height, source_key } = attribute;
   const [clipPath, setClipPath] = useState('');
 
   function replaceSvg(svg: SVGElement) {
@@ -70,7 +68,7 @@ export function useMaskHandler(asset: AssetClass) {
   function getSvgString() {
     const svgCacheFetch = new CacheFetch('');
     // @ts-ignore
-    svgCacheFetch.getData(source_key, undefined, source_key).then((res) => {
+    svgCacheFetch.getData(source_key, undefined, source_key).then(res => {
       if (res?.stat !== 0 && res?.msg) {
         buildHandler(res?.msg);
       }

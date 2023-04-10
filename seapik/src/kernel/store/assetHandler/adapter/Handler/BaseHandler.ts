@@ -9,9 +9,14 @@ import {
   PageAttr,
   RGBA,
   TemplateBackground,
-  GradientColor,
+  Attribute,
+  AddMaskParams,
+  GradientType,
+  Camera,
 } from '@kernel/typing';
-import { getAssetRtInfo } from '@kernel/store';
+import { assetHandler, getAssetRtInfo } from '@kernel/store';
+import { reportChange } from '@kernel/utils/config';
+import CameraState from '../../template/camera';
 
 export function assetUpdater(
   asset: AssetClass | undefined,
@@ -71,7 +76,7 @@ export function replaceAsset(
 // 修改模板背景颜色
 export function setTemplateBackgroundColor(
   template: TemplateClass,
-  color: RGBA | GradientColor,
+  color: RGBA | GradientType,
 ) {
   template.updateBackgroundColor(color);
 }
@@ -82,4 +87,7 @@ export function setTemplateBackgroundImage(
   data: TemplateBackground['backgroundImage'],
 ) {
   template.updateBackgroundImage(data);
+}
+export function cameraUpdater(camera: CameraState | undefined, data: Camera) {
+  camera?.update(data);
 }

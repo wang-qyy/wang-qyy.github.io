@@ -19,7 +19,7 @@ const SVG = observer(({ asset, canvasInfo }: AssetItemProps) => {
   const colorFormat = useMemo(() => {
     const deepColor = deepCloneJson(asset.attribute?.colors);
     if (deepColor) {
-      Object.keys(deepColor).forEach((key) => {
+      Object.keys(deepColor).forEach(key => {
         if (!deepColor[key]?.id && deepColor[key]) {
           deepColor[key] = {
             // @ts-ignore

@@ -4,7 +4,7 @@ import { CanvasInfo, TransformPosition } from '@kernel/typing';
 import { useEffect, useMemo, useRef } from 'react';
 import { updateCurrentAssetPositionWhenKeyPress } from '@kernel/storeAPI';
 
-export function getVideoCurrentTime() {}
+export function getVideoCurrentTime() { }
 
 // requestAnimationFrame 兼容模式
 export const rAfCallBack = (() => {
@@ -22,7 +22,8 @@ export function getCanvasNode() {
  * @description 键盘箭头操作
  */
 export const useArrowHandler = () => {
-  useKeyPress('ArrowUp', (e) => {
+
+  useKeyPress('ArrowUp', e => {
     e.stopPropagation();
     updateCurrentAssetPositionWhenKeyPress(({ posY }: TransformPosition) => {
       if (e.shiftKey) {
@@ -35,7 +36,7 @@ export const useArrowHandler = () => {
       };
     });
   });
-  useKeyPress('ArrowDown', (e) => {
+  useKeyPress('ArrowDown', e => {
     e.stopPropagation();
     updateCurrentAssetPositionWhenKeyPress(({ posY }: TransformPosition) => {
       if (e.shiftKey) {
@@ -48,7 +49,7 @@ export const useArrowHandler = () => {
       };
     });
   });
-  useKeyPress('ArrowLeft', (e) => {
+  useKeyPress('ArrowLeft', e => {
     e.stopPropagation();
     updateCurrentAssetPositionWhenKeyPress(({ posX }: TransformPosition) => {
       if (e.shiftKey) {
@@ -61,7 +62,7 @@ export const useArrowHandler = () => {
       };
     });
   });
-  useKeyPress('ArrowRight', (e) => {
+  useKeyPress('ArrowRight', e => {
     e.stopPropagation();
     updateCurrentAssetPositionWhenKeyPress(({ posX }: TransformPosition) => {
       if (e.shiftKey) {
@@ -105,10 +106,10 @@ export const useMouseHandler = () => {
   }
 
   useEffect(() => {
-    document.addEventListener('dragend', (e) => {
+    document.addEventListener('dragend', e => {
       MousePositionCanvas();
     });
-    document.addEventListener('drag', (e) => {
+    document.addEventListener('drag', e => {
       // @ts-ignore
       position.current = { left: e.clientX, top: e.clientY };
       MousePositionCanvas();

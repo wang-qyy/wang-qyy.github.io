@@ -25,10 +25,7 @@ export interface TransformerHandlerParams {
   rotate: number;
   aspectRatio: boolean;
   style: TransformerProps['style'];
-  onChange: (
-    style: TransformerProps['style'],
-    distance: { x: number; y: number },
-  ) => void;
+  onChange: (style: TransformerProps['style']) => void;
   onChangeEnd?: (style: TransformerProps['style']) => void;
   type: ResizePoint;
   rectLimit: {
@@ -148,11 +145,7 @@ export interface TransformerProps {
   getRect: () => DOMRect;
   locked?: boolean;
   rotatePoint?: boolean;
-  onChange: (
-    type: ChangeType,
-    style: TransformerChangerParams,
-    distance: { x: number; y: number },
-  ) => void;
+  onChange: (type: ChangeType, style: TransformerChangerParams) => void;
   onChangeEnd?: (type: ChangeType, style: TransformerChangerParams) => void;
   onChangeStart?: (type: ChangeType) => void;
   onClick?: (e: SyntheticEvent) => void;

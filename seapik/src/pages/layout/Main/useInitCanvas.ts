@@ -70,7 +70,7 @@ export default function useCanvasInit() {
       setTemplateInfo(res.data);
       const canvasSize = {
         width: res.data.doc.width,
-        height: res.data.doc.width,
+        height: res.data.doc.height,
       };
       const calcScale = getScale(canvasSize);
 
@@ -82,7 +82,7 @@ export default function useCanvasInit() {
   });
 
   useLayoutEffect(() => {
-    const { pid, source_from, token, draft_id, w, h } = getUrlParams();
+    const { pid, source_from, token, draft_id, w, h, model } = getUrlParams();
 
     if (config.is_designer === 1) {
       if (draft_id) {
@@ -94,14 +94,22 @@ export default function useCanvasInit() {
       }
     } else if (pid && source_from) {
       run({ pid, source_from, token });
+    } else if (model == 'ppt') {
+      const emptySize = { width: 276, height: 176 };
+      addEmptyTemplate(1000);
+      setSize({ ...emptySize, scale: getScale(emptySize) });
     } else if (w && h) {
       // 创建空白模板
       addEmptyTemplate(1000);
-      setSize({
-        width: w,
-        height: h,
-        scale: getScale({ width: w, height: h }),
-      });
+
+      const tempSize = {
+        width: Number(w),
+        height: Number(h),
+        scale: getScale({ width: Number(w), height: Number(h) }),
+      };
+
+      setSize(tempSize);
+
       openImgModal(true);
     } else {
       openErrorModal();

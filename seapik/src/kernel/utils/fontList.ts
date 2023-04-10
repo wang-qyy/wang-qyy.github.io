@@ -265,7 +265,7 @@ export const fontNameToFontFamily: Record<string, string> = {
 };
 export const fontFamilyToFontName: Record<string, string> = (() => {
   const data: Record<string, string> = {};
-  Object.keys(fontNameToFontFamily).forEach((key) => {
+  Object.keys(fontNameToFontFamily).forEach(key => {
     data[fontNameToFontFamily[key]] = key;
   });
 

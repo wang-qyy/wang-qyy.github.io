@@ -1,23 +1,34 @@
+
 {
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  },
   "compilerOptions": {
+    "experimentalDecorators": true,
     "target": "esnext",
     "module": "esnext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
     "importHelpers": true,
     "jsx": "react-jsx",
     "esModuleInterop": true,
     "sourceMap": true,
+    "allowJs": true,
     "baseUrl": "./",
     "strict": true,
+    "types": [
+      "node"
+    ],
     "paths": {
       "@/*": ["src/*"],
       "@@/*": ["src/.umi/*"],
       "@kernel/*": ["src/kernel/*"],
-      "@AssetCore/*": ["src/kernel/Asset/*"]
+      "@AssetCore/*": ["src/kernel/Asset/*"],
+      "@hc/editor-core": ["src/kernel"],
     },
     "allowSyntheticDefaultImports": true,
-    "experimentalDecorators": true
+    "resolveJsonModule": true
   },
   "include": [
     "mock/**/*",

@@ -1,6 +1,6 @@
 import { get } from 'lodash-es';
 import { RGBA } from '../typing';
-import { colorToRGBAObject, rgbaObjToHex, RGBAToString } from './single';
+import { colorToRGBAObject, rbgaObjToHex, RGBAToString } from './single';
 
 const QUERY_KEY = 'CL';
 
@@ -19,10 +19,10 @@ export const setColorById = (colors: Record<string, RGBA>, id?: string) => {
     //   key,
     // );
     if (!elements) return;
-    elements.forEach((ele) => {
+    elements.forEach(ele => {
       // const mask = ele.getAttribute('mask');
       if (ele.tagName === 'g') {
-        ele.childNodes.forEach((e) => {
+        ele.childNodes.forEach(e => {
           // @ts-ignore
           e.style.fill = RGBAToString(val);
           // @ts-ignore
@@ -115,7 +115,7 @@ export function setColorsByJSON(opts: {
     throw new TypeError('Expected an array of layers or shapes');
   }
 
-  layersOrShapes.forEach((el) => {
+  layersOrShapes.forEach(el => {
     // 遮罩模式  数据需要排除掉
     if (el.td === 1) {
       return;
@@ -147,11 +147,11 @@ export function setColorsByJSON(opts: {
 
             // 将lottie的色值转为rgb色值
             [r, g, b] = color.slice(0, 3);
-            if ([r, g, b].every((v) => v <= 1)) {
-              [r, g, b] = [r, g, b].map((c) => fromUnitVector(c));
+            if ([r, g, b].every(v => v <= 1)) {
+              [r, g, b] = [r, g, b].map(c => fromUnitVector(c));
             }
             a = color['3'];
-            const hex = rgbaObjToHex({ r, g, b, a }, '').toLocaleUpperCase();
+            const hex = rbgaObjToHex({ r, g, b, a }, '').toLocaleUpperCase();
             // 如果json文件中有cl标记，就用标记作为key，没有就用当前颜色的十六进制作为key，颜色相同的会合并为同一类
             // key = shape.cl || `${shape.ty}-${hex}`;
             key = shape.cl || `#${hex}`;

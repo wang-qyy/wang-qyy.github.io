@@ -1,4 +1,4 @@
-import { GradientColor, RGBA } from '@/kernel/typing';
+import { GradientType, RGBA } from '@/kernel/typing';
 import { assetIdPrefix } from '@/kernel/utils/const';
 import { RGBAToString } from '@/kernel/utils/single';
 import { SVGProps } from 'react';
@@ -8,12 +8,12 @@ const StaticPathSvg = (props: {
   width: number;
   height: number;
   path: string;
-  fill: RGBA | GradientColor;
+  fill: RGBA | GradientType;
   attr: SVGProps<SVGPathElement>;
   id?: number;
 }) => {
   const { width, height, path, attr, fill, id } = props;
-  const gradientFill = fill as GradientColor;
+  const gradientFill = fill as GradientType;
   const { x1, y1, x2, y2 } = gradientFill.coords || {};
   const isGradient = !!gradientFill.colorStops;
   const fillId = isGradient ? getId(gradientFill) : '';
@@ -41,7 +41,7 @@ const StaticPathSvg = (props: {
       >
         {isGradient && (
           <linearGradient id={fillId} x1={x1} y1={y1} x2={x2} y2={y2}>
-            {gradientFill.colorStops.map((stop) => (
+            {gradientFill.colorStops.map(stop => (
               <stop
                 key={stop.offset}
                 offset={stop.offset}

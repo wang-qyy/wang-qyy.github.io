@@ -4,7 +4,7 @@ import {
   AssetCoordinate,
   calculateRotatedPointCoordinate,
   positionToCoordinate,
-  coordinateToPosition,
+  coordinateTOPosition,
 } from '@kernel/utils/mouseHandler/mouseHandlerHelper';
 
 export function getEmptyContainer() {
@@ -118,7 +118,7 @@ export class ImageClipperHandler {
         -rotate,
       );
 
-      Object.assign(style, coordinateToPosition(originAttributePosition));
+      Object.assign(style, coordinateTOPosition(originAttributePosition));
     }
     return style;
   };

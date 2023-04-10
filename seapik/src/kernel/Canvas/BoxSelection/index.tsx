@@ -9,9 +9,9 @@ export interface BoxSelectionRef {
 const BoxSelection = forwardRef<BoxSelectionRef, {}>((props, ref) => {
   const { onMouseDown, style, wrapperRef } = useBoxSelection();
 
-  // useImperativeHandle(ref, () => ({
-  //   onMouseDown,
-  // }));
+  useImperativeHandle(ref, () => ({
+    onMouseDown,
+  }));
   return (
     <div className="hc-boxSelection-wrapper" ref={wrapperRef}>
       <div className="hc-boxSelection" style={style} />

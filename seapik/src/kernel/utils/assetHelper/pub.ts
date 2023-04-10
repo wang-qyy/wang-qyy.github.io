@@ -6,7 +6,6 @@ import { AssetClass } from '@/kernel';
  */
 export function buildGeneralStyle(asset: AssetClass) {
   const { rotate, opacity, zIndex } = asset.assetTransform;
-
   return {
     ...asset.containerSize,
     ...asset.assetPosition,

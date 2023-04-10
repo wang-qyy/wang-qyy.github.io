@@ -1,10 +1,11 @@
 import { action, makeObservable, observable, computed } from 'mobx';
 import { drop, dropRight } from 'lodash-es';
 import { deepCloneJson } from '@kernel/utils/single';
-import { RawTemplateWithRender } from '@/kernel/typing';
+import { MultipleAudio, RawTemplateWithRender } from '@/kernel/typing';
 
 export interface RecordData {
   templates: RawTemplateWithRender[];
+  audios: MultipleAudio[];
 }
 
 class HistoryRecord {

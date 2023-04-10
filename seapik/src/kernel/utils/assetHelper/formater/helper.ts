@@ -3,6 +3,7 @@ import { newId } from '@kernel/utils/idCreator';
 
 import { getFontEffectId } from '@kernel/utils/StandardizedTools';
 import {
+  preGetAea,
   preGetFontEffect,
   preGetFontFamily,
   preGetLottie,
@@ -39,7 +40,7 @@ export function asyncCompose(
 }
 
 export function compose(ctx: any, middlewares: Array<(ctx: any) => void>) {
-  middlewares.forEach((mid) => {
+  middlewares.forEach(mid => {
     mid(ctx);
   });
   return ctx;
@@ -92,6 +93,8 @@ module AssetHelper {
             attribute.fontFamily = 'fnsyhtRegular';
           }
           break;
+        case 'pic':
+        case 'background':
       }
     }
   };
@@ -100,6 +103,18 @@ module AssetHelper {
     const { isInit, asset } = ctx;
     if (isInit) {
       const { attribute } = asset;
+      if (attribute.aeA) {
+        Object.keys(attribute.aeA).forEach(key => {
+          // @ts-ignore
+          const current = attribute.aeA[key];
+          if (current.resId && !current.kw) {
+            preGetAea(current.resId);
+          }
+          if (current.kw && typeof current.kw === 'string') {
+            current.kw = JSON.parse(current.kw);
+          }
+        });
+      }
 
       if (attribute.container?.source_key) {
         preGetSvg(attribute.container.source_key);

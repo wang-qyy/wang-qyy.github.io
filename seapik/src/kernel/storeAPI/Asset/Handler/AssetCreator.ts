@@ -46,12 +46,12 @@ interface AddModuleParams {
 }
 
 export async function addModule(params: AddModuleParams) {
-  const { assets, resId } = params;
+  const { assets, resId, moduleDuration, startTime, endTime } = params;
   const { currentTemplate } = assetHandler;
   const assetClasses: AssetClass[] = [];
   await Promise.all(
     assets.map((item, index) =>
-      getAssetRtInfo(item, true).then((res) => {
+      getAssetRtInfo(item, true).then(res => {
         assetClasses[index] = new AssetItemState(item);
       }),
     ),
@@ -63,7 +63,7 @@ export async function addModule(params: AddModuleParams) {
 
   moduleClass.setModuleStyleByChildren();
 
-  moduleClass.assets.forEach((item) => {
+  moduleClass.assets.forEach(item => {
     item.setParent(moduleClass);
     assetAbsoluteToRelative(moduleClass, item);
     item.setRtRelativeByParent();
@@ -88,6 +88,8 @@ export async function addModule(params: AddModuleParams) {
     };
   }
 
+  console.log(currentTemplate.maxZIndex);
+
   moduleClass.update({
     transform: {
       zindex: currentTemplate.maxZIndex + 1,
@@ -100,11 +102,17 @@ export async function addModule(params: AddModuleParams) {
   moduleClass.update({
     attribute: {
       resId,
+      originDuration: moduleDuration,
       ...resize,
     },
     transform: newPosition,
   });
 
+  // 更新时间
+  moduleClass.updateAssetDuration({
+    startTime,
+    endTime,
+  });
   addAssetClassInTemplate(moduleClass, getCurrentTemplate());
 
   reportChange('addModule', true);

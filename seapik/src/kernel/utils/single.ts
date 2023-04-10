@@ -4,10 +4,12 @@ import { CSSProperties, SyntheticEvent, useRef } from 'react';
 import { throttle, toNumber } from 'lodash-es';
 import {
   Asset,
+  AssetBaseSize,
   AssetTime,
   DataType,
-  GradientColor,
+  GradientType,
   RGBA,
+  VideoStatus,
 } from '@kernel/typing';
 import { PlayStatus } from '@kernel/utils/const';
 /**
@@ -79,7 +81,7 @@ export async function fetchHelper(
   if (params) {
     if (config.method === 'GET') {
       const query: string[] = [];
-      Object.keys(params).forEach((key) => {
+      Object.keys(params).forEach(key => {
         // @ts-ignore
         query.push(`${key}=${params[key]}`);
       });
@@ -102,7 +104,7 @@ export class CacheFetch {
   // eslint-disable-next-line no-undef
   fetchConfig: RequestInit = { method: 'GET' };
 
-  formatData: FormatData = (res) => {
+  formatData: FormatData = res => {
     if (res.stat === 1) {
       return {
         data: res,
@@ -162,6 +164,204 @@ export class CacheFetch {
     }
     this.resources.set(cacheKey, this.fetch(cacheKey, params, url));
     return this.getData(cacheKey);
+  };
+}
+
+export class MediaElementHandler {
+  node: HTMLAudioElement | HTMLVideoElement;
+
+  playStatus: PlayStatus = PlayStatus.Stopped;
+
+  playPromise?: Promise<void>;
+
+  startTime: number;
+
+  endTime: number;
+
+  cst = 0;
+
+  cet = 0;
+
+  isLoop = false;
+
+  volume?: number;
+
+  speed?: number;
+
+  constructor(
+    node: HTMLAudioElement | HTMLVideoElement,
+    option: {
+      startTime: number;
+      endTime: number;
+      volume?: number;
+      cst?: number;
+      cet?: number;
+      isLoop?: boolean;
+    },
+  ) {
+    this.node = node;
+    this.startTime = option.startTime;
+    this.endTime = option.endTime;
+    this.setVideoClip(option, 0);
+    this.setLoop(!!option.isLoop);
+    this.setVolume(option.volume ?? 0);
+    this.node.ontimeupdate = this.onTimeUpdate;
+  }
+
+  setVideoClip = (
+    { cst, cet }: { cst?: number; cet?: number },
+    currentTime: number,
+  ) => {
+    this.cst = cst ?? 0;
+    this.cet = cet ?? this.node.duration * 1000;
+    this.correctCurrentTime(currentTime, 'setVideoClip');
+  };
+
+  setVideoDuration = ({ startTime, endTime }: AssetTime) => {
+    this.startTime = startTime;
+    this.endTime = endTime;
+  };
+
+  setLoop = (loop: boolean) => {
+    this.isLoop = loop;
+    this.node.loop = this.isLoop;
+  };
+
+  getCurrentTime = (currentTime: number) => {
+    const result = currentTime - this.startTime;
+    return result > 0 ? result : 0;
+  };
+
+  onTimeUpdate = (event: Event) => {
+    // @ts-ignore
+    const { currentTime } = event.currentTarget;
+    const startTime = this.cst / 1000;
+    const endTime = this.cet / 1000;
+    // console.log("onTimeUpdate", this.cst, currentTime);
+    if (currentTime > endTime) {
+      if (this.isLoop) {
+        this.node.currentTime = startTime;
+      } else {
+        if (!this.node.paused) {
+          this.node.pause();
+          this.node.currentTime = endTime;
+        }
+      }
+    }
+  };
+
+  protected getVideoDuration = () => {
+    return this.cet - this.cst;
+  };
+
+  /**
+   * @description 纠正当前的播放时间
+   * @param currentTime
+   * @param type 类型
+   */
+  protected correctCurrentTime = (currentTime: number, type?: string) => {
+    const duration = this.getVideoDuration();
+
+    const residue =
+      (duration
+        ? this.getCurrentTime(currentTime) % duration
+        : this.getCurrentTime(currentTime)) + this.cst;
+
+    this.node.currentTime = residue / 1000;
+  };
+
+  protected throttleCorrectCurrentTime = throttle(this.correctCurrentTime, 100);
+
+  setVolume = (volume: number) => {
+    if (this.volume !== volume) {
+      this.volume = volume;
+      this.node.volume = this.volume;
+    }
+  };
+
+  setSpeed = (speed: number) => {
+    if (this.speed !== speed) {
+      this.speed = speed;
+      this.node.playbackRate = this.speed;
+    }
+  };
+
+  play = (currentTime: number) => {
+    if (this.playStatus !== PlayStatus.Playing) {
+      this.playStatus = PlayStatus.Playing;
+      this.playPromise = this.node.play();
+      const startMark = Date.now();
+      this.playPromise.then(() => {
+        this.playPromise = undefined;
+        // 因为播放是异步的，所以需要在真正播放开始后，矫正播放时间
+        this.correctCurrentTime(currentTime + Date.now() - startMark);
+      });
+    }
+  };
+
+  pause = async (currentTime: number) => {
+    if (this.playStatus !== PlayStatus.Paused) {
+      if (this.playPromise) {
+        this.playPromise.then(() => {
+          this.playStatus = PlayStatus.Paused;
+          this.node.pause();
+          this.playPromise = undefined;
+        });
+      } else {
+        this.playStatus = PlayStatus.Paused;
+        this.node.pause();
+      }
+      this.correctCurrentTime(currentTime, 'pause');
+    } else {
+      this.throttleCorrectCurrentTime(currentTime, 'pause');
+    }
+  };
+
+  stop = () => {
+    if (this.playStatus !== PlayStatus.Stopped) {
+      this.playStatus = PlayStatus.Stopped;
+      this.node.pause();
+      setTimeout(() => {
+        this.correctCurrentTime(0, 'stop');
+      }, 50);
+    }
+  };
+}
+
+/**
+ * @description video或aideo控制器
+ * @param startTime
+ * @param endTime
+ * @param option
+ */
+export function useMediaElementHandler(
+  startTime: number,
+  endTime: number,
+  option: {
+    volume?: number;
+    cst?: number;
+    cet?: number;
+    isLoop?: boolean;
+  },
+) {
+  const targetRef = useRef<HTMLVideoElement | null>(null);
+  const playerHelper = useRef<MediaElementHandler>();
+
+  function loadHandler() {
+    if (targetRef.current) {
+      playerHelper.current = new MediaElementHandler(targetRef.current, {
+        startTime,
+        endTime,
+        ...option,
+      });
+      return playerHelper.current;
+    }
+  }
+
+  return {
+    targetRef,
+    loadHandler,
+    playerHelper: playerHelper.current,
   };
 }
 
@@ -268,7 +468,7 @@ export function hex(n: number) {
  * @param rgba
  * @returns
  */
-export const rgbaObjToHex = (rgba: RGBA, prefix = '#') => {
+export const rbgaObjToHex = (rgba: RGBA, prefix = '#') => {
   let { r, g, b } = rgba;
   const { a = 1 } = rgba;
   r = Math.floor(r * a);
@@ -277,7 +477,7 @@ export const rgbaObjToHex = (rgba: RGBA, prefix = '#') => {
   return `${prefix}${hex(r)}${hex(g)}${hex(b)}`;
 };
 
-export function colorToRGBAObject(color: string): RGBA {
+export function colorToRGBAObject(color: string) {
   const reg = /^#([0-9a-fA-f]{3}|[0-9a-fA-f]{6})$/;
   if (color && reg.test(color)) {
     color = color.toLowerCase();
@@ -295,7 +495,7 @@ export function colorToRGBAObject(color: string): RGBA {
     }
     return { r: rbga[0], g: rbga[1], b: rbga[2], a: 1 };
   }
-  return { r: 255, g: 255, b: 255, a: 0 };
+  return {};
 }
 
 /**
@@ -379,7 +579,7 @@ export function getCoorsByAngle(angle: number) {
 }
 
 // 计算svg的描边样式类型
-export function analyDashTypeBSvg(type: string | [], width: number) {
+export function analyDashTypeBSvg(type: String | Array, width: number) {
   if (type) {
     const SVGDashString = ['0,0', '0,1', '0,2', '1,1', '1,2', '2,1', '2,2'];
     if (typeof type === 'string') {
@@ -394,7 +594,7 @@ export function analyDashTypeBSvg(type: string | [], width: number) {
       const stringDasg = `${toNumber(type[0]) / width},${
         toNumber(type[1]) / width
       }`;
-      return SVGDashString.findIndex((item) => item === stringDasg);
+      return SVGDashString.findIndex(item => item === stringDasg);
     }
     return -1;
   }
@@ -486,21 +686,15 @@ export function mouseMoveDistance(
  * @param effData
  * @returns
  */
-export function transferGradientToString(effData: GradientColor) {
+export function transferGradientToString(effData: GradientType) {
   const data = JSON.parse(JSON.stringify(effData));
-
   data.colorStops.sort((a: any, b: any) => {
     return a.offset - b.offset;
   });
   data.angle = angleCanvasToDom(data.angle);
-  let temp =
-    data.type === 'linear'
-      ? `linear-gradient(${data.angle}deg,`
-      : `radial-gradient(farthest-side,`;
-
+  let temp = `linear-gradient(${data.angle}deg,`;
   data.colorStops.forEach((element, index) => {
     let setColor = element.color;
-
     if (setColor) {
       if (typeof setColor !== 'string') {
         setColor = RGBAToString(setColor);

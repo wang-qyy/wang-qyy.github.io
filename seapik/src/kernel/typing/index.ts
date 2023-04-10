@@ -5,7 +5,8 @@ import { PlayStatus } from '@kernel/utils/const';
 import { Property } from 'csstype';
 
 export type Direction = 'l' | 'r' | 't' | 'b' | 'lt' | 'lb' | 'rt' | 'rb';
-
+// after:模板播放结束后衔接转场  before:模板播放前衔接转场
+export type TransferLocation = 'after' | 'before';
 export type AssetClass = AssetItemState;
 export type TemplateClass = TemplateItemState;
 export type Assets = Asset[];
@@ -37,6 +38,7 @@ export interface VideoStatus {
   currentTime: number;
   previewCurrentTime?: number;
   currentTimeWithClip?: number;
+  speed?: number;
   // 播放音量
   volume?: number;
 }
@@ -218,6 +220,7 @@ export interface AssetTempUpdateParams {
     isMaskCenter?: boolean;
   };
   rt_style?: Rt_style;
+  rt_previewStayEffect: boolean;
 }
 export interface Rt_style {
   width: number;
@@ -241,6 +244,7 @@ export interface Asset {
 
 export interface AssetWithRender extends Asset {
   assets?: AssetWithRender[];
+  isAea: boolean;
   assetTransform: {
     rotate: number;
     opacity: number;
@@ -252,6 +256,8 @@ export interface AssetWithRender extends Asset {
   containerSizeScale: AssetBaseSize;
   assetSizeScale: AssetBaseSize;
   assetPosition: Position;
+  animationItemPbr: Record<keyof AeA, number>;
+  animationItemDuration: Record<keyof AeA, number>;
   fontFamily: string;
   fontSizeScale: number;
   assetDuration: AssetTime;
@@ -281,6 +287,12 @@ export interface AnimationTiming {
   baseId: number;
   details: { direction: number };
   duration: number;
+}
+
+export interface Animation {
+  enter: AnimationTiming;
+  exit: AnimationTiming;
+  stay?: AnimationTiming;
 }
 
 export interface EffectVariant {
@@ -422,17 +434,16 @@ export type AssetGravity =
   | 'sw' // 左下
   | 'south' // 中下
   | 'se'; // 右下
+// 路径动画类型
+export type FreePathType = 'bessel' | 'line';
 
 interface ColorStop {
   color: RGBA;
-  offset: number; // [0~1]
+  offset: number;
 }
 
-export type ColorType =
-  | 'radial' // 径向渐变
-  | 'linear'; // 现行渐变
-export interface GradientColor {
-  type: ColorType;
+export interface GradientType {
+  type: string;
   angle: number;
   colorStops: ColorStop[];
   coords: {
@@ -444,7 +455,7 @@ export interface GradientColor {
 }
 
 export interface SvgInfo {
-  fill: RGBA | GradientColor; // 填充颜色
+  fill: RGBA | GradientType; // 填充颜色
   radius?: number; // 圆角
   pathItems?: PathItem[];
   closed?: boolean; // 是否闭合路径
@@ -470,7 +481,7 @@ export interface EffectInfo {
   background?: RGBA; // 叠加颜色 目前没有实现渐变色
 }
 export interface QrcodeInfo {
-  foreground: RGBA | GradientColor; // 前景颜色
+  foreground: RGBA | GradientType; // 前景颜色
   background: RGBA; // 背景颜色
   pdGround?: RGBA; // 三个角的颜色
   text: string; // 文本内容
@@ -481,50 +492,17 @@ export interface QrcodeInfo {
   iconType?: string; // 当为custom时，为上传自定义，根据resId生成的rt_url值
 }
 
-export interface Outline {
-  color: RGBA;
-  width: number;
-}
-
-interface TextAttribute {
-  color: RGBA | GradientColor;
-  // 备份字体，用作候补字体
-  rt_backupFontFamily?: string;
-  fontSize?: number;
-  fontWeight?: CSSProperties['fontWeight'];
-  letterSpacing?: number;
-  lineHeight?: number;
-  text?: string[];
-  textAlign?: CSSProperties['textAlign'];
-  writingMode?: 'horizontal-tb' | 'vertical-rl';
-  fontStyle?: string;
-  textDecoration?: string;
-  effect?: string;
-  effectVariant?: EffectVariant;
-  fontFamily?: string;
-  rt_fontFamily_important?: string;
-  // 字体背景色块信息
-  textBackground?: {
-    // 是否开启
-    enabled: boolean;
-    // 颜色
-    color: RGBA;
-    // 不透明度
-    opacity: number;
-    // 圆角
-    borderRadius: number;
-  };
-
-  outline?: Outline;
-}
-
-export interface Attribute extends TextAttribute {
+export interface Attribute {
   svgInfo?: SvgInfo;
   qrcodeInfo?: QrcodeInfo;
   attribute: any[];
   effectInfo?: EffectInfo;
   class_id: any[];
   endTime: number;
+  // 组元素的设计持续时长，用于动态计算缩放后的组元素以及子元素的动画、持续时长
+  originDuration?: number;
+  // 根据动画时间与出入场时间计算出实际的时间轴节点
+  rt_assetTime: AssetTime;
   height: number;
   resId?: string;
   gid?: string;
@@ -544,24 +522,48 @@ export interface Attribute extends TextAttribute {
   };
   rt_url: string;
   rt_frame_file?: string; // gif和视频动画数据
+  // 视频相关元素是否加载完成
+  rt_isloaded: boolean;
+  rt_ready: boolean;
   // 表示lottie的加载状态
   rt_lottieLoaded: boolean;
-  colors: Record<string, RGBA>;
-
+  // 图表类型
+  chartBaseId?: number;
   startTime: number;
   width: number;
   // 裁剪开始时间
   cst?: number;
   // 裁剪结束时间
   cet?: number;
-  crop?: CropInfo; // 裁剪数据
-  mask: MaskInfo; // 形状（SVG）裁剪 数据
-
+  animation?: Animation;
+  bgAnimation?: BgAnimation;
+  // 动画预览
+  rt_previewAnimation?: Animation;
+  writingMode?: 'horizontal-tb' | 'vertical-rl';
+  color?: RGBA;
+  fontStyle?: string;
+  textDecoration?: string;
+  colors: Record<string, RGBA>;
+  effect?: string;
+  effectVariant?: EffectVariant;
+  rt_fontFamily_important?: string;
+  fontFamily?: string;
   // 新增视频的音量
   videoVolume?: number;
   volume?: number; // 音量
   voiced?: boolean; // 是否有声音
-
+  // 备份字体，用作候补字体
+  rt_backupFontFamily?: string;
+  fontSize?: number;
+  fontWeight?: CSSProperties['fontWeight'];
+  letterSpacing?: number;
+  lineHeight?: number;
+  text?: string[];
+  textAlign?: CSSProperties['textAlign'];
+  cropXFrom?: number;
+  cropYFrom?: number;
+  cropXTo?: number;
+  cropYTo?: number;
   loopTimes?: number;
   isLoop?: boolean;
   filters?: Partial<Filters>;
@@ -581,13 +583,32 @@ export interface Attribute extends TextAttribute {
   textEditor?: any[];
   imageEffects?: ImageEffects;
   // todo 待完善类型
+  kw?: AeAKw;
+  aeA?: AeA;
   // 由于在某些动画下，元素的实际位置与现实位置不一致，所以需要根据变形值，计算出实际的数据
   rt_kwTransform_matrix?: CSSProperties['transform'];
-
+  // 动画预览
+  rt_previewAeA?: AeA;
+  // 如果是视频，判断是否是用户上传的视频
+  isUser?: boolean;
+  // 花字 信息
+  effectColorful?: SignatureEffectWord;
   SVGUrl?: string;
   // svg改变之后的dom信息
   rt_svgString?: string;
   svgStrokes?: SVGStrokes;
+  // 字体背景色块信息
+  textBackground?: {
+    // 是否开启
+    enabled: boolean;
+    // 颜色
+    color: RGBA;
+    // 不透明度
+    opacity: number;
+    // 圆角
+    borderRadius: number;
+  };
+  originResId?: string | number; // 原始 ResId
   mattingPicId?: string; // 抠图 ResId
   rt_relativeTime: { start: number; end: number };
   // logo 属性
@@ -595,7 +616,104 @@ export interface Attribute extends TextAttribute {
   gravity?: AssetGravity; // 位置
   scale?: number;
   rt_blob_url?: string; // 滤镜图片的临时url地址,单片段画布画布
+
+  transition: {
+    key: string;
+    type: string; // 类型
+  }; // 转场的裁剪动画信息
   totalTime: number; // 转场时长
+
+  // 停留特效
+  stayEffect?: {
+    // 动画时长
+    duration: number;
+    // 路径动画信息
+    graph?: {
+      key: string;
+      width: number;
+      height: number;
+      x: number;
+      y: number;
+      // 速度
+      easing: number;
+      // 是否循环
+      loop: boolean;
+      points: number[][];
+      // 路径类型 bessel:贝塞尔曲线 line:直线
+      freePathType: FreePathType;
+      // 动画每个节点的信息 默认只有终点信息 即长度始终为1
+      toBounds: PathBound[];
+    };
+    // 旋转抖动动画信息
+    attach?: {
+      // Whirl:旋转 shake:抖动
+      type: 'Whirl' | 'shake';
+      data: {
+        position?: {
+          left: number;
+          top: number;
+        };
+        // 速度
+        speed: number;
+        // 是否顺时针
+        ccw?: boolean;
+        // 方向
+        direction?: number;
+        // 振幅
+        amplitude?: number;
+      };
+    };
+  };
+}
+export interface PathBound {
+  width: number;
+  height: number;
+  rotate: number;
+  opacity: number;
+}
+
+export interface AeaKwKsP {
+  x: { a: number; k: number[] };
+  y: { a: number; k: number[] };
+  z: { a: number; k: number[] };
+}
+
+export interface AeaKwKsK {
+  a: number;
+  k: number[];
+}
+
+export interface AeAKw {
+  ip: number;
+  ks: {
+    a: AeaKwKsK;
+    o: AeaKwKsK;
+    p: AeaKwKsP;
+    r: AeaKwKsK;
+    s: AeaKwKsK;
+  };
+  isText?: boolean;
+  textDelay?: number;
+  op: number;
+  direction?: Direction;
+  ofh?: boolean;
+  // transform-origin
+  tfo?: Direction;
+}
+
+export interface AeAItem {
+  kw?: AeAKw;
+  pbr: number;
+  resId?: string;
+  title?: string;
+  animationType?: string;
+  duration?: number;
+}
+
+export interface AeA {
+  i: AeAItem;
+  o: AeAItem;
+  s: AeAItem;
 }
 
 export interface ContentInfoItem {
@@ -615,12 +733,19 @@ export interface ContentInfoItem {
  * __type 为暂用节点，一般用于暂时使用，会在某一个时间节点卸载，不能用于保存等操作，会在提交保存时过滤
  */
 export type AssetType =
+  | 'videoE' // 视频
   | 'image' // 图片
+  | 'background' //
+  | 'pic' // 图片
   | 'SVG' // svg
+  | 'group' // 图怪兽组
   | 'module' // 组
   | '__module' // 临时组
   | 'container' //
+  | 'chart' //
+  | 'table' //
   | 'lottie' // lottie
+  | 'video' // 视频 mp4 分帧 webm(请求接口拿分帧)
   | 'text' // 文字
   | 'mask' // 蒙版
   | 'svgPath' // 自由绘制的svg
@@ -648,23 +773,18 @@ export interface PathItem {
   cornerType?: CornerType; // 拐角类型 作用于结束点和下一个元素的开始点
 }
 
-export interface CropInfo {
-  position: { x: number; y: number };
-  size: { width: number; height: number }; // 原始尺寸
-}
-
-export interface MaskInfo {
-  rt_svgString: string;
-  source_key: string;
-}
-
 export interface Meta {
+  group?: string;
   id: number;
   isBackground?: boolean;
+  isWatermark?: boolean;
+  isLogo?: boolean;
+  isQuickEditor?: boolean;
   isTextEditor?: boolean;
   isImageEditor?: boolean;
   // 是否贯通展示(相对于父级）元素贯穿后，startTime  endTime无意义
   isAlwaysVisible?: boolean;
+  transferLocation?: TransferLocation;
   // 是否是转场效果
   isTransfer?: boolean;
   locked?: boolean;
@@ -680,6 +800,7 @@ export interface Meta {
   // 是否阻止事件触发
   rt_disabledEvent?: boolean;
   isClip?: boolean;
+  trackId?: string;
   replaced?: boolean; // 是否被替换过
   overlayType?: OverlayType; // 视频滤镜资源类型
   isOverlay?: boolean; // 是否是视频特效
@@ -689,10 +810,11 @@ export interface Transform {
   posX: number;
   posY: number;
   rotate: number;
+  // 图怪兽原始数据格式非驼峰
   zindex: number;
   alpha?: number;
-  flipX?: boolean;
-  flipY?: boolean;
+  horizontalFlip?: boolean;
+  verticalFlip?: boolean;
 }
 
 export interface ModuleTempData {
@@ -736,6 +858,22 @@ export interface AssetLoadType {
   rt_assetLoadComplete: boolean;
   rt_assetLoadFailed: boolean;
 }
+
+export interface Audio {
+  endTime: number;
+  isLoop: boolean;
+  resId: string;
+  rt_duration: number;
+  rt_title: string;
+  rt_url: string;
+  selfDuration: number;
+  selfStartTime: number;
+  startTime: number;
+  volume: number;
+  rt_loadInfo: AssetLoadType;
+}
+
+export type Audios = Audio[];
 
 export interface ReplaceClipSvgParams {
   id: string;
@@ -846,10 +984,18 @@ export interface CanvasStatus {
 
   // 隐藏选中框
   hideTransformerBox: boolean;
+
+  // 是否显示镜头画布交互内容
+  inCamera: boolean;
+  // 路径动画的状态 -1: 为处于使用路径动画 0:正在绘制路径点 1:编辑路径点 2:显示路径动画首尾结点编辑
+  inAniPath: number;
+
+  // 旋转动画 true：正在设置旋转中心点
+  inWhirl: boolean;
 }
 
 export interface TemplateBackground {
-  backgroundColor: RGBA | GradientColor;
+  backgroundColor: RGBA | GradientType;
   backgroundImage: {
     resId: '';
     rt_imageUrl: '';
@@ -871,6 +1017,7 @@ export interface TemplateVideoInfo {
   // [开始部分裁剪的长度,结束部分裁剪的长度]
   offsetTime?: VideoClip;
   allAnimationTimeBySpeed: number; // 倍速后的片段时长
+  speed?: number; // 视频倍速
 }
 
 export type CutInfo = AssetTime;
@@ -886,12 +1033,19 @@ export interface PageAttr {
     baseTime: number;
     offsetTime?: VideoClip;
     rt_preview_image: string;
-    tid?: string;
+    rt_preview_video: string;
+    tid: string;
+    speed?: number;
   };
+  sound: {
+    list: Audios;
+  };
+  audios?: MultipleAudioObject;
+  aqe?: Array<Array<number>>;
 }
 
 export interface EventHooks {
-  onChange?: (asset: Asset | string, needSave?: boolean) => void;
+  onChange?: (asset: Asset | Audio | string, needSave?: boolean) => void;
   onError?: (asset: Asset, error?: any) => void;
 }
 
@@ -900,6 +1054,15 @@ export interface TransformPosition {
   posX: number;
 }
 
+export interface Camera extends TransformPosition {
+  width: number;
+  height: number;
+  startTime: number;
+  endTime: number;
+  // 速度曲线 暂时没用
+  easing: string;
+  scale: number;
+}
 export interface RawTemplateData {
   canvas?: {
     width: number;
@@ -913,6 +1076,8 @@ export interface RawTemplateData {
   preview?: string;
   preview_url?: string;
   small_url?: string;
+  BGMIndex?: number;
+  cameras: Camera[];
 }
 
 export interface RawTemplateWithRender {
@@ -926,16 +1091,19 @@ export interface RawTemplateWithRender {
     endTime: number;
     allAnimationTime: number;
     allAnimationTimeBySpeed: number;
+    speed: number;
     offsetTime?: [number, number];
     pageTime: number;
     baseTime: number;
   };
   id: number;
   assets: AssetWithRender[];
+  cameras: Camera[];
   pageAttr: PageAttr;
   templateId?: string;
   poster?: string;
   preview?: string;
+  BGMIndex?: number;
 }
 
 export interface TemplateData {
@@ -951,6 +1119,7 @@ export interface TemplateData {
   // 模板id，空白模板不存在该数据
   templateId?: string;
   poster: string;
+  BGMIndex?: number;
   videoInfo: TemplateVideoInfo;
   maxZIndex: number;
   minZIndex: number;
@@ -969,4 +1138,96 @@ export interface VideoStatusStateHandler {
   setVideoStatus: (data: Partial<VideoStatus>) => void;
   resetVideoStatus: () => void;
   setCurrentTimeRange: (timeRange: number) => void;
+}
+
+export interface BaseMultipleAudio {
+  resId: string;
+  type: 1 | 2; // bgm:1  其他配乐:2
+  rt_sourceType: 1 | 2 | 3; // 1-上传，2-AI文字转语音，3-录音;
+  // 音频裁剪
+  cut?: VideoClip;
+  // 用来设置淡入淡出效果，可以冗余
+  startEffect?: number;
+  endEffect?: number;
+  // 音频出入场时间
+  startTime: number;
+  endTime: number;
+  volume: number;
+  isLoop: boolean;
+  fadeIn?: number; // 淡入持续时长 0-5000
+  fadeOut?: number; // 淡出持续时长 0-5000
+  rt_duration: number;
+  rt_title: string;
+  rt_url: string;
+  rt_endTime?: number;
+  speed?: number;
+  // 音频时长
+}
+
+export interface MultipleAudio extends BaseMultipleAudio {
+  // 本地id，用于数据处理
+  rt_id: number;
+  // 是否由用户控制持续时间
+  rt_isUserControl: boolean;
+  // 音频裁剪
+  // 用来设置淡入淡出效果，可以冗余
+  rt_loadInfo: AssetLoadType;
+}
+
+export interface MultipleAudioObject {
+  audios: MultipleAudio[];
+}
+
+/**
+ * 花字 类型
+ */
+export interface SignatureEffectWord {
+  resId: string;
+  effect: SignatureEffect | undefined;
+}
+
+/**
+ * 花字 特效类型
+ */
+export interface SignatureEffect {
+  type: string;
+  angle: number;
+  left: number;
+  top: number;
+  left_diff?: number;
+  top_diff?: number;
+  fontSize: number;
+  fills: any[];
+  shadow: any[];
+  strokes: any[];
+  shadowList: any[];
+  // 图片资源
+  sourceList: any[];
+  fillList: any[];
+  strokeList: any[];
+  // 纯色 关联颜色数组 填充 描边 阴影
+  colorIndexLisr: any[];
+  supportTexts?: any[];
+}
+
+export type AssetDurationParams = AssetTime;
+
+// 添加蒙版参数类型
+export interface AddMaskParams {
+  meta?: {
+    isWatermark?: boolean;
+    isClip?: boolean;
+  };
+  attribute: {
+    width: Attribute['width'];
+    height: Attribute['height'];
+    resId: Attribute['resId'];
+    source_key: Attribute['source_key'];
+    SVGUrl: Attribute['SVGUrl'];
+    rt_svgString: Attribute['rt_svgString'];
+  };
+  transform?: {
+    posX: number;
+    posY: number;
+  };
 }

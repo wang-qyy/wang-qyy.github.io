@@ -39,11 +39,17 @@ export function buildTransform(
   };
 }
 
+export function hooksCreator<T>(Obj: new (asset?: Asset) => T) {
+  return (asset?: Asset): T => {
+    return useCreation(() => new Obj(asset), [asset]);
+  };
+}
+
 export const loadAssets = async (asset: AssetClass[], parent?: AssetClass) => {
   if (asset.length) {
     const assetAction: Promise<any>[] = [];
     asset.forEach((item, index) => {
-      assetAction.push(getAssetRtInfo(item.asset, true).then((res) => {}));
+      assetAction.push(getAssetRtInfo(item.asset, true).then(res => {}));
     });
     await Promise.all(assetAction);
   }
@@ -55,8 +61,11 @@ export const buildAssets = (
 ): AssetClass[] => {
   if (assetList.length) {
     const assets: AssetClass[] = [];
-    assetList.forEach((item) => {
-      if (isModuleType(item as AssetClass) && !item.assets?.length) {
+    assetList.forEach(item => {
+      if (
+        item.meta.type === 'group' ||
+        (isModuleType(item as AssetClass) && !item.assets?.length)
+      ) {
         return;
       }
       const asset = formatAsset(true, item);
@@ -248,7 +257,7 @@ export function calcModuleBaseStyle(assetLise: AssetClass[]) {
     startTime: -1,
     endTime: -1,
   };
-  assetLise.forEach((asset) => {
+  assetLise.forEach(asset => {
     const { transform, auxiliary, assetDuration } = asset;
     if (
       assetTime.startTime < 0 ||
@@ -382,7 +391,7 @@ export const getAssetParent = (asset?: AssetClass) => {
 
 export function getAssetIndexByAsset(asset?: AssetClass) {
   if (asset) {
-    return assetHandler.assets?.findIndex((item) => item === asset) ?? -1;
+    return assetHandler.assets?.findIndex(item => item === asset) ?? -1;
   }
   return -1;
 }

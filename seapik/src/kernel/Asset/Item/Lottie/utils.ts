@@ -1,6 +1,6 @@
 import lottie, { AnimationItem } from 'lottie-web';
 import { RGBAToString } from '@kernel/utils/single';
-import type { AssetClass, CanvasInfo, RGBA } from '@kernel/typing';
+import type { Asset, AssetClass, CanvasInfo, RGBA } from '@kernel/typing';
 import {
   editingKeyList,
   navigationKeyCodeList,
@@ -10,6 +10,7 @@ import { config } from '@kernel/utils/config';
 import React, { CSSProperties, useMemo } from 'react';
 import { getLottieSync } from '@kernel/store';
 import { setColorById, setColorsByJSON } from '@/kernel/utils/lottieColorify';
+import { isLottieType } from '@/kernel/utils/assetChecker';
 import { OldLottieHandler } from './oldUtils';
 
 const disabledKey = [...editingKeyList, ...navigationKeyCodeList];
@@ -24,7 +25,7 @@ export function useLottieStyle(
 ) {
   const { scale } = canvasInfo;
   const { isTextEditor = false, isImageEditor = false } = asset.meta ?? {};
-  const { flipX, flipY } = asset.transform;
+  const { horizontalFlip, verticalFlip } = asset.transform;
   const { textEditor, width, height } = asset.attribute;
 
   const lottieId = useMemo(() => {
@@ -39,7 +40,9 @@ export function useLottieStyle(
     top: 0,
     right: 0,
     bottom: 0,
-    transform: `scaleX(${flipX ? -1 : 1}) scaleY(${flipY ? -1 : 1})`,
+    transform: `scaleX(${horizontalFlip ? -1 : 1}) scaleY(${
+      verticalFlip ? -1 : 1
+    })`,
     visibility: lottieIsEditing ? 'hidden' : 'visible',
   };
 
@@ -234,12 +237,32 @@ export class LottieHandler {
       autoplay: false, // Optional
       name: `${this.lottieId}`, // Name for future reference. Optional.
     });
-
+    // 判断是否是转场
+    if (asset.meta.isTransfer) {
+      // 设置速度
+      this.animation.setSpeed(
+        asset.attribute.rt_total_time / asset.attribute.totalTime,
+      );
+    }
     this.addDOMLoadedListener();
     this.lottieDom.setAttribute('lottie-res-id', `${resId}`);
 
     return color;
   };
+
+  /**
+   * 更新播放速度
+   * @param asset
+   */
+  updateSpeed(asset: AssetClass) {
+    // 判断是否是转场
+    if (asset.meta.isTransfer && this.animation) {
+      // 设置速度
+      this.animation.setSpeed(
+        asset.attribute.rt_total_time / asset.attribute.totalTime,
+      );
+    }
+  }
 
   /**
    *

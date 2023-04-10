@@ -1,0 +1,18 @@
+@import url('/src/style/variable.less');
+
+.modules {
+  margin-bottom: 16px;
+}
+
+.draft-editor-wrap {
+  height: 600px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 8px;
+  overflow: auto;
+
+  &.editor-active,
+  &:hover {
+    border-color: @primary-color;
+  }
+}

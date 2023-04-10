@@ -83,7 +83,7 @@ export module ResizePointStatic {
   export const whole: ResizePoint[] = [...LRTB, ...unLRTB];
 
   export const pointNodeType: PointNode[] = [...LRTB, ...unLRTB, ...LOCK].map(
-    (item) => {
+    item => {
       const cursorKey = pointCursorMap[item].key;
       const node: PointNode = {
         nodeType: 'unLRTB',
@@ -146,7 +146,7 @@ export function composeResizeItem(
       );
     }
   }
-  return pointNodeType.filter((item) => points.includes(item.pointType));
+  return pointNodeType.filter(item => points.includes(item.pointType));
 }
 
 const angleToCursor = [

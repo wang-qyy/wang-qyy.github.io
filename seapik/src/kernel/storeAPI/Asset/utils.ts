@@ -1,4 +1,5 @@
 import {
+  Asset,
   AssetBaseSize,
   AssetClass,
   EffectVariant,
@@ -6,6 +7,7 @@ import {
   Transform,
   ReplaceClipSvgParams,
   RGBA,
+  AeA,
 } from '@kernel/typing';
 import assetHandler from '@kernel/store/assetHandler';
 import global from '@kernel/store/global';
@@ -16,6 +18,14 @@ import {
 } from '@kernel/store/assetHandler/utils';
 import { assetUpdater } from '@kernel/store/assetHandler/adapter/Handler/BaseHandler';
 import { reportChange } from '@kernel/utils/config';
+import { deepCloneJson } from '@kernel/utils/single';
+import {
+  calcAeATimeToPbr,
+  calcAssetTime,
+  CalcAssetTimeType,
+  getAssetAea,
+} from '@kernel/utils/StandardizedTools';
+import { toNumber } from 'lodash-es';
 
 class HighlightAssetsHandler {
   timer?: number;
@@ -63,26 +73,26 @@ export function useUpdateAttributeFactoryByObserver<T>(
   return [value, update];
 }
 
-export function useUpdateTransformFactory<T>(params: {
-  transformKey: keyof Transform;
-  defaultValue?: T;
-  asset?: AssetClass;
-}) {
-  const { transformKey, defaultValue, asset } = params;
+export function useUpdateTransformFactoryByObserver<T>(
+  transformKey: keyof Transform,
+  defaultValue?: T,
+) {
   const { currentAsset } = assetHandler;
-  const target = asset ?? currentAsset;
-
-  const value = target?.transform?.[transformKey] ?? defaultValue;
+  const value = currentAsset?.transform?.[transformKey] ?? defaultValue;
 
   function update(value: T) {
-    if (target && isMaskType(target) && target.assets?.length > 0) {
-      target.assets[0]?.update(
+    if (
+      currentAsset &&
+      isMaskType(currentAsset) &&
+      currentAsset?.assets?.length > 0
+    ) {
+      currentAsset?.assets[0]?.update(
         buildTransform({
           [transformKey]: value,
         }),
       );
     }
-    target?.update(
+    currentAsset?.update(
       buildTransform({
         [transformKey]: value,
       }),
@@ -292,4 +302,102 @@ export function getNewAssetPosition(
     posX: (width - size.width) / 2,
     posY: (height - size.height) / 2,
   };
+}
+
+export function updateAssetDurationByRatio({
+  aeA,
+  ratio,
+}: {
+  aeA: AeA;
+  ratio: number;
+}) {
+  const {
+    i: { duration: iDuration = 0, kw: IKw },
+    o: { duration: oDuration = 0, kw: Okw },
+  } = aeA;
+  const cAeA = deepCloneJson(aeA);
+  if (IKw) {
+    const newIDuration = Math.round(iDuration * ratio);
+
+    cAeA.i.duration = newIDuration;
+    cAeA.i.pbr = calcAeATimeToPbr(newIDuration, IKw);
+  }
+  if (Okw) {
+    const newODuration = Math.round(oDuration * ratio);
+
+    cAeA.o.duration = newODuration;
+    cAeA.o.pbr = calcAeATimeToPbr(newODuration, Okw);
+  }
+
+  return cAeA;
+}
+
+/**
+ * @description 根据动画和rt_assetTime,计算出元素实际出现的时间
+ * @param attribute
+ * @param needAuto 是否需要自动计算元素剩余时间
+ */
+export function calcAssetAndAeaDuration(
+  attribute: CalcAssetTimeType,
+  needAuto = true,
+) {
+  const { startTime, endTime } = attribute;
+  const aeA = getAssetAea(attribute);
+
+  const assetTime = {
+    startTime,
+    endTime,
+    rt_assetTime: {
+      startTime,
+      endTime,
+    },
+  };
+  if (aeA.i.duration) {
+    assetTime.startTime = Math.round(startTime + aeA.i.duration);
+  }
+  if (aeA.o.duration) {
+    assetTime.endTime = Math.round(endTime - aeA.o.duration);
+  }
+  // 元素持续时长，最小100ms
+  if (needAuto && assetTime.endTime - assetTime.startTime < 100) {
+    assetTime.endTime = assetTime.startTime + 100;
+    assetTime.rt_assetTime = calcAssetTime({
+      ...assetTime,
+      aeA,
+    });
+  }
+  return assetTime;
+}
+
+/**
+ * @description 获取元素的最先出现时间，与元素的最晚结束时间
+ * @param assets
+ * @param pageTime
+ */
+export function getAssetLimitTime(
+  assets: AssetClass[],
+  pageTime: number,
+): {
+  startTime: number;
+  endTime: number;
+} {
+  const timer = {
+    startTime: 0,
+    endTime: 0,
+  };
+  assets.forEach(asset => {
+    // const { startTime, endTime } = asset.attribute.rt_assetTime;
+    const { startTime, endTime } = asset.assetDuration;
+
+    if (startTime < timer.startTime) {
+      timer.startTime = startTime;
+    }
+    if (endTime > timer.endTime) {
+      timer.endTime = endTime;
+    }
+  });
+
+  timer.startTime = Math.max(timer.startTime, 0);
+  timer.endTime = Math.min(timer.endTime, pageTime);
+  return timer;
 }

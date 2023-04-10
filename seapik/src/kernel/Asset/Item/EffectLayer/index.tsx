@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react';
 import { DefaultAssetProps } from '@/kernel/typing';
 import PreviewVideo from '@kernel/Components/PreviewVideo';
+import VideoPlayer from '@kernel/Components/VideoPlayer';
 
 import EffectItem from './EffectItem';
+import styles from './index.less';
 
-const EffectLayer: React.FC<DefaultAssetProps> = (props) => {
+const EffectLayer: React.FC<DefaultAssetProps> = props => {
   const { asset, showOnly, videoStatus, videoInfo, children } = props;
   const {
     assetDuration: { startTime, endTime },
@@ -32,7 +34,23 @@ const EffectLayer: React.FC<DefaultAssetProps> = (props) => {
         />
       );
     }
-    return <></>;
+    return (
+      <VideoPlayer
+        {...props}
+        isLoop
+        muted
+        volume={0}
+        currentTime={currentTime}
+        startTime={startTime}
+        endTime={endTime}
+        key={maskUrl}
+        url={maskUrl}
+        videoPlayStatus={playStatus}
+        speed={videoInfo.speed}
+        id={asset.id}
+        className={styles.video}
+      />
+    );
   };
 
   return (

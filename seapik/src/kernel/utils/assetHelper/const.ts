@@ -1,7 +1,11 @@
-import { Shadow, Outline, GradientColor } from '@/kernel/typing';
+import { AeA } from '@/kernel/typing';
 
 export const VIDEO_TYPES = ['video', 'videoE'];
-export const IMAGE_TYPES = ['image'];
+// aea动画1倍速的持续时间
+export const AEA_DEFAULT_DURATION = 1000;
+export const AEA_PBR_STEP = 0.5;
+export const IMAGE_TYPES = ['image', 'background', 'pic'];
+export const AEA_KEYS: Array<keyof AeA> = ['i', 's', 'o'];
 export const DEFAULT_FONT_SIZE = 100;
 export const DEFAULT_SVG_STRING = `<svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 830 830" enable-background="new 0 0 830 830" xml:space="preserve">
    <g>
@@ -25,47 +29,3 @@ export const EFFECT_COLORFUL_LINEAR = [
   3, 4, 6, 7, 8, 10, 12, 13, 14, 28, 28, 29, 35, 37, 39, 43, 45, 57, 61, 62, 70,
   81, 82, 83, 84,
 ];
-
-export const DEFAULT_SHADOW: Shadow = {
-  blur: 0,
-  x: 0,
-  y: 0,
-  spread: 0,
-  color: '#000',
-};
-
-export const DEFAULT_OUTLINE: Outline = {
-  color: { r: 0, g: 0, b: 0, a: 1 },
-  width: 3,
-};
-
-export const DEFAULT_GRADIENT_COLOR: GradientColor = {
-  coords: {
-    x1: 0,
-    y1: 0.3420201433256687,
-    x2: 0.9396926207859084,
-    y2: 0,
-  },
-  colorStops: [
-    {
-      color: {
-        r: 255,
-        g: 255,
-        b: 255,
-        a: 1,
-      },
-      offset: 0,
-    },
-    {
-      color: {
-        r: 0,
-        g: 0,
-        b: 0,
-        a: 1,
-      },
-      offset: 1,
-    },
-  ],
-  angle: 20,
-  type: 'linear',
-};

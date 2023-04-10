@@ -2,7 +2,6 @@ import classNames from 'classnames';
 import { Button, message, Tooltip } from 'antd';
 import { observer } from 'mobx-react';
 import { useHistoryRecord } from '@/kernel';
-import Icon from '@/components/Icon';
 import useDownload from '@/hooks/useDownload';
 import { isLogin } from '@/pages/store/userInfo';
 import { openImgModal } from '@/pages/store/global';
@@ -10,13 +9,12 @@ import { openImgModal } from '@/pages/store/global';
 import { config } from '@/config/constants';
 import { onSave } from '@/utils/userSave';
 import { getTemplateInfo } from '@/pages/store/template';
-
-import logo from '@/assets/image/logo.jpeg';
+import { globalLink } from '@/config/urls';
+import IconFont from '@/components/Icon';
 
 import Size from './Size';
 
 import './index.less';
-import IconFont from '@/components/Icon';
 
 function Header() {
   const { value, goNext, goPrev } = useHistoryRecord();
@@ -26,11 +24,12 @@ function Header() {
   return (
     <>
       <div className="flex-box">
-        <a href="https://pngtree.com">
+        <a href={globalLink.home}>
           <img
-            src={logo}
+            src={globalLink.logo}
             height="30px"
             style={{ marginRight: 16, cursor: 'pointer' }}
+            alt="logo"
           />
         </a>
 
@@ -39,7 +38,7 @@ function Header() {
             disabled={!value.hasPrev}
             type="text"
             className="undo"
-            icon={<Icon type="iconchexiao1" />}
+            icon={<IconFont type="iconchexiao1" />}
             onClick={goPrev}
           />
         </Tooltip>
@@ -49,7 +48,7 @@ function Header() {
             type="text"
             className={classNames('redo')}
             icon={
-              <Icon
+              <IconFont
                 type="iconchexiao1"
                 style={{ transform: 'rotateY(180deg)' }}
               />
@@ -61,18 +60,20 @@ function Header() {
       <div className="flex-box gap-16">
         {!config.is_designer && (
           <>
-            <Button onClick={() => openImgModal(true)}>
-              <IconFont type="iconjiahao" /> New image
-            </Button>
+            {Window?.location?.host !== 'edit.pngtree.com' && (
+              <Button onClick={() => openImgModal(true)}>
+                <IconFont type="iconjiahao" /> New image
+              </Button>
+            )}
             <Size />
             <Button
               type="primary"
-              icon={<Icon type="icondownload" />}
+              icon={<IconFont type="icondownload" />}
               onClick={() => {
                 if (isLogin()) {
                   start();
                 } else {
-                  message.info({ content: '请返回pngtree登录后进行下载' });
+                  message.info({ content: '请返回首页登录后进行下载' });
                 }
               }}
               className="download-btn"

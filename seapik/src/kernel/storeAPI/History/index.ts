@@ -1,13 +1,15 @@
 import assetHandler from '@kernel/store/assetHandler';
+import audioHandler from '@kernel/store/audioHandler';
 import historyRecord, { RecordData } from '@kernel/store/historyRecord';
 import { assetBlur } from '@kernel/store';
 import { debounce } from 'lodash-es';
 import { buildPureTemplatesWithRender } from '@kernel/utils/assetHelper/formater/dataBuilder';
 
 function resetData(data: RecordData) {
-  const { templates } = data;
+  const { templates, audios } = data;
   assetBlur();
   assetHandler.restoreAllTemplate(templates);
+  audioHandler.setAudios(audios);
 }
 
 /**
@@ -33,7 +35,7 @@ export function goPrev() {
 /**
  * @description 操作历史记录
  */
-export function useHistoryRecord() {
+export function useHistoryRecordByObserver() {
   const { hasNext, hasPrev } = historyRecord;
 
   return {
@@ -52,6 +54,7 @@ export function useHistoryRecord() {
 export const recordHistory = debounce(() => {
   historyRecord.addRecord({
     templates: buildPureTemplatesWithRender(assetHandler.templates),
+    audios: audioHandler.multiAudios,
   });
 }, 300);
 
@@ -59,5 +62,6 @@ export const recordHistory = debounce(() => {
 export const updateRecord = () => {
   historyRecord.updateRecord({
     templates: buildPureTemplatesWithRender(assetHandler.templates),
+    audios: audioHandler.multiAudios,
   });
 };

@@ -57,7 +57,7 @@ export function useUpdateSize(editAsset: AssetClass) {
     isSizeScale?: boolean,
   ) {
     const { width, height, left, top } = style;
-
+    // console.log("moveDistance", moveDistance);
     updater(
       {
         height: height / scale,
@@ -80,7 +80,6 @@ export function useUpdateSize(editAsset: AssetClass) {
     if (isModuleType(editAsset)) {
       editAsset.autoCalcChildrenStyle();
     }
-
     // 该操作会将rt_itemScale重置为0
     inTransforming(editAsset, false);
     reportChange('stopMove', true);

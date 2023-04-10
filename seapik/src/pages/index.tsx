@@ -4,17 +4,18 @@ import { getAllTemplatesWhenSave } from '@/kernel';
 import { convertDataForSave } from '@/utils/simplify';
 
 import GlobalModal from './GlobalModal';
+import PPTHome from './ppt';
 
 import '../global.less';
 
-export default () => {
+export default function Home() {
   return (
     <>
-      <Layout />
+      <PPTHome />
       <GlobalModal />
     </>
   );
-};
+}
 
 (window as any).EDITOR_DEBUG = {};
 

@@ -219,7 +219,7 @@ export const getTargetAssetById = (assetId: number, templateIndex?: number) => {
     assets = assetHandler.templates?.[templateIndex].assets ?? [];
   }
   const findAsset = (assets: AssetClass[]): undefined | AssetClass => {
-    return assets.find((asset) => asset.meta.id === assetId);
+    return assets.find(asset => asset.meta.id === assetId);
   };
 
   return findAsset(assets);
@@ -227,6 +227,41 @@ export const getTargetAssetById = (assetId: number, templateIndex?: number) => {
 export const getAssetParent = (asset?: AssetClass) => {
   return asset?.parent;
 };
+
+/**
+ * @description 计算长宽两边的比值
+ * @param assetSize
+ * @param containerSize
+ */
+export function calcContainerSizeScale(
+  assetSize: AssetBaseSize,
+  containerSize: AssetBaseSize,
+) {
+  return {
+    widthScale: assetSize.width / containerSize.width,
+    heightScale: assetSize.height / containerSize.height,
+  };
+}
+
+export function getAssetSizeFormContainerScale(
+  scale: {
+    widthScale: number;
+    heightScale: number;
+  },
+  container: {
+    width: number;
+    height: number;
+    posX: number;
+    posY: number;
+  },
+) {
+  const width = container.width * scale.widthScale;
+  const height = container.height * scale.heightScale;
+  return {
+    width,
+    height,
+  };
+}
 
 export function getNewAssetPosition(size: AssetBaseSize) {
   const { width = 0, height = 0, scale = 0 } = global.canvasInfo;

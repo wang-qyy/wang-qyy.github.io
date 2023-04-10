@@ -1,8 +1,6 @@
 declare module '*.css';
 declare module '*.less';
 declare module '*.png';
-declare module '*.jpeg';
-
 declare module '*.svg' {
   export function ReactComponent(
     props: React.SVGProps<SVGSVGElement>,
@@ -10,7 +8,15 @@ declare module '*.svg' {
   const url: string;
   export default url;
 }
-declare module '*?static' {
+
+declare module 'fabric' {
+  // @ts-ignore
+  // import { fabric } from 'fabric';
+
+  export default fabric;
+}
+
+declare module "*?static" {
   const url: string;
   export default url;
 }

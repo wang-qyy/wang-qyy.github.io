@@ -88,7 +88,44 @@ export function polyline2pathNode(list: number[], scale = 1) {
     .join(' ')}`;
   return path;
 }
-
+/**
+ * 计算路径动画的实际大小
+ * @param points
+ * @returns
+ */
+export function calcPathAnimationSize(
+  list: number[][],
+  center: Coordinate,
+  svgSize: { width: number; height: number; left: number; top: number },
+) {
+  const points = deepCloneJson(list);
+  if (points.length < 2) {
+    return;
+  }
+  points.forEach((element: number[], index: number) => {
+    element.forEach((e, i) => {
+      if (i % 2 === 1) {
+        element[i] = e - center.y;
+      } else {
+        element[i] = e - center.x;
+      }
+    });
+  });
+  console.log('预设信息=======', {
+    width: svgSize.width,
+    height: svgSize.height,
+    x: svgSize.left,
+    y: svgSize.top,
+    points,
+  });
+  return {
+    width: svgSize.width,
+    height: svgSize.height,
+    x: svgSize.left,
+    y: svgSize.top,
+    points,
+  };
+}
 /**
  * 还原相对于画布原点的点位数据
  */
@@ -109,7 +146,71 @@ export function restorePointsRelativeCanvas(
   });
   return points;
 }
+export function CubicBezierAtTime(
+  time: number,
+  easing = 1,
+  duration: number,
+  speed = pathAnimationSpeed,
+) {
+  const { p1x, p1y, p2x, p2y } = speed[easing];
+  const cx = 3 * p1x;
+  const bx = 3 * (p2x - p1x) - cx;
+  const ax = 1 - cx - bx;
+  const cy = 3 * p1y;
+  const by = 3 * (p2y - p1y) - cy;
+  const ay = 1 - cy - by;
 
+  function sampleCurveX(t: number) {
+    return ((ax * t + bx) * t + cx) * t;
+  }
+
+  function solveCurveX(x: number, epsilon: number) {
+    let t0;
+    let t1;
+    let t2;
+    let x2;
+    let d2;
+    let i;
+    for (t2 = x, i = 0; i < 8; i++) {
+      x2 = sampleCurveX(t2) - x;
+      if (Math.abs(x2) < epsilon) {
+        return t2;
+      }
+      d2 = (3 * ax * t2 + 2 * bx) * t2 + cx;
+      if (Math.abs(d2) < 1e-6) {
+        break;
+      }
+      t2 -= x2 / d2;
+    }
+    t0 = 0;
+    t1 = 1;
+    t2 = x;
+    if (t2 < t0) {
+      return t0;
+    }
+    if (t2 > t1) {
+      return t1;
+    }
+    while (t0 < t1) {
+      x2 = sampleCurveX(t2);
+      if (Math.abs(x2 - x) < epsilon) {
+        return t2;
+      }
+      if (x > x2) {
+        t0 = t2;
+      } else {
+        t1 = t2;
+      }
+      t2 = (t1 - t0) / 2 + t0;
+    }
+    return t2;
+  }
+  function solve(x: number, epsilon: number) {
+    const t = solveCurveX(x, epsilon);
+    return ((ay * t + by) * t + cy) * t;
+  }
+  return solve(time, 1 / (200 * duration));
+}
 /**
  * 根据运动的角度计算position（抖动动画使用）
  * @param position

@@ -6,13 +6,13 @@ export function deleteAssetInTemplate(id: number) {
 }
 
 export function deleterAssetsById(ids: number[]) {
-  ids.forEach((id) => {
+  ids.forEach(id => {
     deleteAssetInTemplate(id);
   });
 }
 
 export function deleterAssets(assets: Assets) {
-  assets.forEach((asset) => {
+  assets.forEach(asset => {
     deleteAssetInTemplate(asset.meta.id);
   });
 }

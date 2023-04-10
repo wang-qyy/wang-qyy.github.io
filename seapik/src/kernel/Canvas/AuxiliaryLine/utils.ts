@@ -25,9 +25,9 @@ export function calcAuxiliaryLine(
     vertical: undefined,
     horizontal: undefined,
   };
-  auxiliaryPointsKeys.forEach((index) => {
+  auxiliaryPointsKeys.forEach(index => {
     const itemPoint = auxiliaryPoints[index];
-    directionKeys.forEach((key) => {
+    directionKeys.forEach(key => {
       const result = auxiliaryPointsMatching(key, itemPoint, current);
 
       if (result) {

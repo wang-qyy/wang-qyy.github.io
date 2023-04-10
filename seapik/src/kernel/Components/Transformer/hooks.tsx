@@ -2,7 +2,7 @@ import React, { useState, SyntheticEvent, useRef } from 'react';
 
 import type { ResizePoint } from '@kernel/Components/TransformPoints/handler';
 import { ResizePointStatic } from '@kernel/Components/TransformPoints/handler';
-import { stopPropagation } from '@kernel/utils/single';
+import { getCanvasClientRect, stopPropagation } from '@kernel/utils/single';
 import { TransformerProps } from '@kernel/Components/Transformer/typing';
 import { Coordinate, RectLimit } from '@/kernel';
 import { setRotatingStatus } from '@kernel/store';
@@ -43,11 +43,11 @@ export function useSizeRotate(
     const handler = new RotateHandler({
       rotate,
       centerPoint: getCenterPoint(),
-      onChange: (v) => {
+      onChange: v => {
         onChange('rotate', v);
         setRotatingStatus(true);
       },
-      onChangeEnd: (v) => {
+      onChangeEnd: v => {
         setShow(false);
         onChangeEnd?.('rotate', v);
         setRotatingStatus(false);
@@ -60,6 +60,47 @@ export function useSizeRotate(
     showRotate: show,
     onMouseDown,
     transformRef,
+  };
+}
+
+/**
+ *@description 整合asset变形所需要的数据
+ */
+function useGetTransformNeedData(
+  style: TransformerProps['style'],
+  rotate: number,
+) {
+  function getUsefulStyle() {
+    function getStyle() {
+      const { width = 0, height = 0, top = 0, left = 0 } = style;
+
+      return {
+        width,
+        height,
+        top,
+        left,
+        rotate,
+      };
+    }
+
+    return {
+      style: { ...style },
+      proportion: style.width / style.height,
+      getStyle,
+    };
+  }
+
+  function getCenterPoint() {
+    const { left = 0, top = 0, width = 0, height = 0 } = style;
+    return {
+      x: Number(left) + width / 2,
+      y: Number(top) + height / 2,
+    };
+  }
+
+  return {
+    getUsefulStyle,
+    getCenterPoint,
   };
 }
 
@@ -105,8 +146,8 @@ export function useResize({
       rectLimit: limit,
       rotateCenter,
       aspectRatio,
-      onChange: (result: TransformerProps['style'], distance) => {
-        onChange(pointType, { style: result }, distance);
+      onChange: (result: TransformerProps['style']) => {
+        onChange(pointType, { style: result });
       },
       onChangeEnd: (result: TransformerProps['style']) => {
         onChangeEnd?.(pointType, { style: result });

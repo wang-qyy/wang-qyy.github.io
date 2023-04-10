@@ -1,28 +1,51 @@
-import { buildPureTemplates } from '@kernel/utils/assetHelper/formater/dataBuilder';
+import {
+  setCurrentTemplateEndTime,
+  getEditableAssetOnCurrentTime,
+} from '@kernel/store';
+import {
+  buildPureTemplates,
+  buildPureAsset,
+} from '@kernel/utils/assetHelper/formater/dataBuilder';
+import { isTempModuleType } from '@kernel/utils/assetChecker';
 
+import { deepCloneJson } from '@kernel/utils/single';
 import {
   assetHandler,
   getBackgroundAsset,
   getCurrentAsset,
+  getTemplateIndexById,
   assetBlur,
   getEditAsset,
   getAllAsset,
   getMoveAssetMask,
+  getCurrentCamera,
 } from '@/kernel/store';
 import { AssetClass } from '@/kernel';
+import TemplateState from '@/kernel/store/assetHandler/template';
+import { reportChange } from '@/kernel/utils/config';
 import { setTemplate } from './TemplateHandler';
 
 export const useGetBackgroundAsset = getBackgroundAsset;
 export const useGetCurrentAsset = getCurrentAsset;
 // 暴露业务层api
 export {
+  getTemplateIndexById,
   assetBlur,
   getAllAsset,
   getEditAsset,
   getMoveAssetMask,
   getCurrentAsset,
   getBackgroundAsset,
+  getEditableAssetOnCurrentTime,
+  getCurrentCamera,
 };
+/**
+ * @description 获取多模板视频的播放总时长
+ */
+export function useAllTemplateVideoTimeByObserver() {
+  const time = assetHandler.allTemplateVideoTime;
+  return [time];
+}
 
 /**
  * @description 获取当前选中元素的拷贝值
@@ -30,6 +53,10 @@ export {
 export function getCurrentAssetCopy() {
   const { active } = assetHandler;
   if (active) {
+    // const copyAsset = active.getAssetCloned();
+    // buildPureAsset(active);
+    // return deepCloneJson(copyAsset);
+
     return active.getAssetCloned();
   }
   return undefined;
@@ -49,18 +76,43 @@ export function useCurrentTemplate() {
 }
 
 /**
+ * @description 过滤掉所有不可见的元素，只返回可见图层
+ */
+export function getLayerAssets(currentTemplate?: TemplateState) {
+  const { assets = [], videoInfo = { offsetTime: [0, 0], pageTime: 0 } } =
+    currentTemplate || assetHandler.currentTemplate || {};
+  const { offsetTime = [0, 0], pageTime = 0 } = videoInfo;
+  const [cs, ce] = offsetTime;
+
+  return assets.filter(asset => {
+    const { meta, assetDuration } = asset;
+    // TODO: 后面可能会去掉这个判断
+    if (meta.type === 'effect') return;
+    const { startTime, endTime } = assetDuration;
+    const unVisibility =
+      !isTempModuleType(asset) && !meta.isTransfer && !meta.isLogo;
+    // 是否被裁减掉
+    const inView =
+      (startTime <= cs && endTime >= cs) ||
+      (startTime >= cs && startTime < pageTime - ce);
+
+    return unVisibility && inView;
+  });
+}
+
+/**
  * @description 根据目标id获取模板
  * @param id
  */
 export function getTargetTemplate(id: string | number) {
-  return assetHandler.templates.filter((item) => item.id === id)[0];
+  return assetHandler.templates.filter(item => item.id === id)[0];
 }
 
 /**
  * @description 获取所有模板的本地ID
  */
 export function getTemplateIds() {
-  return assetHandler.templates.map((item) => item.id);
+  return assetHandler.templates.map(item => item.id);
 }
 
 export function getAllTemplates() {
@@ -72,6 +124,22 @@ export function getAllTemplates() {
  */
 export function getAllTemplatesWhenSave() {
   return buildPureTemplates(assetHandler.templates);
+}
+
+/**
+ * @description 获取多模板视频的播放总时长
+ */
+export function getAllTemplateVideoTime() {
+  return assetHandler.allTemplateVideoTime;
+}
+
+/**
+ * @description 订阅当前选中模板的视频信息
+ */
+export function useCurrentTemplateVideoInfoByObserver() {
+  const videoInfo = assetHandler?.currentTemplate?.videoInfo;
+
+  return [videoInfo, setCurrentTemplateEndTime];
 }
 
 export function getCurrentTemplateIndex() {

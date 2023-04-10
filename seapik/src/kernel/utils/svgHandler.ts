@@ -255,7 +255,7 @@ export class HandleSvg {
     dom: SVGElement | Element,
     attrs: Record<string, any>,
   ) => {
-    Object.keys(attrs).forEach((key) => {
+    Object.keys(attrs).forEach(key => {
       attrs[key] !== undefined && dom.setAttribute(key, attrs[key]);
     });
   };
@@ -294,8 +294,8 @@ export class HandleSvg {
     transform: Transform;
   }) => {
     const svgAttrs = {
-      style: `transform: scaleX(${transform.flipX ? -1 : 1}) scaleY(${
-        transform.flipY ? -1 : 1
+      style: `transform: scaleX(${transform.horizontalFlip ? -1 : 1}) scaleY(${
+        transform.verticalFlip ? -1 : 1
       })`,
     };
     const scaleX = container.viewBoxWidth / container.viewBoxWidthBack;
@@ -309,13 +309,3 @@ export class HandleSvg {
     });
   };
 }
-
-export const getDefaultSvgInfo = () => ({
-  fill: { r: 133, g: 133, b: 133, a: 1 },
-  strokeDashType: 0,
-  strokeDash: '0, 0',
-  strokeLinecap: undefined,
-  stroke: { r: 133, g: 133, b: 133, a: 1 },
-  strokeWidth: 0,
-  closed: true,
-});

@@ -1,6 +1,7 @@
 import { useRequest } from 'ahooks';
 import { Modal } from 'antd';
 import { getImageInfo } from '@/apis/global';
+import { globalLink } from '@/config/urls';
 
 export function openErrorModal() {
   Modal.confirm({
@@ -10,7 +11,7 @@ export function openErrorModal() {
     cancelText: 'Try again',
     onCancel: refresh,
     onOk() {
-      window.open('https://pngtree.com/free-backgrounds', '_blank');
+      window.open(globalLink.home, '_blank');
     },
   });
 }

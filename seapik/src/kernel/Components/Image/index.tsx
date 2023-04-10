@@ -1,4 +1,4 @@
-import { ImgHTMLAttributes, forwardRef, useEffect } from 'react';
+import React, { ImgHTMLAttributes, forwardRef, useEffect } from 'react';
 import { observer } from 'mobx-react';
 import { loadImage } from '@kernel/store';
 
@@ -6,7 +6,7 @@ import { loadImage } from '@kernel/store';
 const Image = forwardRef<HTMLImageElement, ImgHTMLAttributes<HTMLImageElement>>(
   (props, ref) => {
     // eslint-disable-next-line react/prop-types
-    const { src = '', alt = 'image', style } = props;
+    const { src = '', alt = 'image' } = props;
 
     useEffect(() => {
       loadImage(src);
@@ -25,14 +25,7 @@ const Image = forwardRef<HTMLImageElement, ImgHTMLAttributes<HTMLImageElement>>(
     }
 
     return (
-      <img
-        alt={alt}
-        {...props}
-        ref={ref}
-        onLoad={onLoad}
-        onError={onError}
-        style={style}
-      />
+      <img alt={alt} {...props} ref={ref} onLoad={onLoad} onError={onError} />
     );
   },
 );

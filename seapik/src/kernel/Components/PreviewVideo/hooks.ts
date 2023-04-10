@@ -79,7 +79,7 @@ export function useStaticVideoPreview({
           (currentTime / 1000) * 30,
           totalFrame - 1,
         );
-        getWebmFrame(videoUrl, currentFrame, (res) => {
+        getWebmFrame(videoUrl, currentFrame, res => {
           setUrl(res);
         });
       } else {

@@ -404,8 +404,6 @@ export class TransformerHandler {
 
   rectHelper: RectHelper;
 
-  startPoint?: { x: number; y: number };
-
   constructor({
     rotate,
     style,
@@ -464,12 +462,6 @@ export class TransformerHandler {
   };
 
   mouseMove = (mouseEvent: MouseEvent) => {
-    if (!this.startPoint) {
-      this.startPoint = {
-        x: mouseEvent.clientX,
-        y: mouseEvent.clientY,
-      };
-    }
     const position = this.getMousePositionInCanvas(mouseEvent);
     const { scalePoint, scaleNumber } = this.rectHelper.getScaleInfo(position);
     let newRect = transformationRect(
@@ -483,11 +475,7 @@ export class TransformerHandler {
       const newCenter = getRectCenterPoint(newRect);
       newRect = rotateRect(newRect, newCenter, -this.rotate);
     }
-
     this.styleResult = rectPointToStyle(newRect);
-    this.onChange(this.styleResult, {
-      x: mouseEvent.clientX - this.startPoint.x,
-      y: mouseEvent.clientY - this.startPoint.y,
-    });
+    this.onChange(this.styleResult);
   };
 }

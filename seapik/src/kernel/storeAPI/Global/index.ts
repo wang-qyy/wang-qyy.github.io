@@ -6,17 +6,15 @@ import {
   videoHandler,
   useGetVideoStatus,
   global,
+  getTimeScale,
   useTemplateLoaded,
   getTemplateList,
 } from '@kernel/store';
 import { config } from '@kernel/utils/config';
 import { PlayStatus } from '@kernel/utils/const';
 import { ManualCurrent } from '@/kernel';
-import assetHandler from '@kernel/store/assetHandler';
-import { getScale } from '@/utils';
 
-export { setCanvasInfo };
-
+export const useGetTimeScale = getTimeScale;
 /**
  * @description 由于现在存在两种播放模式，所以可以根据该方法获取相对于当前模板的时间
  */
@@ -68,6 +66,28 @@ export function usePlayHandlerByObserver() {
     isPlaying,
     playVideo,
     pauseVideo,
+  };
+}
+
+/**
+ * @description 指定视频时间节点
+ */
+export function useVideoHandler() {
+  const { currentTime } = useGetVideoStatus();
+
+  /**
+   * @description 指定视频时间节点
+   * @param currentTime 目前时间节点
+   * @param needFix 是否需要转换成毫秒
+   */
+  function set(currentTime: number, needFix = false) {
+    pauseVideo();
+    setCurrentTime(currentTime, needFix);
+  }
+
+  return {
+    setCurrentTime: set,
+    currentTime,
   };
 }
 
@@ -217,11 +237,11 @@ export function getTemplateIndexByCurrentTime(currentTime: number) {
   const templateList = getTemplateList();
   const timeRange: number[] = [];
   let allTime = 0;
-  templateList.forEach((item) => {
+  templateList.forEach(item => {
     allTime += item.videoInfo.allAnimationTimeBySpeed;
     timeRange.push(allTime);
   });
-  const index = timeRange.findIndex((item) => item > currentTime);
+  const index = timeRange.findIndex(item => item > currentTime);
   if (index === -1 || index > templateList.length - 1) {
     return {
       templateIndex: 0,
@@ -264,66 +284,3 @@ export function setTempPreviewCurrentTime(manualPreview?: ManualCurrent) {
   }
 }
 export const { setManualPreview } = global;
-
-/**
- * @description 铺满容器 (保持原始宽高比例)
- * @param containerSize 容器尺寸
- * @param originSize 内容尺寸
- */
-export function getCoverSize(containerSize: Size, originSize: Size) {
-  const ratio = originSize.width / originSize.height;
-
-  let width = containerSize.width;
-
-  let height = width / ratio;
-
-  if (height < containerSize.height) {
-    height = containerSize.height;
-    width = height * ratio;
-  }
-
-  return { width, height };
-}
-
-/**
- * @description 调整画布尺寸
- * 重置背景图片尺寸、裁剪数据
- * 等比例缩放普通元素
- */
-export function updateCanvasSize(size: { width: number; height: number }) {
-  const { currentTemplate, assets } = assetHandler;
-
-  if (currentTemplate) {
-    assets.forEach((asset) => {
-      let transform = {};
-      let attribute = {};
-      if (asset.meta.isBackground) {
-        const newSize = getCoverSize(
-          size,
-          asset.attribute.crop?.size ?? asset.assetSize,
-        );
-
-        transform = { posY: 0, posX: 0, rotate: 0 };
-        attribute = {
-          ...size,
-          crop: {
-            size: newSize,
-            position: {
-              x: (size.width - newSize.width) / 2,
-              y: (size.height - newSize.height) / 2,
-            },
-          },
-        };
-      } else {
-        // transform = { posX: asset.transform.posX, posY: 0 };
-      }
-
-      asset.update({
-        attribute,
-        transform,
-      });
-    });
-  }
-
-  setCanvasInfo({ ...size, scale: getScale(size) });
-}

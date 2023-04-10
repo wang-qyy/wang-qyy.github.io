@@ -12,7 +12,8 @@ import AssetItemState from '@kernel/store/assetHandler/asset';
 import {
   Asset,
   AssetClass,
-  GradientColor,
+  Camera,
+  GradientType,
   LogoAsset,
   PageAttr,
   RawTemplateData,
@@ -24,8 +25,9 @@ import { calcTemplateTime } from '@kernel/utils/StandardizedTools';
 import { newId } from '@kernel/utils/idCreator';
 import { buildAssets, loadAssets } from '@kernel/store/assetHandler/utils';
 import { createTempModule } from '@kernel/store/assetHandler/asset/utils';
-import { isTempModuleType } from '@/kernel';
+import { isTempModuleType, isValidAssets } from '@/kernel';
 import { deepCloneJson } from '@kernel/utils/single';
+import CameraState from './camera';
 
 export default class TemplateState {
   @observable.shallow assets: IObservableArray<AssetItemState> =
@@ -36,6 +38,11 @@ export default class TemplateState {
   @observable.shallow tempModule: AssetClass = createTempModule();
 
   @observable template!: RawTemplateData;
+
+  /**
+   * 镜头  todo待确定 .shallow
+   */
+  @observable cameras: IObservableArray<CameraState> = observable.array([]);
 
   id = newId();
 
@@ -55,23 +62,27 @@ export default class TemplateState {
     let min = 0;
 
     this.assets.forEach((asset, index) => {
-      const { zindex } = asset.transform;
+      if (!asset.meta.isLogo) {
+        const { zindex } = asset.transform;
 
-      if (this.assets.length === 1) {
-        max = zindex;
-        min = zindex;
-      } else if (!asset.meta.isBackground) {
-        // 过滤掉背景层级，否则其他元素无法判断是否为最小层级（不包含背景）
-        if (!max && !min) {
+        if (this.assets.length === 1) {
           max = zindex;
           min = zindex;
-        }
-
-        if (asset.transform.zindex > max) {
-          max = zindex;
-        }
-        if (asset.transform.zindex < min) {
-          min = zindex;
+        } else if (!asset.meta.isBackground) {
+          // 过滤掉背景层级，否则其他元素无法判断是否为最小层级（不包含背景）
+          if (!max && !min) {
+            max = zindex;
+            min = zindex;
+          }
+          // if (!min) {
+          //   min = zindex;
+          // }
+          if (asset.transform.zindex > max) {
+            max = zindex;
+          }
+          if (asset.transform.zindex < min) {
+            min = zindex;
+          }
         }
       }
     });
@@ -101,6 +112,60 @@ export default class TemplateState {
   }
 
   @computed
+  get endTransfer() {
+    return this.assets.find(asset => asset.meta.transferLocation === 'after');
+  }
+
+  @computed
+  get validAssets() {
+    return this.assets.filter(isValidAssets);
+  }
+
+  @computed
+  get startTransfer() {
+    return this.assets.find(asset => asset.meta.transferLocation === 'before');
+  }
+
+  @computed
+  get effectVideoE() {
+    return this.assets.find(asset => asset.meta.isOverlay);
+  }
+
+  @computed
+  get logo() {
+    const logoAsset: LogoAsset = {
+      text: undefined,
+      image: undefined,
+    };
+    const logo = this.assets.filter(asset => asset.meta.isLogo);
+    logo.forEach(asset => {
+      if (asset.meta.type === 'text') {
+        logoAsset.text = asset;
+      } else if (asset.meta.type === 'image') {
+        logoAsset.image = asset;
+      }
+    });
+    return logoAsset;
+  }
+
+  @computed
+  get watermark() {
+    const watermarkAsset: LogoAsset = {
+      text: undefined,
+      image: undefined,
+    };
+    const watermark = this.assets.filter(asset => asset.meta.isWatermark);
+    watermark.forEach(asset => {
+      if (asset.meta.type === 'text') {
+        watermarkAsset.text = asset;
+      } else if (asset.meta.type === 'image') {
+        watermarkAsset.image = asset;
+      }
+    });
+    return watermarkAsset;
+  }
+
+  @computed
   get videoInfo() {
     const { pageAttr } = this.template;
     const { pageInfo } = pageAttr;
@@ -111,6 +176,7 @@ export default class TemplateState {
       endTime: pageTime,
       allAnimationTime,
       allAnimationTimeBySpeed: allAnimationTime * (1 / speed),
+      speed,
       offsetTime,
       pageTime,
       baseTime: baseTime || pageTime,
@@ -119,7 +185,13 @@ export default class TemplateState {
 
   @computed
   get backgroundAsset() {
-    return this.assets.find((asset) => asset.meta.isBackground);
+    return this.assets.find(asset => asset.meta.isBackground);
+  }
+
+  @computed
+  get templateCameras() {
+    const tempCameras = this.getTemplateCloned();
+    return tempCameras.cameras;
   }
 
   constructor(template: RawTemplateData) {
@@ -133,13 +205,13 @@ export default class TemplateState {
     if (id === undefined) {
       return -1;
     }
-    return this.assets.findIndex((item) => item.id === id);
+    return this.assets.findIndex(item => item.id === id);
   };
 
   getTemplateCloned = () => {
     const newTemplate = deepCloneJson(this.template);
-    newTemplate.assets = this.assets.map((asset) => asset.getAssetCloned());
-
+    newTemplate.assets = this.assets.map(asset => asset.getAssetCloned());
+    newTemplate.cameras = this.cameras.map(camera => camera.getCameraCloned());
     return newTemplate;
   };
 
@@ -147,10 +219,10 @@ export default class TemplateState {
     const newTemplate = deepCloneJson(this.template);
     newTemplate.id = this.id;
     newTemplate.videoInfo = deepCloneJson(this.videoInfo);
-    newTemplate.assets = this.assets.map((asset) =>
+    newTemplate.assets = this.assets.map(asset =>
       asset.getAssetClonedWithRender(),
     );
-
+    newTemplate.cameras = this.cameras.map(camera => camera.getCameraCloned());
     return newTemplate;
   };
 
@@ -160,7 +232,7 @@ export default class TemplateState {
   _reactionMultiSelectToTempModuleChildren = () => {
     reaction(
       () => this.multiSelect.size,
-      (value) => {
+      value => {
         if (this.tempModule) {
           this.tempModule.setChildren(Array.from(this.multiSelect));
           this.tempModule.setModuleStyleByChildren();
@@ -170,7 +242,7 @@ export default class TemplateState {
   };
 
   checkAssetsTemplate() {
-    this.assets.forEach((asset) => {
+    this.assets.forEach(asset => {
       asset.setTemplatePoint(this);
     });
   }
@@ -182,6 +254,12 @@ export default class TemplateState {
       this.assets.replace(result);
     });
     this.checkAssetsTemplate();
+  };
+
+  buildCameras = (camerasList: Camera[]) => {
+    camerasList.forEach(item => {
+      this.cameras.push(new CameraState(item));
+    });
   };
 
   @action
@@ -202,6 +280,7 @@ export default class TemplateState {
       assets: [],
     };
     this.buildAssets(template.assets);
+    this.buildCameras(template.cameras);
     this.checkAssetsTemplate();
   };
 
@@ -212,9 +291,9 @@ export default class TemplateState {
       assets: [],
     });
     const newAssets: AssetClass[] = [];
-    const { assets } = template;
-    assets.forEach((item) => {
-      const target = this.assets.find((i) => i.id === item.id);
+    const { assets, cameras } = template;
+    assets.forEach(item => {
+      const target = this.assets.find(i => i.id === item.id);
       if (target) {
         target.restore(item);
         newAssets.push(target);
@@ -229,7 +308,15 @@ export default class TemplateState {
         newAssets.push(newAsset);
       }
     });
-
+    // if (newAssets.length) {
+    //   this.assets.replace(newAssets);
+    // }
+    const newCameras: CameraState[] = [];
+    cameras.forEach(item => {
+      const camera = new CameraState(item);
+      newCameras.push(camera);
+    });
+    this.cameras.replace(newCameras);
     this.assets.replace(newAssets);
     this.checkAssetsTemplate();
   };
@@ -238,7 +325,7 @@ export default class TemplateState {
   setMultiSelect = (assets: AssetClass[], clearChildrenParent = true) => {
     this.multiSelect = new Set([...assets]);
     if (clearChildrenParent) {
-      this.multiSelect.forEach((asset) => {
+      this.multiSelect.forEach(asset => {
         asset.setParent(undefined);
       });
     }
@@ -255,7 +342,7 @@ export default class TemplateState {
   @action
   clearMultiSelect = (clearChildrenParent = true) => {
     if (clearChildrenParent) {
-      this.multiSelect.forEach((asset) => {
+      this.multiSelect.forEach(asset => {
         asset.setParent(undefined);
       });
     }
@@ -325,7 +412,7 @@ export default class TemplateState {
       const target = this.assets[index];
       if (index > -1) {
         if (isTempModuleType(target)) {
-          this.multiSelect.forEach((item) => {
+          this.multiSelect.forEach(item => {
             this.removeAsset(item.id);
           });
           this.clearMultiSelect();
@@ -354,7 +441,7 @@ export default class TemplateState {
 
       if (isTempModuleType(target)) {
         // TempModule元素只能删除子元素
-        this.multiSelect.forEach((item) => {
+        this.multiSelect.forEach(item => {
           this.removeAsset(item.id);
         });
         this.clearMultiSelect();
@@ -375,7 +462,7 @@ export default class TemplateState {
   };
 
   @action
-  updateBackgroundColor = (color: RGBA | GradientColor) => {
+  updateBackgroundColor = (color: RGBA | GradientType) => {
     this.pageAttr.backgroundColor = color;
   };
 
@@ -384,5 +471,43 @@ export default class TemplateState {
     this.pageAttr.backgroundImage = {
       ...data,
     };
+  };
+
+  @action
+  addCamera = (camera: Camera, index = -1) => {
+    if (this.cameras) {
+      const ac = new CameraState(camera);
+      if (index !== -1) {
+        // todo
+        this.cameras.splice(index + 1, 0, ac);
+      } else {
+        this.cameras.push(ac);
+      }
+      const active = this.cameras.length - 1;
+      return this.cameras[active];
+    }
+    return undefined;
+  };
+
+  @action
+  addCameraPre = (camera: Camera) => {
+    if (this.cameras) {
+      const ac = new CameraState(camera);
+      this.cameras.unshift(ac);
+      return ac;
+    }
+    return undefined;
+  };
+
+  @action
+  removeCamera = (index: number) => {
+    if (this.cameras) {
+      this.cameras.splice(index, 1);
+    }
+  };
+
+  @action
+  removeAllCamera = () => {
+    this.cameras = [];
   };
 }

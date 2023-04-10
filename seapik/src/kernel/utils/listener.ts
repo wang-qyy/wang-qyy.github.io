@@ -5,7 +5,7 @@ class HoldKey {
   key: string | null = null;
 
   constructor() {
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', e => {
       if (e.key !== this.key) {
         this.key = e.key;
       }

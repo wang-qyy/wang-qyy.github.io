@@ -1,3 +1,4 @@
+import WebFont from 'webfontloader';
 import { getFontNameValueList } from '@kernel/utils/defaultConfig';
 
 export class OldLottieHandler {

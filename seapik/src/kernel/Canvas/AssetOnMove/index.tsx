@@ -32,6 +32,7 @@ function AssetOnMove() {
                 rt_inMoving: true,
               });
             }
+
             handleMove(
               {
                 left: left + x,

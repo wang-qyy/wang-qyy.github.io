@@ -36,8 +36,8 @@ export function getStyles(
   const FlipStyle = {
     width: '100%',
     height: '100%',
-    transform: `scaleX(${asset.transform.flipX ? -1 : 1}) scaleY(${
-      asset.transform.flipY ? -1 : 1
+    transform: `scaleX(${asset.transform.horizontalFlip ? -1 : 1}) scaleY(${
+      asset.transform.verticalFlip ? -1 : 1
     })`,
   };
 
@@ -102,13 +102,13 @@ export class SVGHandler {
 
   /**
    * 解析svg可变更的填充颜色
-   * @param originDom
+   * @param orginDom
    * @param SVGDom
    * @returns
    */
   // @ts-ignore
   updateColorNode = (
-    originDom = this.SVGDom,
+    orginDom = this.SVGDom,
     SVGDom = this.SVGDom?.childNodes,
   ) => {
     if (!SVGDom) {
@@ -141,7 +141,7 @@ export class SVGHandler {
           let isExitId = '';
           // 判断当前渐变颜色是否已经存在
           // eslint-disable-next-line no-loop-func
-          fillIds.forEach((key) => {
+          fillIds.forEach(key => {
             if (key === id) {
               isExitId = this.colors[key].id;
             }
@@ -154,7 +154,7 @@ export class SVGHandler {
             if (isExitId === '') {
               oldNodeId.push(id);
               // @ts-ignore
-              const parent = originDom?.getElementById(id);
+              const parent = orginDom?.getElementById(id);
               const x1 = parseFloat(parent?.getAttribute('x1') || '0');
               const y1 = parseFloat(parent?.getAttribute('y1') || '0');
               const x2 = parseFloat(parent?.getAttribute('x2') || '0');
@@ -240,13 +240,13 @@ export class SVGHandler {
           }
         }
         if (item.childNodes.length > 0) {
-          this.updateColorNode(originDom, item.childNodes);
+          this.updateColorNode(orginDom, item.childNodes);
         }
       }
     }
-    oldNodeId.forEach((id) => {
+    oldNodeId.forEach(id => {
       // @ts-ignore
-      const tmpNode = originDom?.getElementById(id);
+      const tmpNode = orginDom?.getElementById(id);
       if (tmpNode) {
         tmpNode?.parentNode.removeChild(tmpNode);
       }
@@ -260,7 +260,7 @@ export class SVGHandler {
     if (this.SVGDom) {
       const childNodes = this.SVGDom?.childNodes;
       const node: any[] = [];
-      childNodes.forEach((item) => {
+      childNodes.forEach(item => {
         if (
           item.nodeName !== 'text' &&
           item.nodeName !== '#text' &&
@@ -420,7 +420,7 @@ export class SVGHandler {
     // const reg = /(?<=filter="url\(#).*(?=\)")/g;
     const reg = /(?<=\="url\(#).*(?=\)")/g;
     const list = SVGString.match(reg) || [];
-    list.forEach((item) => {
+    list.forEach(item => {
       SVGString = SVGString.replaceAll(item, `${item}_${resId}_${id}`);
     });
 
@@ -537,7 +537,7 @@ export class SVGHandler {
     resId: string,
   ) => {
     if (this.SVGDom) {
-      Object.keys(colors).forEach((key) => {
+      Object.keys(colors).forEach(key => {
         if (colors[key] && this.svgColorsDom[key]) {
           const itemColor = colors[key];
           let realColor = itemColor.color;

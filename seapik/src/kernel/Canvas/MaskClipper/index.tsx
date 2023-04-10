@@ -1,9 +1,19 @@
-import { CSSProperties, useEffect, useState, SyntheticEvent } from 'react';
+import React, {
+  CSSProperties,
+  useRef,
+  useEffect,
+  useState,
+  SyntheticEvent,
+} from 'react';
 import { observer } from 'mobx-react';
-import { AssetClass, Position } from '@kernel/typing';
+import {
+  Asset,
+  AssetClass,
+  Coordinate,
+  Position,
+  RectLimit,
+} from '@kernel/typing';
 import Image from '@kernel/Components/Image';
-import MaskTransformHelper from './MaskTransform';
-
 import { getAssetStatus, getCanvasInfo, getEditAsset } from '@/kernel/store';
 import { buildGeneralStyleInHandler } from '@kernel/utils/assetHelper/pub';
 import { getCanvasClientRect } from '@kernel/utils/single';
@@ -16,62 +26,79 @@ import { hasRotate } from '@/kernel/utils/assetChecker';
 import { mouseMoveDistance } from '@kernel/Canvas/AssetOnMove/utils';
 import {
   getAssetCenterScale,
+  getRectCenter,
+  getRectLimitCoordinate,
   rotatePoint,
 } from '@kernel/utils/mouseHandler/reactHelper';
-
-import {
-  coordinateToPosition,
-  positionToCoordinate,
-} from '@kernel/utils/mouseHandler/mouseHandlerHelper';
-
 import { useGetClipInfo } from './hooks';
+import MaskTransformHelper from './MaskTransform';
 import './index.less';
+import { useSetState } from 'ahooks';
 
 type MaskType = 'origin' | 'preview';
-
+const ImgDom = (props: {
+  asset: AssetClass;
+  style?: CSSProperties;
+  src: string | undefined;
+}) => {
+  const { style, src, asset } = props;
+  const { assets } = asset;
+  // 翻转属性
+  let transformCss = '';
+  if (assets) {
+    const { transform } = assets[0];
+    transformCss = `scaleX(${transform.horizontalFlip ? -1 : 1}) scaleY(${
+      transform.verticalFlip ? -1 : 1
+    })`;
+  }
+  if (!style) {
+    return (
+      <Image
+        draggable={false}
+        src={src}
+        style={{ transform: transformCss }}
+        alt="裁剪"
+      />
+    );
+  }
+  return (
+    <div
+      style={{
+        ...style,
+        transform: transformCss,
+      }}
+    >
+      <Image draggable={false} src={src} alt="裁剪" />
+    </div>
+  );
+};
+ImgDom.defaultProps = {
+  style: undefined,
+};
 const MaskClipper = observer((props: { editAsset: AssetClass }) => {
   const { scale } = getCanvasInfo();
   const { editAsset } = props;
-  const childAsset = editAsset;
-
+  const childAsset = editAsset.assets[0];
+  // const { vSize, vScale, MaskContainer, clipPath } = useMaskHandler(editAsset);
   const { MaskContainer, originImageSrc, clipPath } = useGetClipInfo(editAsset);
   const style = buildGeneralStyleInHandler(editAsset);
-
-  // 原图样式
-  const originStyle: CSSProperties = {
-    ...editAsset.assetOriginSizeScale, //
-    ...coordinateToPosition(editAsset.cropPositionScale), // position
-    zIndex: editAsset.assetTransform.zIndex,
-    opacity: editAsset.assetTransform.opacity,
-    transform: `rotate(${editAsset.assetAbsolutePositionScale.rotate}deg)`,
-  };
-
+  const originStyle = buildGeneralStyleInHandler(editAsset.assets[0]);
   const [childAbsolute, setChildAbsolute] = useState<Position>({
     left: 0,
     top: 0,
   });
-
   // 元素缩放状态
-  const [state, setState] = useState({ origin: false, preview: false });
+  const [state, setState] = useState({
+    origin: false,
+    preview: false,
+  });
 
-  /**
-   * @description 计算原图相对画布尺寸
-   */
   function getChildAbsolute() {
-    if (editAsset.attribute.crop) {
-      const { posY, posX } = calcChildAbsoluteByMask(
-        editAsset,
-        editAsset.attribute.crop,
-      );
-
-      return { left: posX * scale, top: posY * scale };
-    }
-    return editAsset.assetPositionScale;
+    const { posY, posX } = calcChildAbsoluteByMask(editAsset, childAsset);
+    return { left: posX * scale, top: posY * scale };
   }
 
   function autoSetter() {
-    console.log('autoSetter', { ...editAsset.attribute.crop?.position });
-
     setChildAbsolute(getChildAbsolute());
   }
 
@@ -79,49 +106,37 @@ const MaskClipper = observer((props: { editAsset: AssetClass }) => {
 
   function moveImage(e: SyntheticEvent) {
     e.stopPropagation();
-
+    const { left, top } = childAsset.assetPositionScale;
     const limit = getMaskAssetLimit(style, originStyle);
+
+    let coordinate = {
+      x: left,
+      y: top,
+    };
     const { rotate } = editAsset.transform;
-
-    const { left, top } = editAsset.assetPositionScale;
-
-    let coordinate = { x: left, y: top };
-
-    const assetCenter = getAssetCenterScale(
-      editAsset.assetPositionScale,
-      editAsset.assetSizeScale,
-    );
-
+    const childCenter = getAssetCenterScale(childAsset);
     if (hasRotate(editAsset)) {
-      coordinate = rotatePoint(coordinate, assetCenter, rotate);
+      coordinate = rotatePoint(coordinate, childCenter, rotate);
     }
-
     mouseMoveDistance(
       (x: number, y: number) => {
-        let pos = { x: coordinate.x + x, y: coordinate.y + y };
+        let pos = {
+          x: coordinate.x + x,
+          y: coordinate.y + y,
+        };
         if (hasRotate(editAsset)) {
-          pos = rotatePoint(pos, assetCenter, -rotate);
+          pos = rotatePoint(pos, childCenter, -rotate);
         }
-
-        const result = pos || checkMaskAssetCrossBorder(pos, limit);
-
-        editAsset.update({
-          // attribute: {
-          //   crop: {
-          //     position: {
-          //       x: (childAbsolute.left - result.x) / scale,
-          //       y: (childAbsolute.top - result.y) / scale,
-          //     },
-          //     size: editAsset.assetOriginSize,
-          //   },
-          // },
+        const result = checkMaskAssetCrossBorder(pos, limit);
+        childAsset.update({
           transform: {
-            posX: result.x / scale,
             posY: result.y / scale,
+            posX: result.x / scale,
           },
         });
       },
       () => {
+        childAsset.setRtRelativeByParent();
         autoSetter();
       },
     );
@@ -146,13 +161,6 @@ const MaskClipper = observer((props: { editAsset: AssetClass }) => {
       childAsset.setRtRelativeByParent();
     };
   }, []);
-
-  // 图片翻转属性
-  const { transform } = editAsset;
-  const transformCss = `scaleX(${transform.flipX ? -1 : 1}) scaleY(${
-    transform.flipY ? -1 : 1
-  })`;
-
   return (
     <>
       <div
@@ -166,7 +174,7 @@ const MaskClipper = observer((props: { editAsset: AssetClass }) => {
           zIndex: -1000000000,
         }}
       />
-      {
+      {clipPath && (
         <>
           <div className="hc-asset-mask-clipper">
             {/* 预览图部分 */}
@@ -183,38 +191,18 @@ const MaskClipper = observer((props: { editAsset: AssetClass }) => {
                 style={{ clipPath: `url(#${clipPath}` }}
                 onMouseDown={moveImage}
               >
-                <div
+                <ImgDom
+                  asset={editAsset}
+                  src={originImageSrc}
                   style={{
                     ...originStyle,
                     position: 'absolute',
-                    transform: transformCss,
                   }}
-                >
-                  <Image draggable={false} src={originImageSrc} alt="裁剪" />
-                </div>
-
-                {/* 分割线 */}
-                <div
-                  className="hc-asset-mask-clipper-divider hc-asset-mask-clipper-divider-v"
-                  style={{ left: '33%' }}
-                />
-                <div
-                  className="hc-asset-mask-clipper-divider hc-asset-mask-clipper-divider-v"
-                  style={{ left: '66%' }}
-                />
-                <div
-                  className="hc-asset-mask-clipper-divider hc-asset-mask-clipper-divider-h"
-                  style={{ top: '33%' }}
-                />
-                <div
-                  className="hc-asset-mask-clipper-divider hc-asset-mask-clipper-divider-h"
-                  style={{ top: '66%' }}
                 />
               </div>
             </div>
             {/* 原图部分 */}
             <div
-              aria-label="origin image"
               style={{
                 ...originStyle,
                 ...childAbsolutePos,
@@ -222,40 +210,33 @@ const MaskClipper = observer((props: { editAsset: AssetClass }) => {
                 position: 'absolute',
                 transform: style.transform,
                 cursor: 'move',
-                pointerEvents: 'none',
               }}
-              // TODO: 暂时只做背景裁剪 原图onMouseDown 阻止冒泡
-              // onMouseDown={moveImage}
-              onMouseDown={(e) => e.stopPropagation()}
+              onMouseDown={moveImage}
             >
-              <div className="hc-AIC-origin-image" style={{ zIndex: 1 }}>
-                <Image
-                  draggable={false}
-                  src={originImageSrc}
-                  style={{ transform: transformCss }}
-                  alt="裁剪"
-                />
+              <div
+                className="hc-AIC-origin-image"
+                style={{
+                  zIndex: 1,
+                }}
+              >
+                <ImgDom src={originImageSrc} asset={editAsset} />
               </div>
             </div>
           </div>
-
-          {/* 背景元素裁剪不允许改变原图大小 */}
-          {!editAsset.meta.isBackground && (
-            <MaskTransformHelper
-              scaleStatus={state}
-              childAsset={childAsset}
-              maskAsset={editAsset}
-              maskType="origin"
-              onChangeStart={() => onChangeStart('origin')}
-              onChangeEnd={() => onChangeEnd('origin')}
-              childPositionCache={childAbsolute}
-              childPosition={childAbsolutePos}
-              getRect={getCanvasClientRect}
-            />
-          )}
           <MaskTransformHelper
             scaleStatus={state}
-            childAsset={childAsset}
+            childAsset={editAsset.assets[0]}
+            maskAsset={editAsset}
+            maskType="origin"
+            onChangeStart={() => onChangeStart('origin')}
+            onChangeEnd={() => onChangeEnd('origin')}
+            childPositionCache={childAbsolute}
+            childPosition={childAbsolutePos}
+            getRect={getCanvasClientRect}
+          />
+          <MaskTransformHelper
+            scaleStatus={state}
+            childAsset={editAsset.assets[0]}
             maskAsset={editAsset}
             maskType="preview"
             onChangeStart={() => onChangeStart('preview')}
@@ -265,7 +246,7 @@ const MaskClipper = observer((props: { editAsset: AssetClass }) => {
             getRect={getCanvasClientRect}
           />
         </>
-      }
+      )}
     </>
   );
 });
@@ -274,13 +255,7 @@ function MaskClipperWrapper() {
   const editAsset = getEditAsset();
   const { inMask } = getAssetStatus();
 
-  // return editAsset?.meta.type === 'mask' && inMask && editAsset.assets[0] ? (
-  //   <MaskClipper editAsset={editAsset} />
-  // ) : (
-  //   <></>
-  // );
-
-  return editAsset?.attribute.crop && inMask && !editAsset.meta.isBackground ? (
+  return editAsset?.meta.type === 'mask' && inMask && editAsset.assets[0] ? (
     <MaskClipper editAsset={editAsset} />
   ) : (
     <></>

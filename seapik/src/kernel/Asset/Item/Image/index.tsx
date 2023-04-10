@@ -1,36 +1,62 @@
+import React from 'react';
 import { observer } from 'mobx-react';
 import type { AssetItemProps } from '@kernel/typing';
 import Image from '@kernel/Components/Image';
+// import ImageWithFilters from '../ImageWithFilters';
 import { assetIdPrefix } from '@/kernel/utils/const';
 import { useStyle } from './hooks';
+import ImageClip from './ImageClip';
+import { transformGravityToCssProperties } from '../utils';
 import FabricImage from './FabricImage';
 import { getAvailableFilters } from './utils';
 
-import { useMaskHandler } from '../Mask/hooks';
-
 const ImageAsset = (props: AssetItemProps) => {
-  const {
-    asset,
-    canvasInfo,
-    whole,
-    isPreviewMovie = false,
-    prefix = '',
-  } = props;
+  const { asset, canvasInfo, whole } = props;
   const { attribute, id } = asset;
-  const { picUrl, filters, container, rt_blob_url } = attribute;
+  const {
+    picUrl,
+    filters,
+    container,
+    imageEffects,
+    isFill,
+    gravity = 'nw',
+    width,
+    scale: imgScale = 100, // 25~100
+    rt_blob_url,
+  } = attribute;
   const src = picUrl === 'loading' ? '' : picUrl;
 
-  const { getImgStyle, getImgContainer } = useStyle(asset);
+  // TODO: 有filters?.resId的会走滤镜组件
+  // const needImageShop = !!(
+  //   container?.source_key ||
+  //   imageEffects ||
+  //   filters?.resId
+  // );
 
-  const { MaskContainer, clipPath, loading } = useMaskHandler(
-    asset,
-    canvasInfo,
-    isPreviewMovie,
-    prefix,
-  );
+  const needImageShop = !!(container?.source_key || imageEffects);
+
+  const { getImgStyle, getImgContainer, getCanvasStyle } = useStyle(asset);
+
+  const [posX, posY] = transformGravityToCssProperties(gravity);
+
+  if (asset.meta.isLogo) {
+    return (
+      <div
+        style={{
+          width: '100%',
+          height: '100%',
+          background: `url(${picUrl}) ${
+            isFill ? 'repeat' : 'no-repeat'
+          } ${posX} ${posY} / ${width * 0.3 * (imgScale / 100)}px`,
+        }}
+      />
+    );
+  }
 
   const checkImage = () => {
     const availableFilters = whole && filters && getAvailableFilters(filters);
+    console.log('checkImage', { availableFilters, rt_blob_url });
+
     if (availableFilters) {
       return (
         <FabricImage
@@ -60,20 +86,21 @@ const ImageAsset = (props: AssetItemProps) => {
   return (
     <div
       className="assetWrapper"
-      aria-label="image wrapper"
       style={{
-        // ...getImgContainer(),
-        width: '100%',
-        height: '100%',
+        ...getImgContainer(),
         opacity: asset.tempData?.rt_hover?.isHover ? '0.3' : 1,
-        clipPath: `url(#${clipPath}`,
-        transform: `scale(${asset.tempData?.rt_itemScale})`,
-        transformOrigin: '0 0 0',
       }}
     >
-      <div ref={MaskContainer} />
-
-      {checkImage()}
+      {/* TODO: 原来老裁剪逻辑，目前走不到这个组件 */}
+      {needImageShop ? (
+        <ImageClip
+          style={getCanvasStyle()}
+          asset={asset}
+          canvasInfo={canvasInfo}
+        />
+      ) : (
+        checkImage()
+      )}
     </div>
   );
 };

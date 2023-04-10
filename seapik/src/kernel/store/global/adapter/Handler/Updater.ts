@@ -7,7 +7,7 @@ import { PlayStatus } from '@kernel/utils/const';
 
 export type SetVideoInfoType = typeof global.setVideoInfo;
 /**
- * @description 设置目标global的canvasInfo
+ * @description 设置目标global的canvasinfo
  */
 export const setCanvasInfo = (data: Partial<CanvasInfo>) => {
   global.setCanvasInfo(data);

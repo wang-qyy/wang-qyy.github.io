@@ -13,7 +13,12 @@ export function formatRawData(data: any) {
       assets: item,
       canvas: { width: data.width, height: data.height, title: '' },
       pageAttr: {
-        backgroundColor: { r: 0, g: 0, b: 0, a: 0 },
+        backgroundColor: doc.pageAttr.backgroundColor[index] ?? {
+          r: 0,
+          g: 0,
+          b: 0,
+          a: 0,
+        },
         pageInfo: {
           pageTime: 1000,
           baseTime: 1000,

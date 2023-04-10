@@ -1,9 +1,21 @@
 import assetHandler from '@kernel/store/assetHandler';
 import global from '@kernel/store/global';
-import { Asset, AssetClass, TemplateBackground } from '@kernel/typing';
+import {
+  Asset,
+  AssetClass,
+  AssetTempUpdateParams,
+  TemplateBackground,
+} from '@kernel/typing';
 import { config } from '@kernel/utils/config';
-import { isMaskType } from '@kernel/utils/assetChecker';
+import {
+  assetCanEditInTargetTime,
+  getRealAsset,
+  isMaskType,
+} from '@kernel/utils/assetChecker';
+import { getRelativeCurrentTime } from '@/kernel/store/global/adapter';
+import { toJS } from 'mobx';
 import AssetItemState from '../../asset';
+import CameraState from '../../template/camera';
 
 export function getAllAsset() {
   return assetHandler?.assets || [];
@@ -41,7 +53,12 @@ export const getMoveAssetMask = () => {
 export const getCurrentAsset = () => {
   return assetHandler?.currentAsset;
 };
-
+/**
+ * @description 获取编辑中的镜头
+ */
+export const getCurrentCamera = () => {
+  return assetHandler?.editCamera;
+};
 /**
  * @description 获取当前文字编辑中的元素
  */
@@ -96,7 +113,7 @@ export const getModuleItemActive = () => {
 
 export function getAssetIndexById(id: number) {
   const { assets = [] } = assetHandler;
-  return assets.findIndex((item) => item.meta.id === id);
+  return assets.findIndex(item => item.meta.id === id);
 }
 
 export function getTemplateBackground() {
@@ -125,7 +142,7 @@ export function getCurrentTemplateIndex() {
 
 export function getTemplate(id?: number | string) {
   if (id) {
-    const index = assetHandler.templates.findIndex((item) => item.id === id);
+    const index = assetHandler.templates.findIndex(item => item.id === id);
     return {
       template: assetHandler.templates[index],
       index,
@@ -135,6 +152,16 @@ export function getTemplate(id?: number | string) {
     template: assetHandler.currentTemplate,
     index: assetHandler.currentTemplateIndex,
   };
+}
+// 获取当前模板的转场数据
+export function getCurrentTemplateTranstion() {
+  const assets = assetHandler.currentTemplate.assets.filter(
+    item => item.meta.isTransfer,
+  );
+  if (assets.length === 1) {
+    return assets[0];
+  }
+  return null;
 }
 
 /**
@@ -159,10 +186,33 @@ export function getTimeScale() {
 }
 
 /**
+ * @description 获取所有元素
+ */
+export function getWholeEndTime() {
+  const timeScale = getTimeScale();
+  if (timeScale.length) {
+    const lastTime = timeScale[timeScale.length - 1];
+    return lastTime[1] || 0;
+  }
+  return 0;
+}
+
+/**
  * @description 获取元素加载状态
  */
 export function getAssetLoading() {
   return assetHandler.assetLoaded;
+}
+
+/**
+ * @description 获取目标元素加载状态
+ */
+export function getAssetItemLoaded(asset: Asset) {
+  const target = asset;
+  if (target) {
+    return target.rt_assetLoadComplete;
+  }
+  return true;
 }
 
 /**
@@ -198,6 +248,10 @@ export const useGetModuleItemActive = () => {
 export function getEditableAssetOnCurrentTime(currentTime?: number) {
   const { assets, currentTemplate } = assetHandler;
   if (currentTemplate && currentTemplate?.videoInfo) {
+    const {
+      videoInfo: { speed = 1, offsetTime = [0, 0] },
+    } = currentTemplate;
+
     const { videoStatus, currentTimeRange } = global;
     let targetTime =
       typeof currentTime === 'number' ? currentTime : videoStatus.currentTime;
@@ -206,10 +260,12 @@ export function getEditableAssetOnCurrentTime(currentTime?: number) {
       targetTime -= currentTimeRange;
     }
 
+    targetTime /= 1 / speed;
+
     return assets.filter((asset: AssetClass) => {
       // 锁定元素，与背景元素不可框选
       if (!asset.meta.locked && !asset.meta.isBackground) {
-        return true;
+        return assetCanEditInTargetTime(asset, targetTime + offsetTime[0]);
       }
       return false;
     });
@@ -219,18 +275,58 @@ export function getEditableAssetOnCurrentTime(currentTime?: number) {
 
 const loopGroup = (assets: AssetItemState[]) => {
   const list: AssetItemState[] = [];
-  assets.forEach((asset) => {
+  assets.forEach(asset => {
     // const realAsset = getRealAsset(asset);
     const { type } = asset.meta;
     if (type === 'module' && asset.assets.length) {
       list.push(...loopGroup(asset.assets));
     }
-    if (['image', 'SVG', 'svgPath', 'mask', 'lottie'].includes(type)) {
+    if (
+      [
+        'image',
+        'pic',
+        'video',
+        'videoE',
+        'SVG',
+        'svgPath',
+        'mask',
+        'lottie',
+      ].includes(type)
+    ) {
       list.push(asset);
     }
   });
   return list;
 };
+
+/**
+ * @description 获取当前帧下的可见图片元素
+ * @param currentTime
+ */
+export function getAssetsOnCurrentTime(currentTime?: number) {
+  const { assets, currentTemplate } = assetHandler;
+  if (currentTemplate && currentTemplate?.videoInfo) {
+    const {
+      videoInfo: { speed = 1, offsetTime = [0, 0] },
+    } = currentTemplate;
+
+    const { videoStatus, currentTimeRange } = global;
+    let targetTime =
+      typeof currentTime === 'number' ? currentTime : videoStatus.currentTime;
+
+    if (config.wholeTemplate) {
+      targetTime -= currentTimeRange;
+    }
+
+    targetTime /= 1 / speed;
+    const list = loopGroup(assets);
+
+    return list.filter((asset: AssetClass) => {
+      return assetCanEditInTargetTime(asset, targetTime + offsetTime[0]);
+    });
+  }
+  return [];
+}
 
 /**
  * @description 获取蒙版中拖拽中的元素
@@ -243,20 +339,34 @@ export function getBackgroundAsset() {
   return assetHandler?.currentTemplate?.backgroundAsset;
 }
 
+/**
+ * @description 通过id获取index
+ * @param id
+ */
+export function getTemplateIndexById(id: string | number) {
+  return assetHandler.templates.findIndex(item => item.id === id);
+}
+
 export function useSubscribeAssets(assetIds?: number[]) {
   const { assets = [] } = assetHandler;
   if (assetIds) {
-    return assets.filter((item) => assetIds.includes(item.meta.id));
+    return assets.filter(item => assetIds.includes(item.meta.id));
   }
   return assets;
 }
-
+/**
+ * 获取违规资源数据
+ * @returns
+ */
+export function useGetLllegelAssets() {
+  return assetHandler.lllegelAssets;
+}
 /**
  * 获取当前被hover的蒙版元素
  */
 export function getCurrentHoverMask() {
   const list = getEditableAssetOnCurrentTime();
   return list.filter(
-    (item) => isMaskType(item) && item.tempData.rt_hover?.isHover,
+    item => isMaskType(item) && item.tempData.rt_hover?.isHover,
   );
 }

@@ -33,7 +33,7 @@ const FabricImage = (props: IProps) => {
   // 设置该元素的临时滤镜图片地址
   const { run: setBlob } = useDebounceFn(
     () => {
-      canvasRef.current?.toBlob((blob) => {
+      canvasRef.current?.toBlob(blob => {
         if (!blob || !srcChange.current) return;
         const url = URL.createObjectURL(blob);
         props.asset.update({ attribute: { rt_blob_url: url } });

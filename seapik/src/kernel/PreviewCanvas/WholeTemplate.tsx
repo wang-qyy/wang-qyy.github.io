@@ -1,7 +1,12 @@
 import Asset from '@kernel/Asset';
-import { CSSProperties, useEffect, useMemo } from 'react';
+import React, { CSSProperties, useEffect, useMemo } from 'react';
+import VideoTimer from '@kernel/Canvas/VideoTimer';
+import Audio from '@kernel/Canvas/MultipleAudio';
 import { observer } from 'mobx-react';
-import { useGetPreviewVideoStatus } from '@kernel/store/global/adapter';
+import {
+  useGetPreviewVideoStatus,
+  usePreviewVideoHandler,
+} from '@kernel/store/global/adapter';
 import { clearPreviewStatus } from '@kernel/storeAPI/Global';
 import { PreviewVideoStatusHandler } from '@kernel/PreviewCanvas/store';
 
@@ -10,6 +15,7 @@ import { newDomId } from '@kernel/utils/idCreator';
 import { PlayStatus } from '@kernel/utils/const';
 import { CanvasInfo } from '@kernel/typing';
 import { useCanvasStyle } from '@kernel/Canvas/utils';
+import { useTranstionStyle } from '../Canvas/TemplateTranstion/hook';
 import { deepCloneJson } from '../utils/single';
 
 export const emptyVideoInfo = {
@@ -29,20 +35,31 @@ const WholeTemplate = observer(({ canvasInfo }: { canvasInfo: CanvasInfo }) => {
     return `WholeTemplate-${newDomId()}`;
   }, []);
 
-  const { currentTemplateIndex, videoStatus, resetVideoStatus, templateList } =
-    useGetCurrentTimeByCurrentTemplate(
-      previewVideoStatus,
-      PreviewVideoStatusHandler,
-    );
+  const {
+    audioList,
+    timerVideoInfo,
+    currentTemplateIndex,
+    videoStatus,
+    resetVideoStatus,
+    templateList,
+    template,
+  } = useGetCurrentTimeByCurrentTemplate(
+    previewVideoStatus,
+    PreviewVideoStatusHandler,
+  );
 
-  // 销毁后，自动清除预览状态
+  // 销毁后，自动清楚预览状态
   useEffect(() => {
     return () => {
       clearPreviewStatus();
       resetVideoStatus();
     };
   }, []);
-
+  // const template = templateList[currentTemplateIndex];
+  const { animationType, style: transtionStyle } = useTranstionStyle(
+    videoStatus,
+    template,
+  );
   // 计算每一个片段的样式
   function calcTemplateStyle(index: number) {
     let style: CSSProperties = {
@@ -55,6 +72,21 @@ const WholeTemplate = observer(({ canvasInfo }: { canvasInfo: CanvasInfo }) => {
     if (index === currentTemplateIndex) {
       style = {
         zIndex: 100 + 1,
+        ...transtionStyle.style,
+      };
+    }
+    if (animationType === 'after' && index === currentTemplateIndex + 1) {
+      style = {
+        zIndex: 100 - index,
+        ...transtionStyle.lastStyle,
+        pointerEvents: 'none',
+      };
+    }
+    if (animationType === 'before' && index === currentTemplateIndex - 1) {
+      style = {
+        zIndex: 100 - index,
+        ...transtionStyle.lastStyle,
+        pointerEvents: 'none',
       };
     }
 
@@ -79,6 +111,13 @@ const WholeTemplate = observer(({ canvasInfo }: { canvasInfo: CanvasInfo }) => {
             // 如果这个片段有结束转场 那播放完成之后，画面停留在最后一帧
             let noCurrentVideoStatus = deepCloneJson(emptyVideoStatus);
             if (!flag && index === currentTemplateIndex - 1) {
+              if (item?.endTransfer) {
+                noCurrentVideoStatus.currentTime =
+                  item.videoInfo.allAnimationTime;
+                noCurrentVideoStatus.playStatus = 0;
+              } else {
+                noCurrentVideoStatus = emptyVideoStatus;
+              }
             }
             return needShow ? (
               <Asset
@@ -99,6 +138,16 @@ const WholeTemplate = observer(({ canvasInfo }: { canvasInfo: CanvasInfo }) => {
           })}
         </div>
       </div>
+      <Audio
+        videoStatus={previewVideoStatus}
+        audioList={audioList}
+        templateIndex={currentTemplateIndex}
+      />
+      <VideoTimer
+        endTime={timerVideoInfo.allAnimationTime}
+        videoStatus={previewVideoStatus}
+        videoHandler={usePreviewVideoHandler}
+      />
     </div>
   );
 });

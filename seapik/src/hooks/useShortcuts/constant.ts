@@ -10,6 +10,8 @@ export enum keyCodes {
   Backspace = 'Backspace',
   ArrowLeft = 'ArrowLeft',
   ArrowRight = 'ArrowRight',
+  ArrowUp = 'ArrowUp',
+  ArrowDown = 'ArrowDown',
 }
 
 export const comboCode: Record<string, keyof KeyboardEvent> = {

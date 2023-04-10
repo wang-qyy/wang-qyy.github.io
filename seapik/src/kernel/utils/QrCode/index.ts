@@ -1,4 +1,4 @@
-import { GradientColor, RGBA } from '@/kernel';
+import { GradientType, RGBA } from '@/kernel';
 import { RGBAToString } from '@/kernel/utils/single';
 import { vec2 } from 'gl-matrix';
 import LRUCache from 'lru-cache';
@@ -14,7 +14,7 @@ export interface QrCodeOpt {
   size: number;
   correctLevel: number;
   background: RGBA; // 背景色
-  foreground: RGBA | GradientColor; // 前景色 支持渐变
+  foreground: RGBA | GradientType; // 前景色 支持渐变
   image: string;
   imageSize: number;
   pdGround?: RGBA; // 三个角的颜色
@@ -138,7 +138,7 @@ class QrCode {
   _getLineargradient = (
     ctx: CanvasRenderingContext2D,
     size: number,
-    gradient: GradientColor,
+    gradient: GradientType,
   ) => {
     const center: vec2 = [size / 2, size / 2];
     const start: vec2 = [size / 2, size];
@@ -192,12 +192,8 @@ class QrCode {
 
     // 前景色
     let FGColor;
-    if ((foreground as GradientColor).colorStops) {
-      FGColor = this._getLineargradient(
-        ctx,
-        CSize,
-        foreground as GradientColor,
-      );
+    if ((foreground as GradientType).colorStops) {
+      FGColor = this._getLineargradient(ctx, CSize, foreground as GradientType);
     } else {
       FGColor = RGBAToString(foreground as RGBA);
     }

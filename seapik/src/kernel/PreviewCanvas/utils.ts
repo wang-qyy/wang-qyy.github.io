@@ -4,7 +4,7 @@ import {
   TemplateData,
   VideoStatus,
 } from '@kernel/typing';
-import { getTemplateList, getTimeScale } from '@kernel/store';
+import { getTemplateList, getTimeScale, getAudioList } from '@kernel/store';
 import { PreviewVideoStatusHandler } from '@kernel/PreviewCanvas/store';
 import { useMemo } from 'react';
 
@@ -36,6 +36,7 @@ export function useGetCurrentTimeByCurrentTemplate(
   videoStatusOrigin: VideoStatus,
   videoStatusHandler: VideoStatusHandler,
 ) {
+  const audioList = getAudioList();
   const templateList = getTemplateList();
   const timeScale = getTimeScale();
 
@@ -45,7 +46,7 @@ export function useGetCurrentTimeByCurrentTemplate(
   const timerVideoInfo = useMemo(() => {
     let allTime = 0;
     const timeRange: number[] = [];
-    templateList.forEach((item) => {
+    templateList.forEach(item => {
       allTime += item.videoInfo.allAnimationTimeBySpeed;
       timeRange.push(allTime);
     });
@@ -60,7 +61,7 @@ export function useGetCurrentTimeByCurrentTemplate(
   const currentTemplateIndex = useMemo(() => {
     const index = timerVideoInfo.timeRange.findIndex(
       // item => item >= videoStatusOrigin.currentTime,
-      (item) => item > videoStatusOrigin.currentTime,
+      item => item > videoStatusOrigin.currentTime,
     );
     if (index === -1 || index > templateList.length - 1) {
       return 0;
@@ -83,6 +84,7 @@ export function useGetCurrentTimeByCurrentTemplate(
     resetVideoStatus,
     template,
     templateList,
+    audioList,
     timerVideoInfo,
     currentTemplateIndex,
   };

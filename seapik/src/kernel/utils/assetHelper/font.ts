@@ -1,5 +1,5 @@
 import { CSSProperties } from 'react';
-import { RGBAToString, transferGradientToString } from '@kernel/utils/single';
+import { RGBAToString } from '@kernel/utils/single';
 import { AssetClass } from '@/kernel';
 import { backupFontFamily } from '@kernel/utils/defaultConfig';
 import { DEFAULT_FONT_SIZE } from '@kernel/utils/assetHelper/const';
@@ -16,6 +16,7 @@ export function getFontStyle(asset?: AssetClass): CSSProperties {
   }
   const { attribute, fontFamily = '' } = asset;
 
+  const fontColor = attribute.color && RGBAToString(attribute.color);
   const {
     letterSpacing = 0,
     lineHeight = 0,
@@ -25,7 +26,6 @@ export function getFontStyle(asset?: AssetClass): CSSProperties {
     fontStyle,
     writingMode = 'horizontal-tb',
     fontWeight,
-    outline,
   } = attribute;
 
   const style: CSSProperties = {
@@ -35,31 +35,32 @@ export function getFontStyle(asset?: AssetClass): CSSProperties {
     fontFamily: `${fontFamily}, ${backupFontFamily}`,
     lineHeight: lineHeight / 10,
     letterSpacing: (letterSpacing / fontSize) * DEFAULT_FONT_SIZE,
+    color: fontColor,
     wordBreak: 'break-all',
     textAlign,
     writingMode,
-    fontWeight,
   };
-
-  // if (outline) {
-  //   Object.assign(style, {
-  //     WebkitTextStroke: `${outline.width}px ${RGBAToString(outline.color)}`,
-  //   });
-  // }
-
-  if (attribute.color) {
-    if (attribute.color.type) {
+  if (fontWeight === 'bold') {
+    if (
+      (attribute.effectVariant &&
+        attribute.effectVariant.rt_name &&
+        attribute.effectVariant.layers?.length > 0) ||
+      attribute.effectColorful
+    ) {
       Object.assign(style, {
-        backgroundImage: transferGradientToString(attribute.color),
-        WebkitBackgroundClip: 'text',
-        WebkitTextFillColor: 'transparent',
+        fontWeight: 'bold',
       });
     } else {
-      Object.assign(style, { color: RGBAToString(attribute.color) });
+      Object.assign(style, {
+        WebkitTextStroke: `1px ${fontColor}`,
+      });
     }
   }
-  // console.log(outline, style);
-
+  if (attribute.effectVariant && attribute.effectVariant.rt_defaultFontColor) {
+    Object.assign(style, {
+      color: RGBAToString(attribute.effectVariant.rt_defaultFontColor),
+    });
+  }
   return style;
 }
 
@@ -108,7 +109,7 @@ export function formatTextForAsset(editorState: EditorState) {
 
 export function formatTextForAssetAttr(text: string[]) {
   const textInstance: string[] = [];
-  text.forEach((value) => {
+  text.forEach(value => {
     textInstance.push(
       value
         .replace(/&/g, '&#38;')

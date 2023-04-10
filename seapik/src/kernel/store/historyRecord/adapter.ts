@@ -8,5 +8,6 @@ export function getTargetRecord(): RecordData {
 
   return {
     templates: [],
+    audios: [],
   };
 }

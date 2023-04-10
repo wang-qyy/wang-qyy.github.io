@@ -1,6 +1,6 @@
-import { GradientColor } from '@/kernel/typing';
+import { GradientType } from '@/kernel/typing';
 
-export const getId = (gradient: GradientColor) => {
+export const getId = (gradient: GradientType) => {
   const {
     angle,
     // colorStops: ColorStop[],

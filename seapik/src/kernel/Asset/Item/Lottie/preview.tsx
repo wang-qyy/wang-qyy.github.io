@@ -14,7 +14,7 @@ const PREVIEW_TIMES = 5;
 
 function LottiePreview({ asset, onPlayOver, visible }: LottiePreviewProps) {
   const { rt_url, rt_lottieLoaded } = asset.attribute;
-  const { flipX, flipY } = asset.transform;
+  const { horizontalFlip, verticalFlip } = asset.transform;
   const lottieDom = useRef<HTMLDivElement>(null);
   const lottieStyle = useMemo<CSSProperties>(
     () => ({
@@ -23,9 +23,11 @@ function LottiePreview({ asset, onPlayOver, visible }: LottiePreviewProps) {
       top: 0,
       right: 0,
       bottom: 0,
-      transform: `scaleX(${flipX ? -1 : 1}) scaleY(${flipY ? -1 : 1})`,
+      transform: `scaleX(${horizontalFlip ? -1 : 1}) scaleY(${
+        verticalFlip ? -1 : 1
+      })`,
     }),
-    [flipX, flipY],
+    [horizontalFlip, verticalFlip],
   );
 
   useLayoutEffect(() => {
@@ -39,7 +41,7 @@ function LottiePreview({ asset, onPlayOver, visible }: LottiePreviewProps) {
           autoplay: true,
         });
         let times = 1;
-        lottieIns.addEventListener('loopComplete', (e) => {
+        lottieIns.addEventListener('loopComplete', e => {
           if (times >= PREVIEW_TIMES) {
             onPlayOver();
             lottieIns.destroy();

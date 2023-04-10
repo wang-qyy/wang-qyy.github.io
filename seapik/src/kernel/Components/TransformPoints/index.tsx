@@ -72,11 +72,13 @@ function TransformPoints(props: PropsWithChildren<TransformPointsProps>) {
   }
   return (
     <div
-      className={classnames(propsClassName, 'element-transformer', {
+      className={classnames({
+        [propsClassName]: true,
+        'element-transformer': true,
         'element-transformer-hidden': triggerPointType !== '',
       })}
     >
-      {pointList.map((item) => (
+      {pointList.map(item => (
         <i
           editor-aria-label={item.pointType === 'lock' ? '点击解除锁定' : ''}
           key={item.pointType}

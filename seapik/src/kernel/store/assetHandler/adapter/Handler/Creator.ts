@@ -1,4 +1,27 @@
-import { Asset, AssetClass } from '@kernel/typing';
+import {
+  Assets,
+  Asset,
+  PageAttr,
+  AssetClass,
+  AddMaskParams,
+} from '@kernel/typing';
+import { assetHandler, historyRecord } from '@kernel/store';
+import { newMask } from '@/kernel/utils/assetHelper/formater/dataBuilder';
+import { getNewAssetPosition } from '../utils';
+
+/**
+ * @description 初始化元素列表
+ * @param works
+ * @param pageAttr
+ */
+export function initAssetWorks(works: Assets[], pageAttr: PageAttr) {
+  if (works?.length) {
+    historyRecord.initRecord();
+    setTimeout(() => {
+      assetHandler.setCurrentTemplate(0);
+    });
+  }
+}
 
 /**
  * @description 初始化缓存组
@@ -9,6 +32,7 @@ export function getTempModuleData() {
       type: '__module',
       index: -1,
       id: -1,
+      isQuickEditor: false,
       isAlwaysVisible: true,
     },
     attribute: {
@@ -36,6 +60,7 @@ export function getModuleData(asset?: AssetClass | Asset) {
       type: 'module',
       index: -1,
       id: -1,
+      isQuickEditor: false,
     },
     attribute: {
       width: 0,
@@ -59,4 +84,29 @@ export function getModuleData(asset?: AssetClass | Asset) {
     };
   }
   return data as Asset;
+}
+
+/**
+ * @description 添加蒙版元素
+ * @param maskInfo
+ */
+export function addMaskAsset(maskInfo: AddMaskParams) {
+  // @ts-ignore
+  const asset = newMask() as Asset;
+
+  // asset.meta.isUserAdd = true;
+  Object.assign(asset.attribute, maskInfo.attribute);
+  if (maskInfo.meta) {
+    Object.assign(asset.meta, maskInfo.meta);
+  }
+  let transform;
+  if (!maskInfo.transform) {
+    transform = getNewAssetPosition(asset.attribute);
+  } else {
+    transform = maskInfo.transform;
+  }
+
+  Object.assign(asset.transform, transform);
+  asset.assets = [];
+  return assetHandler.currentTemplate.addAsset(asset);
 }

@@ -11,6 +11,13 @@
   justify-content: center;
   align-items: center;
 
+  .hc-audio-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+  }
+
   .element-transformer-locked {
     &:after {
       outline: 1px solid red !important;
@@ -50,7 +57,7 @@
       &:active,
       &:hover {
         background-color: @outLine_color;
-        border-color: red !important;
+        border-color: @primary-color !important;
       }
     }
 
@@ -557,4 +564,209 @@
   height: 100%;
   position: absolute;
   z-index: -1;
+}
+// 镜头交互
+.hc-core-camera {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: rgba(0, 0, 0, 0.3);
+  z-index: @resizePoint+100;
+  position: relative;
+  .hc-c-c-r-t {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 5px;
+    &::before {
+      content: '';
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      border: 2px solid #cdccdc;
+      right: 0;
+      top: 0;
+      border-radius: 5px;
+    }
+  }
+  .hc-c-c-l-t {
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 5px;
+    &::before {
+      content: '';
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      border: 2px solid #cdccdc;
+      left: 0;
+      top: 0;
+      border-radius: 5px;
+    }
+  }
+  .hc-c-c-r-b {
+    position: absolute;
+    bottom: -10px;
+    right: -10px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 5px;
+    &::before {
+      content: '';
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      border: 2px solid #cdccdc;
+      right: 0;
+      bottom: 0;
+      border-radius: 5px;
+    }
+  }
+  .hc-c-c-l-b {
+    position: absolute;
+    bottom: -10px;
+    left: -10px;
+    width: 30px;
+    height: 30px;
+    overflow: hidden;
+    border-radius: 5px;
+    &::before {
+      content: '';
+      width: 35px;
+      height: 35px;
+      position: absolute;
+      border: 2px solid #cdccdc;
+      left: 0;
+      bottom: 0;
+      border-radius: 5px;
+    }
+  }
+}
+.hc-core-camera-item {
+  position: absolute;
+  border: 2px solid #ffffff;
+  box-shadow: 0px 0px 8px 0px #0000007a;
+  border-radius: 8px;
+  opacity: 0.35;
+  .camera-item-title {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(0, 0, 255, 0.2);
+    color: #1d264d;
+    padding: 0px 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0px 0px 4px 0px #000000;
+  }
+  .base-core {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    border-radius: 8px;
+    filter: drop-shadow(0px 0px 3px #000000);
+  }
+  .base-core-before {
+    content: '';
+    width: 50px;
+    height: 50px;
+    position: absolute;
+    border: 3px solid #ffffff;
+    border-radius: 8px;
+  }
+  .hc-camera-item-r-t {
+    .base-core;
+    top: 10px;
+    right: 10px;
+    &::before {
+      .base-core-before;
+      right: 0;
+      top: 0;
+    }
+  }
+  .hc-camera-item-l-t {
+    .base-core;
+    top: 10px;
+    left: 10px;
+    &::before {
+      .base-core-before;
+      left: 0;
+      top: 0;
+    }
+  }
+  .hc-camera-item-r-b {
+    .base-core;
+    bottom: 10px;
+    right: 10px;
+    &::before {
+      .base-core-before;
+      right: 0;
+      bottom: 0;
+    }
+  }
+  .hc-camera-item-l-b {
+    .base-core;
+    bottom: 10px;
+    left: 10px;
+    &::before {
+      .base-core-before;
+      left: 0;
+      bottom: 0;
+    }
+  }
+}
+.hc-core-camera-item-current {
+  opacity: 1;
+}
+.hc-core-camera-item-choosed {
+  opacity: 1;
+  border: 1px solid transparent;
+  box-shadow: none;
+  z-index: 999;
+  .camera-item-title {
+    background: @primary-color;
+    box-shadow: none;
+    color: #ffffff;
+  }
+  .hc-camera-item-r-t {
+    filter: none;
+    &::before {
+      border-color: @primary-color;
+    }
+  }
+  .hc-camera-item-r-b {
+    filter: none;
+    &::before {
+      border-color: @primary-color;
+    }
+  }
+  .hc-camera-item-l-t {
+    filter: none;
+    &::before {
+      border-color: @primary-color;
+    }
+  }
+  .hc-camera-item-l-b {
+    filter: none;
+    &::before {
+      border-color: @primary-color;
+    }
+  }
+}
+.camera-transform {
+  .element-transformer {
+    outline: 2px solid @primary-color;
+  }
 }

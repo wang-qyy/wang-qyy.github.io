@@ -12,7 +12,9 @@ interface IProps {
 }
 
 const FabricImage = (props: IProps) => {
-  const { src = '', style, filters } = props;
+  const { style, filters } = props;
+
+  let src = `${props.src}?time=${new Date().getDay()}`;
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   // 当滤镜参数或者src变化
   const srcChange = useRef(true);

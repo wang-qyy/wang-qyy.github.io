@@ -5,13 +5,38 @@ import { getCanvasInfo } from '@/kernel/store';
 import { useMaskHandler } from './maskhooks';
 
 export function useGetClipInfo(editAsset: AssetClass) {
-  const { attribute, transform } = editAsset;
-  const { width, height, crop } = attribute;
+  const { assets = [], attribute, transform } = editAsset;
+  const { width, height } = attribute;
   const { posX, posY, rotate = 0 } = transform;
   const { scale } = getCanvasInfo();
   const { vSize, vScale, MaskContainer, clipPath } = useMaskHandler(editAsset);
-  const originImageSrc = editAsset.attribute.picUrl;
-
+  const originImageSrc = useMemo(() => {
+    if (assets.length > 0) {
+      let url = '';
+      switch (assets[0]?.meta.type) {
+        case 'pic': {
+          url = assets[0]?.attribute.picUrl || '';
+          break;
+        }
+        case 'image': {
+          url = assets[0]?.attribute.picUrl || '';
+          break;
+        }
+        case 'video':
+          url = assets[0]?.attribute.rt_preview_url || '';
+          break;
+        case 'videoE':
+          url = assets[0]?.attribute.rt_preview_url || '';
+          break;
+      }
+      return url;
+    }
+  }, [
+    assets[0].transform.posX,
+    assets[0].transform.posY,
+    assets[0].attribute.width,
+    assets[0].attribute.height,
+  ]);
   const maskPanelStyle: CSSProperties = useCreation(() => {
     return {
       width: width * scale,
@@ -23,7 +48,6 @@ export function useGetClipInfo(editAsset: AssetClass) {
       visibility: 'visible',
     };
   }, [width, height, posX, posY, rotate, scale]);
-
   // 缩放组件样式
   const ScaleStyleTransform: CSSProperties = useCreation(() => {
     return {
@@ -36,64 +60,69 @@ export function useGetClipInfo(editAsset: AssetClass) {
   }, [width, height, scale]);
   // 缩放组件样式
   const ScaleStyleTransformOrigin: CSSProperties = useCreation(() => {
-    if (crop) {
-      const { size } = crop;
-      return {
-        width: size.width * scale,
-        height: size.height * scale,
-        position: 'absolute',
-        left: 0,
-        top: 0,
-      };
-    }
-    return {};
+    const { attribute: cAttribute } = assets[0];
+    return {
+      width: cAttribute.width * scale,
+      height: cAttribute.height * scale,
+      position: 'absolute',
+      left: 0,
+      top: 0,
+    };
   }, [
-    crop?.position.x,
-    crop?.position.y,
-    crop?.size.height,
-    crop?.size.width,
+    assets[0].transform.posX,
+    assets[0].transform.posY,
+    assets[0].attribute.width,
+    assets[0].attribute.height,
     vScale,
     scale,
   ]);
   // 原图样式
   const originStyle: CSSProperties = useCreation(() => {
-    if (crop) {
-      const { size, position } = crop;
-      return {
-        left: position.x * scale,
-        top: position.y * scale,
-        width: size.width * scale,
-        height: size.height * scale,
-        position: 'absolute',
-        transform: `rotate(${rotate}deg)`,
-      };
-    }
-
-    return {};
-  }, [crop, vScale, scale, rotate]);
+    const { attribute: cAttribute, transform: cTransform } = assets[0];
+    return {
+      left: cTransform.posX * scale,
+      top: cTransform.posY * scale,
+      width: cAttribute.width * scale,
+      height: cAttribute.height * scale,
+      position: 'absolute',
+      transform: `rotate(${rotate}deg)`,
+    };
+  }, [
+    assets[0].transform.posX,
+    assets[0].transform.posY,
+    assets[0].attribute.width,
+    assets[0].attribute.height,
+    vScale,
+    scale,
+    rotate,
+  ]);
   // 原图图片样式
   const originStylePic: CSSProperties = useCreation(() => {
-    if (crop) {
-      const { size, position } = crop;
-      if (rotate) {
-        return {
-          left: position.x * scale - posX * scale,
-          top: position.y * scale - posY * scale,
-          width: size.width * scale,
-          height: size.height * scale,
-          position: 'absolute',
-        };
-      }
+    const { attribute: cAttribute, transform: cTransform } = assets[0];
+    if (rotate) {
       return {
-        left: position.x * scale - posX * scale,
-        top: position.y * scale - posY * scale,
-        width: size.width * scale,
-        height: size.height * scale,
+        left: cTransform.posX * scale - posX * scale,
+        top: cTransform.posY * scale - posY * scale,
+        width: cAttribute.width * scale,
+        height: cAttribute.height * scale,
         position: 'absolute',
       };
     }
-    return {};
-  }, [crop, vScale, scale]);
+    return {
+      left: cTransform.posX * scale - posX * scale,
+      top: cTransform.posY * scale - posY * scale,
+      width: cAttribute.width * scale,
+      height: cAttribute.height * scale,
+      position: 'absolute',
+    };
+  }, [
+    assets[0].transform.posX,
+    assets[0].transform.posY,
+    assets[0].attribute.width,
+    assets[0].attribute.height,
+    vScale,
+    scale,
+  ]);
   return {
     ScaleStyleTransform,
     ScaleStyleTransformOrigin,

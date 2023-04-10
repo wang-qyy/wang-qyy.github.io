@@ -1,6 +1,7 @@
 export * from './Handler/Retriever';
 export * from './Handler/Updater';
 export * from './Handler/Creator';
+export * from './Handler/LogoHandler';
 export * from './Handler/AssetHandler';
 export * from './Handler/TemplateHandler';
 export * from './Handler/WatermarkHandler';

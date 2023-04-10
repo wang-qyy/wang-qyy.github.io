@@ -7,7 +7,7 @@ export function hasFilters(filters: Filters | undefined) {
   }
   const kes = Object.keys(filters) as Array<keyof Filters>;
   // @ts-ignore
-  return kes.some((key) => filters?.[key] > 0);
+  return kes.some(key => filters?.[key] > 0);
 }
 
 export function hasClip(container: Container | undefined) {

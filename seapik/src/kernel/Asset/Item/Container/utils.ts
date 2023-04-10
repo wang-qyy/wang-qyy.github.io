@@ -7,6 +7,7 @@ import type {
 } from '@kernel/typing';
 import { CSSProperties } from 'react';
 import { useSvgHelper, SVGHandler } from '@AssetCore/Item/SVG/utils';
+import asset from '@kernel/Asset';
 
 export { useSvgHelper };
 
