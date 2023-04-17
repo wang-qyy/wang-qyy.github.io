@@ -52,7 +52,7 @@ export default defineConfig({
     `${publicPath}static/lib/lottie/5.7.13/lottie${scriptMiddleFilename}.js`,
     `window.__EDITOR_PERFORMANCE__.all_resorce_loaded = new Date().getTime();`,
   ],
-  devtool: !isProd ? 'cheap-module-source-map' : 'source-map',
+  // devtool: !isProd ? 'cheap-module-source-map' : 'source-map',
   mountElementId: 'seapik',
   devServer: { port: 1111 },
   proxy: {
