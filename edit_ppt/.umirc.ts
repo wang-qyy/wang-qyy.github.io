@@ -9,6 +9,9 @@ const publicPath = isProd
   : 'http://localhost:1111/';
 // process.env.SENTRY_AUTH_TOKEN = '832cf192e4b543f9a46c89a458ce7ea3d2fe065768884f09bbf7ada1c7b1743e';
 const scriptMiddleFilename = isProd ? '.min' : '';
+
+const version = 'v1';
+
 export default defineConfig({
   nodeModulesTransform: {
     type: isProd ? 'all' : 'none',
@@ -57,7 +60,7 @@ export default defineConfig({
   devServer: { port: 1111 },
   proxy: {
     '/mainHostApi': {
-      target: 'https://pre.xiudodo.com',
+      target: 'https://seapik.com/',
       changeOrigin: true,
       pathRewrite: { '^/mainHostApi': '' },
       cookieDomainRewrite: '',
@@ -84,34 +87,21 @@ export default defineConfig({
       })
       .end();
 
-    // if (process.env.SENTRY_AUTH_TOKEN) {
-    //   config.plugin('sentry').use(require.resolve('@sentry/webpack-plugin'), [
-    //     {
-    //       dryRun: !isProd,
-    //       url: 'https://sentry.xiudodo.com/',
-    //       authToken: process.env.SENTRY_AUTH_TOKEN,
-    //       org: 'xiudodo',
-    //       project: 'video',
-    //       include: './dist',
-    //       urlPrefix: publicPath,
-    //       deploy: {
-    //         env: process.env.IS_TEST ? 'test' : process.env.NODE_ENV,
-    //       },
-    //     },
-    //   ]);
-    // }
     if (isProd) {
-      config.output.filename(`js/bundle.[contenthash:8].js`);
-      config.output.chunkFilename(`js/chunk.[name].[contenthash:8].js`);
-      config.plugins.get('extract-css').tap(args => {
+      config.output.filename(`${version}/js/bundle.[contenthash:8].js`);
+      config.output.chunkFilename(
+        `${version}/js/chunk.[name].[contenthash:8].js`,
+      );
+      config.plugins.get('extract-css').tap((args) => {
         return [
           {
             ...args,
-            filename: `css/bundle.[contenthash:8].css`,
-            chunkFilename: `css/bundle.[contenthash:8].css`,
+            filename: `${version}/css/bundle.[contenthash:8].css`,
+            chunkFilename: `${version}/css/bundle.[contenthash:8].css`,
           },
         ];
       });
     }
   },
 });
+
