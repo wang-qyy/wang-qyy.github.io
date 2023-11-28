@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Ensures optimal rendering on mobile devices. -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+    <style>
+        body {
+            display: flex;
+            direction: 'column';
+        }
+
+        .column {
+            border: 1px solid #ccc;
+            margin: 20px;
+            padding: 20px;
+        }
+
+        p {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
+
+    <div class="column">
+        <p>
+            BASIC PLAN<br />$5 per month
+        </p>
+        <div id="paypal-button-container-P-89K58960WT101463BMA2QTGQ"></div> <!-- Replace with your plan ID -->
+    </div>
+
+    <script>
+        paypal.Buttons({
+            createSubscription: function (data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-89K58960WT101463BMA2QTGQ' // Replace with your plan ID
+                });
+            },
+            onApprove: function (data, actions) {
+                alert('You have successfully subscribed to ' + data.subscriptionID); // Optional message given to subscriber
+            }
+        }).render('#paypal-button-container-P-89K58960WT101463BMA2QTGQ'); // Renders the PayPal button. Replace with your plan ID
+
+    </script>
+
+    <div class="column">
+        <p>
+            PREMIUM PLAN<br />$10 per month
+        </p>
+        <div id="paypal-button-container-P-8D325842DA922762MMA2QT6Q"></div> <!-- Replace with your plan ID -->
+    </div>
+    <script>
+        paypal.Buttons({
+            createSubscription: function (data, actions) {
+                return actions.subscription.create({
+                    'plan_id': 'P-8D325842DA922762MMA2QT6Q' // Replace with your plan ID
+                });
+            },
+            onApprove: function (data, actions) {
+                alert('You have successfully subscribed to ' + data.subscriptionID); // Optional message given to subscriber
+            }
+        }).render('#paypal-button-container-P-8D325842DA922762MMA2QT6Q'); // Replace with your plan ID
+
+    </script>
+</body>
+
+</html>
