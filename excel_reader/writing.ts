@@ -5,7 +5,7 @@ function writing(event) {
         const arr = [];
         
         workbook.SheetNames.forEach((sheetName) => {
-            if (sheetName == "writing") {
+            if (!['数据源总'].includes(sheetName)) {
                 var worksheet = workbook.Sheets[sheetName];
 
 
@@ -13,6 +13,10 @@ function writing(event) {
                 console.log("worksheet", excelData);
 
                 excelData.forEach((item) => {
+
+                    if(item['分类']=='popular_tools'){
+                        console.log(item);
+                    }
                     const inputs = []
                     const name = item['用例chatgpt重写'].trim();
                     const format_title = name
@@ -23,6 +27,9 @@ function writing(event) {
                     const _type = url.replace("/ai-writer/", "").replace(/-+/g, "_");
 
                     let temp
+
+                    
+
                     Object.keys(item).forEach(name => {
                         const value = item[name];
 
@@ -30,14 +37,18 @@ function writing(event) {
                             // inputs.push({ label: item[name] })
                             temp = { label: value }
                         } else if (name.indexOf('字段') > -1 && name.indexOf('样例') > -1) {
-                            if (temp) {
+                            // if (temp) {
                                 temp = { ...temp, example: value }
                                 inputs.push(temp)
                                 temp = undefined
-                            }
+                            // }
                         }
                     })
-                    arr.push({ parent_type: sheetName, type: _type, order: item['提问命令'], inputs })
+
+                    const parent_type = sheetName.toLowerCase().replace(/\s+/g, "_")
+
+
+                    arr.push({ parent_type, type: _type, order: item['提问命令'], inputs })
                 });
 
             }

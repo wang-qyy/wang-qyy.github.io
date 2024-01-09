@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .distable {
+            display: table;
+            color: #666;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        [class*=distable-cell] {
+            display: table-cell;
+            text-align: center;
+            vertical-align: middle;
+            box-sizing: border-box;
+        }
+
+        .distable-cell1 {
+            width: 100px;
+        }
+
+        .distable-cell2 {
+            width: 400px;
+            padding: 12px 0;
+        }
+
+        .distable-cell3 {
+            width: 500px;
+        }
+
+        .distable-cell4 {
+            width: 200px;
+        }
+
+        .border-sub-rb [class*=distable-cell] {
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+            padding: 12px 0;
+        }
+
+        .border-lt {
+            border-left: 1px solid #ddd;
+            border-top: 1px solid #ddd;
+        }
+
+        .border-lb {
+            border-left: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .border-l {
+            border-left: 1px solid #ddd;
+        }
+
+        .border-rb {
+            border-right: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .border-bl {
+            border-bottom: 1px solid #ddd;
+            border-left: 1px solid #ddd;
+        }
+
+        .border-r {
+            border-right: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <div class="distable border-sub-rb border-lt">
+            <div class="distable-cell1">种类</div>
+            <div class="distable-cell1">名称</div>
+            <div class="distable-cell2">描述</div>
+        </div>
+        <div class="distable border-l">
+            <div class="distable-cell1 border-rb" style="background-color: #ddd;border-color: red">水果</div>
+            <div class="distable-cell3">
+                <div class="distable border-sub-rb">
+                    <div class="distable-cell1">香蕉</div>
+                    <div class="distable-cell2">香蕉（学名：Musa nana Lour.）是芭蕉科、芭蕉属植物。植株丛生，具匐匍茎，矮型的高3.5米以下，一般高不及2米...</div>
+                </div>
+                <div class="distable border-sub-rb">
+                    <div class="distable-cell1">苹果</div>
+                    <div class="distable-cell2">苹果（Malus pumila Mill.），是落叶乔木，通常树木可高至15米，但栽培树木一般只高3-5米左右...</div>
+                </div>
+            </div>
+        </div>
+        <div class="distable border-r">
+            <div class="distable-cell4 border-lb">其他</div>
+            <div class="distable-cell2 border-bl" style="background-color: #ddd;border-color: red">--</div>
+        </div>
+    </div>
+
+</body>
+
+</html>
