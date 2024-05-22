@@ -1,5 +1,4 @@
 function getType(str) {
-
   const name = str.trim();
 
   const format_title = name
@@ -11,15 +10,13 @@ function getType(str) {
   return { url, type: _type };
 }
 
-
-
-
 function getEnText(event) {
   loadExcelFile(event).then((workbook) => {
     // 处理excelData
     const arr = [];
     workbook.SheetNames.forEach((sheetName) => {
-      if (sheetName == "数据源总") return;
+      if (["数据源总"].includes(sheetName)) return;
+
       var worksheet = workbook.Sheets[sheetName];
 
       let arrItem = arr.find((item) => item.type == sheetName);
@@ -43,17 +40,31 @@ function getEnText(event) {
       excelData.forEach((row, index) => {
         if (index == 0) return;
         // 原用例、用例chatgpt重写、url、分类、原描述、用例chatgpt重写描述、图标、Description、Keywords
+        // let [
+        //   oldTitle,
+        //   name,
+        //   url,
+        //   classify,
+        //   oleDesc,
+        //   desc,
+        //   icon,
+        //   title,
+        //   description,
+        //   keywords,
+        // ] = row;
+
         let [
           oldTitle,
           name,
-          url,
           classify,
           oleDesc,
           desc,
-          icon,
-          title,
-          description,
-          keywords,
+          url,
+
+          // icon,
+          // title,
+          // description,
+          // keywords,
         ] = row;
 
         if (name) {
@@ -61,9 +72,16 @@ function getEnText(event) {
 
           const format_title = name
             .replace(/:+/g, "")
+            .replace(/’/, "")
             .replace(/\s+/g, "-")
             .toLowerCase();
-          url = url || `/ai-writer/${format_title}`;
+
+          if (sheetName === "Popular Tools") {
+            url = url;
+          } else {
+            url = `/ai-writer/${format_title}`;
+          }
+
           const _type = url.replace("/ai-writer/", "").replace(/-+/g, "_");
 
           arrItem.children.push({
@@ -72,10 +90,11 @@ function getEnText(event) {
             name,
             url,
             desc,
-            img: icon || imgs[pType],
-            title,
-            description,
-            keywords,
+            // img: icon || imgs[pType],
+            img: imgs[pType],
+            title: "",
+            description: "",
+            keywords: "",
           });
         }
       });

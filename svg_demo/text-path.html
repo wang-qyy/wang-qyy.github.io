@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>文字弯曲</title>
+    <style type="text/css">
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        text {
+            font-size: 30px;
+        }
+
+        .svg_container {
+            border: 1px solid red;
+            position: relative;
+            width: max-content;
+        }
+
+        .svg_container::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: red;
+            top: 150px;
+        }
+
+        .svg_container::after {
+            content: '';
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background-color: red;
+            left: 50%;
+        }
+
+        svg text {
+            fill: red;
+            /* 文字颜色 */
+        }
+
+        path {
+            stroke-width: 2px;
+            stroke: red;
+            fill: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="svg_container">
+        <svg width="500px" height="500px">
+            <defs>
+                <path id="MyPath" d="M 0 150 C0 150 250 0 500 150" />
+            </defs>
+            <text>
+                <textPath xlink:href="#MyPath" startOffset="50%" text-anchor="middle">
+                    码林鼠初学弧线文本
+                </textPath>
+            </text>
+            <path d="M 0 150 C0 150 250 0 500 150" />
+        </svg>
+    </div>
+</body>
+
+</html>

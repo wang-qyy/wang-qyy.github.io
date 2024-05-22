@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>svg demo</title>
+</head>
+<style>
+    .box {
+        width: 400px;
+        height: 400px;
+        background-color: #eee
+    }
+</style>
+
+<body>
+    <main>
+        <div class="box">
+            <canvas id="canvas" width="300" height="300"> </canvas>
+        </div>
+        <canvas id="canvas1" width="300" height="300"> </canvas>
+        <canvas id="canvas2" width="300" height="300"> </canvas>
+
+        <div>
+            <svg id="svg1" width="100" height="100" viewBox="0 0 100 100" version="1.1"
+                xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="130" height="130" fill="red" />
+                <circle fill="#20C4CB" cx="0" cy="0" r="100" />
+            </svg>
+
+        </div>
+        <div>
+            <svg>
+                <!-- <path d="M50 50 L100 50 L75 100 Z" fill="red"></path> -->
+                <path d="M80 60 L90 40 L130 80 Z" fill="#20C4CB"></path>
+            </svg>
+        </div>
+
+    </main>
+    <script src="https://d3js.org/d3.v5.js"></script>
+    <script type="text/javascript" src="../svg_demo/fabric.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/5.3.1/fabric.js"></script> -->
+    <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/paper.js/0.12.17/paper-core.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/paper.js/0.12.15/paper-full.min.js"></script>
+
+    <script type="text/javascript" src="./index.js"></script>
+
+</body>
+
+</html>

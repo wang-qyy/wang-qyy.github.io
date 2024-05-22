@@ -1,69 +1,145 @@
 <!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Ensures optimal rendering on mobile devices. -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <head name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+
     <style>
-        body {
+        .carousel-container {
+            overflow: hidden;
+            /* 超出部分不显示 */
+        }
+
+        /* 使用Flexbox布局 */
+        .carousel-container {
             display: flex;
-            direction: 'column';
         }
 
-        .column {
-            border: 1px solid #ccc;
-            margin: 20px;
-            padding: 20px;
-        }
-
-        p {
-            text-align: center;
-            margin-bottom: 50px;
+        .item {
+            width: 300px;
+            /* 根据实际情况调整宽度 */
+            height: 200px;
+            /* 根据实际情况调整高度 */
+            background-color: antiquewhite;
         }
     </style>
-</head>
 
 <body>
-    <script src="https://www.paypal.com/sdk/js?client-id=test&currency=USD"></script>
 
-    <div class="column">
-        <p>
-            BASIC PLAN<br />$5 per month
-        </p>
-        <div id="paypal-button-container-P-89K58960WT101463BMA2QTGQ"></div> <!-- Replace with your plan ID -->
+    <div id="slider" class="carousel-container">
+        <div class="item">第一张图片</div>
+        <div class="item">第二张图片</div>
+        <div class="item">第三张图片</div>
     </div>
 
-    <script>
-        paypal.Buttons({
-            createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                    'plan_id': 'P-89K58960WT101463BMA2QTGQ' // Replace with your plan ID
-                });
-            },
-            onApprove: function (data, actions) {
-                alert('You have successfully subscribed to ' + data.subscriptionID); // Optional message given to subscriber
-            }
-        }).render('#paypal-button-container-P-89K58960WT101463BMA2QTGQ'); // Renders the PayPal button. Replace with your plan ID
+    <!-- <script>
 
-    </script>
+        // JavaScript代码
+        var slider = document.getElementById("slider"); // 获取包含图片的容器元素
+        var startX; // 记录开始位置的x坐标
+        var endX; // 记录结束位置的x坐标
 
-    <div class="column">
-        <p>
-            PREMIUM PLAN<br />$10 per month
-        </p>
-        <div id="paypal-button-container-P-8D325842DA922762MMA2QT6Q"></div> <!-- Replace with your plan ID -->
-    </div>
-    <script>
-        paypal.Buttons({
-            createSubscription: function (data, actions) {
-                return actions.subscription.create({
-                    'plan_id': 'P-8D325842DA922762MMA2QT6Q' // Replace with your plan ID
-                });
-            },
-            onApprove: function (data, actions) {
-                alert('You have successfully subscribed to ' + data.subscriptionID); // Optional message given to subscriber
+        slider.addEventListener('touchstart', function (event) {
+            event.preventDefault(); // 防止默认行为发生（比如页面滚动）
+
+            var touches = event.changedTouches[0]; // 获取第一个手指的信息
+            startX = touches.pageX; // 记录起始位置的x坐标
+        });
+
+        slider.addEventListener('touchmove', function (event) {
+            event.preventDefault(); // 防止默认行为发生
+
+
+            var touches = event.changedTouches[0]; // 获取第一个手指的信息
+            endX = touches.pageX; // 记录结束位置的x坐标
+
+            if (Math.abs(endX - startX) > 50) { // 判断是否达到滑动条件
+                if (endX > startX) { // 向右滑动
+                    console.log("向右滑动");
+
+                    // 进行相应的操作或切换图片显示
+                } else { // 向左滑动
+                    console.log("向左滑动");
+
+                    // 进行相应的操作或切换图片显示
+                }
+
+                startX = null; // 重新初始化变量值
+                endX = null;
             }
-        }).render('#paypal-button-container-P-8D325842DA922762MMA2QT6Q'); // Replace with your plan ID
+        });
+
+        slider.addEventListener('touchend', function () {
+            startX = null; // 清空变量值
+            endX = null;
+        });
+
+
+    </script> -->
+
+    <script>
+
+        window.onload = function () {
+
+            var carouselContainer = document.querySelector('.carousel-container'); // 获取容器元素
+            var items = Array.from(document.getElementsByClassName('item')); // 获取所有内容项
+            var currentIndex = 0; // 当前展示的索引值
+
+            // 初始化时默认显示第一个内容项
+            items[currentIndex].style.display = 'block';
+
+            function handleTouchStart(event) {
+                var touch = event.changedTouches[0];
+                startX = touch.pageX; // 记录起点x坐标
+            }
+
+            function handleTouchMove(event) {
+                var touch = event.changedTouches[0];
+                moveX = touch.pageX - startX; // 计算滑动距离
+
+                if (Math.abs(moveX) > 50) { // 判断滑动距离大小，若超过一定阈值则开始切换
+                    for (var i = 0; i < items.length; i++) {
+                        items[i].style.transform = `translateX(${i * (-100)}%)`; // 更新内容项的位置
+                    }
+
+                    if (moveX > 0 && currentIndex !== items.length - 1) { // 向右滑动切换到下一页
+                        currentIndex++;
+                    } else if (moveX < 0 && currentIndex !== 0) { // 向左滑动切换到上一页
+                        currentIndex--;
+                    }
+
+                    for (var j = 0; j < items.length; j++) {
+
+                        items[j].style.transitionDuration = '.4s'; // 添加过渡动画效果
+                        items[j].style.transform = `translateX(${j * (-100)}%)`; // 重新设置内容项的位置
+
+                        setTimeout(() => {
+                            if (items[j]) {
+
+                                items[j].style.transitionDuration = ''; // 清除过渡动画效果
+                            } else {
+                                console.log(j);
+                            }
+                        }, 400);
+                    }
+
+                    items[currentIndex].style.display = 'block'; // 只显示当前选中的内容项
+                }
+            }
+
+            function handleTouchEnd() { }
+
+            slider.addEventListener('touchstart', handleTouchStart);
+
+            slider.addEventListener('touchmove', handleTouchMove);
+
+            slider.addEventListener('touchend', handleTouchEnd);
+        }
 
     </script>
 </body>

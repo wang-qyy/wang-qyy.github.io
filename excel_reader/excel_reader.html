@@ -29,14 +29,40 @@
         </style>
 </head>
 
-<html>
-        <input type="file" onchange="writing(event)" />
+<body>
+        用例：<input type="file" onchange="getEnText(event)" />
+        <br />
+        输入字段：<input type="file" onchange="writing(event)" />
 
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
         <script src="https://cdn.bootcss.com/xlsx/0.14.5/xlsx.full.min.js"></script>
         <script src="./utils.ts"></script>
         <script src="./data.ts"></script>
         <script src="./writing.ts"></script>
         <script src="./excel_reader.ts"></script>
+
+        <!-- <script src="./题问词.js"></script>
+        <script src="./inputs-v2.js"></script>
+        <script src="./inputs.js"></script> -->
+
+        <!-- 
+        <script>
+                const arr = [];
+                input2.forEach(item => {
+                        const old = input1.find(b => b.type == item.type)
+
+                        let example = ""
+                        if (old) {
+                                example = old.example
+                        }
+                        arr.push({ ...item, example: example });
+                });
+
+                console.log(arr);
+                console.log({ arr: JSON.stringify(arr) });
+
+        </script> -->
+
 </body>
 
 </html>

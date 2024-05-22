@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SVG 形状组合</title>
+
+    <style>
+        body {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .box {
+            width: 300px;
+            height: 300px;
+            display: inline-block;
+            background: #ddf;
+            margin: 16px;
+            padding: 8px;
+        }
+
+        .box svg {
+            max-width: 100%
+        }
+    </style>
+</head>
+
+<body>
+    <!-- <div class="box">
+        <svg width="200" height="200">
+            <defs>
+                <mask id="hole">
+                    <rect width="100%" height="100%" fill="white" />
+                    <circle r="50" cx="100" cy="100" fill="black" />
+                </mask>
+            </defs>
+            <circle id="donut" r="100" cx="100" cy="100" mask="url(#hole)" fill="pink" />
+        </svg>
+    </div> -->
+
+    <div class="box">
+        排除重叠形状
+
+        <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 468.5 269.5" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="1px" stroke-linecap="butt"
+                stroke-linejoin="miter" fill="rgb(238, 81, 81)"
+                d="M436.500,267.500 L247.500,267.500 C230.931,267.500 217.500,254.069 217.500,237.500 L217.500,200.500 L284.500,200.500 C301.069,200.500 314.500,187.069 314.500,170.500 L314.500,142.500 L436.500,142.500 C453.069,142.500 466.500,155.931 466.500,172.500 L466.500,237.500 C466.500,254.069 453.069,267.500 436.500,267.500 ZM217.500,172.500 L217.500,200.500 L31.500,200.500 C14.931,200.500 1.500,187.069 1.500,170.500 L1.500,31.500 C1.500,14.931 14.931,1.500 31.500,1.500 L284.500,1.500 C301.069,1.500 314.500,14.931 314.500,31.500 L314.500,142.500 L247.500,142.500 C230.931,142.500 217.500,155.931 217.500,172.500 Z" />
+        </svg>
+    </div>
+
+    <div class="box">
+        <svg xmlns="http://www.w3.org/2000/svg" height="400" width="400">
+            <defs>
+                <!-- mask 如果是黑色表示不透明
+            white 表示是完全透明
+            蒙版的左上角和使用蒙版的左上角重合，白色就是显示不分，黑色就是隐藏部分 -->
+                <mask id="moon">
+                    <circle cx="40" cy="40" r="20" fill="white" />
+                    <circle cx="40" cy="40" r="20" fill="black" style="transform: translate(10px, 10px)" />
+                </mask>
+            </defs>
+
+            <!-- 实际需要显示的内容，使用了mask id为moon-->
+            <circle cx="40" cy="40" r="20" fill="green" mask="url(#moon)" />
+
+            <!-- 模拟 mask 显示的效果，白色就是会显示的内容，黑色就是看不见的内容 -->
+            <circle cx="100" cy="100" r="20" fill="white" />
+            <circle cx="100" cy="100" r="20" fill="black" style="transform: translate(10px, 10px)" />
+        </svg>
+    </div>
+    <div class="box">
+        <svg width="300px" viewBox="0 0 966 913" fill="pink">
+            <path
+                d="M 218.2,804.7 C 70.7,698.1 37.6,492.1 144.2,344.6 C 250.8,197.1 456.8,164 604.2,270.6 C 751.7,377.2 784.9,583.2 678.3,730.6 C 571.7,878.1 365.7,911.3 218.2,804.7 Z"
+                fill="pink"></path>
+            <path
+                d="M 283.7,714 C 186.3,643.6 164.4,507.5 234.8,410.1 C 305.2,312.7 441.3,290.8 538.7,361.2 C 636.2,431.6 658.1,567.7 587.7,665.1 C 517.2,762.6 381.1,784.5 283.7,714 Z"
+                fill="rgba(79,125,255,1)"></path>
+            <path
+                d="M 706,878.4 C 706,878.4 1.7,369.3 1.7,369.3 C 1.7,369.3 259.8,1.8 259.8,1.8 C 259.8,1.8 964,510.9 964,510.9 C 964,510.9 706,878.4 706,878.4 Z"
+                fill="rgba(79,0,255,1)"></path>
+            <path
+                d="M 607.8,893.2 C 607.8,893.2 524.6,867.8 524.6,867.8 C 524.6,867.8 583.4,675.6 583.4,675.6 C 583.4,675.6 666.6,701 666.6,701 C 666.6,701 607.8,893.2 607.8,893.2 Z"
+                fill="rgba(79,0,30,1)"></path>
+            <path
+                d="M 11,462.3 C 11,462.3 61.1,533.2 61.1,533.2 C 61.1,533.2 224.9,417.2 224.9,417.2 C 224.9,417.2 174.8,346.3 174.8,346.3 C 174.8,346.3 11,462.3 11,462.3 Z"
+                fill="rgba(79,0,20,1)"></path>
+        </svg>
+    </div>
+    <div class="box">
+        <svg viewBox="0 0 966 913" fill="pink">
+            <mask id="aa">
+                <rect width="100%" height="100%" fill="white" />
+                <path
+                    d="M 283.7,714 C 186.3,643.6 164.4,507.5 234.8,410.1 C 305.2,312.7 441.3,290.8 538.7,361.2 C 636.2,431.6 658.1,567.7 587.7,665.1 C 517.2,762.6 381.1,784.5 283.7,714 Z"
+                    fill="black"></path>
+                <path
+                    d="M 706,878.4 C 706,878.4 1.7,369.3 1.7,369.3 C 1.7,369.3 259.8,1.8 259.8,1.8 C 259.8,1.8 964,510.9 964,510.9 C 964,510.9 706,878.4 706,878.4 Z"
+                    fill="black"></path>
+                <path
+                    d="M 607.8,893.2 C 607.8,893.2 524.6,867.8 524.6,867.8 C 524.6,867.8 583.4,675.6 583.4,675.6 C 583.4,675.6 666.6,701 666.6,701 C 666.6,701 607.8,893.2 607.8,893.2 Z"
+                    fill="black"></path>
+                <path
+                    d="M 11,462.3 C 11,462.3 61.1,533.2 61.1,533.2 C 61.1,533.2 224.9,417.2 224.9,417.2 C 224.9,417.2 174.8,346.3 174.8,346.3 C 174.8,346.3 11,462.3 11,462.3 Z"
+                    fill="black"></path>
+            </mask>
+            <path
+                d="M 218.2,804.7 C 70.7,698.1 37.6,492.1 144.2,344.6 C 250.8,197.1 456.8,164 604.2,270.6 C 751.7,377.2 784.9,583.2 678.3,730.6 C 571.7,878.1 365.7,911.3 218.2,804.7 Z"
+                fill="pink" mask="url(#aa)"></path>
+        </svg>
+    </div>
+    <div class="box">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 39 33" data-asset-id="pngtree-asset-35"
+            preserveAspectRatio="none" width="39px" height="33px">
+            <mask id="bb">
+                <rect width="100%" height="100%" fill="white" />
+                <path
+                    d="M 19.7,11.9 C 20,10 21.1,8.4 22.7,7.3 C 25.9,5.1 30.4,5.9 32.6,9.1 C 34.9,12.4 34.1,16.8 30.8,19 C 27.6,21.2 23.1,20.4 20.9,17.2 C 19.8,15.7 19.4,13.8 19.7,11.9 Z"
+                    fill="rgba(0,0,0,1)" yfill="black"></path>
+            </mask>
+            <path
+                d="M 2.5,29.8 C 3.4,31.1 5.1,31.4 6.4,30.5 C 6.4,30.5 18,22.5 18,22.5 C 18.8,22 19.3,21.1 19.2,20.1 C 20.7,21.7 22.7,22.8 24.9,23.2 C 27.6,23.7 30.3,23.1 32.6,21.6 C 34.8,20 36.3,17.7 36.8,15 C 37.3,12.3 36.7,9.6 35.2,7.4 C 32,2.8 25.6,1.6 20.9,4.8 C 16.7,7.7 15.3,13.2 17.5,17.7 C 16.7,17.3 15.6,17.4 14.8,17.9 C 14.8,17.9 3.2,25.9 3.2,25.9 C 1.9,26.8 1.6,28.5 2.5,29.8 Z"
+                fill="pink" mask="url(#bb)"></path>
+        </svg>
+    </div>
+    <div class="box">
+        <svg width="100" viewBox="0 0 100 90" xmlns="http://www.w3.org/2000/svg" version="1.1">
+            <!-- Define star path -->
+            <clipPath id="emptyStar">
+                <path d="M50,0 21,90 98,35 2,35 79,90z" id="star" />
+            </clipPath>
+
+            <!-- Left: evenodd -->
+            <use id="emptyStar">
+                <use href="#star" clip-rule="evenodd" />
+            </use>
+            <rect clip-path="url(#emptyStar)" width="50" height="90" fill="blue" />
+
+            <!-- Right: nonzero -->
+            <clipPath id="filledStar">
+                <use href="#star" clip-rule="nonzero" />
+            </clipPath>
+            <rect clip-path="url(#filledStar)" width="50" height="90" x="50" fill="red" />
+        </svg>
+    </div>
+    <div class="box">
+        <svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+            <!-- 定义一个裁剪区域，它是一个矩形 -->
+            <defs>
+                <clipPath id="clipRect">
+                    <rect x="50" y="50" width="100" height="100" />
+                </clipPath>
+            </defs>
+
+            <!-- 绘制一个大的矩形，并应用上面定义的裁剪区域 -->
+            <rect x="20" y="20" width="160" height="160" fill="blue" clip-path="url(#clipRect)" />
+
+            <!-- 绘制裁剪区域的矩形，以便我们可以看到裁剪的效果 -->
+            <rect x="50" y="50" width="100" height="100" fill="none" stroke="red" />
+        </svg>
+
+    </div>
+
+    <div class="box" id="container"></div>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/svg.js/3.2.0/svg.js"></script>
+
+
+<script>
+
+    window.onload = function () {
+        // 获取容器元素
+        var container = document.getElementById('container');
+
+        // 创建 SVG.js 画布对象
+        var draw = SVG(container);
+
+        console.log(draw);
+
+        // 创建两个图形对象
+        var shapeA = draw.rect(50, 50).move(0, 0); // 第一个矩形
+        var shapeB = draw.circle(40).move(60, 60); // 第二个圆形
+
+        // 判断两个图形是否相交
+        if (shapeA.intersectsWith(shapeB)) {
+            console.log("图形相交");
+        } else {
+            console.log("图形不相交");
+        }
+
+    }
+
+</script>
+
+</html>

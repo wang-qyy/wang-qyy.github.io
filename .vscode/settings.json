@@ -1,0 +1,18 @@
+{
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "cSpell.words": ["pngtree", "seapik"],
+  "search.exclude": {
+    "**/static": true,
+    "**/dist": true,
+    "**/mock": true,
+    "**/yarn.lock": true
+  }
+}

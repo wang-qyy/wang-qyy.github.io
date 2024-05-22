@@ -1,5 +1,4 @@
 .DS_Store
-/node_modules
-/editor-core
-/xiu
-/umi.v4.0
+node_modules
+/vite-demo
+/tailwindcss

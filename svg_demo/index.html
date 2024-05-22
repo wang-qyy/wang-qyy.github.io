@@ -50,15 +50,144 @@
     .general div {
         line-height: 2;
     }
+
+    .block {
+        position: relative;
+    }
+
+    #svgAsset {
+        width: 400px;
+        height: 400px;
+        background: #000;
+    }
+
+    #svgAssetCanvas {
+        width: 400px;
+        height: 400px;
+        background: pink;
+        position: relative;
+    }
 </style>
 
 <body>
-    <main id="main"></main>
+    <main id="main">
+        <div id="svgAsset"></div>
+
+        <canvas id="svgAssetCanvas"></canvas>
+
+        <canvas id="canvas1" width="100" height="100"></canvas>
+        <canvas id="canvas2" width="100" height="100"></canvas>
+        <div class="box">
+            <svg width="100" height="100" viewBox="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="100" height="100" fill="pink" />
+                <circle cx="0" cy="0" r="50" fill="#fff" />
+            </svg>
+        </div>
+
+        <div class="box" id="your-svg">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 218">
+                <!-- <circle fill="#20C4CB" cx="0" cy="0" r="100" /> -->
+                <path d="M 100, 100 m 75, 0 a 75,75 0 1,0 -150,0 a 75,75 0 1,0  150,0" fill="#20C4CB" />
+            </svg>
+            <!-- 123
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380.3 380.3"
+                enable-background="new 0 0 380.3 380.3">
+                <rect x="0" y="0" width="130" height="130" fill="red" />
+            </svg> -->
+        </div>
+
+        <div class="box">
+            <svg viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="LinearGradient1" x1="0" y1="0" x2="1" y2="1">
+                        <stop offset="0%" stop-color="red" />
+                        <stop offset="50%" stop-color="blue" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="130" height="130" fill="url(#LinearGradient1)" />
+                <line x1="0" y1="0" x2="130" y2="130" fill="pink" stroke="#000" stroke-width="1"></line>
+            </svg>
+            <div class="detail">
+                <ul>
+                    <li>x1="0" y1="0" x2="1" y2="1"</li>
+                    <li>`x1`和`y1`属性定义了渐变的起始点的位置。</li>
+                    <li>`x2`和`y2`属性定义了渐变的终点的位置。</li>
+                    <li>x1和x2不同且y1和y2相等时，会创建水平渐变（0°）</li>
+                    <li>x1和x2相等且y1和y2不同时创建（90°）</li>
+                </ul>
+            </div>
+        </div>
+        <div class="box">
+            <svg viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="LinearGradient2" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="red" />
+                        <stop offset="100%" stop-color="blue" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="130" height="130" fill="url(#LinearGradient2)" />
+                <line x1="10" y1="10" x2="10" y2="130" fill="pink" stroke="#000" stroke-width="1"></line>
+            </svg>
+            <div class="detail">
+                <ul>
+                    <li>x1="0" y1="0" x2="0" y2="1"</li>
+                    <li>x1和x2相等</li>
+                </ul>
+            </div>
+        </div>
+        <div class="box">
+            <svg viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="LinearGradient3" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="red" />
+                        <stop offset="100%" stop-color="blue" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="130" height="130" fill="url(#LinearGradient3)" />
+                <line x1="0" y1="10" x2="130" y2="10" fill="pink" stroke="#000" stroke-width="1"></line>
+            </svg>
+            <div class="detail">
+                <ul>
+                    <li>x1="0" y1="0" x2="0" y2="1"</li>
+                    <li>y1和y2相等</li>
+                </ul>
+            </div>
+        </div>
+        <div class="box">
+            <svg viewBox="0 0 130 130" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <linearGradient id="LinearGradient4" x1="0.5" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="red" />
+                        <stop offset="50%" stop-color="black" />
+                        <stop offset="100%" stop-color="blue" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="0" width="130" height="130" fill="url(#LinearGradient4)" />
+                <line x1="65" y1="10" x2="130" y2="10" fill="pink" stroke="#000" stroke-width="1"></line>
+            </svg>
+            <div class="detail">
+                <ul>
+                    <li>x1="0.5" y1="0" x2="1" y2="0"</li>
+                    <li>y1和y2相等</li>
+                </ul>
+            </div>
+        </div>
+
+    </main>
+    <script src="https://cdn.bootcdn.net/ajax/libs/d3/7.8.5/d3.js"></script>
+    <!-- <script type="text/javascript" src="./fabric.js"></script> -->
+    <script src="https://cdn.bootcdn.net/ajax/libs/fabric.js/5.3.1/fabric.js"></script>
     <script type="text/javascript" src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script type="text/javascript" src="./text.js"></script>
 
     <script type="text/javascript" src="./mock.js"></script>
     <script type="text/javascript" src="./index.js"></script>
+    <script type="text/javascript" src="./ps-template.js"></script>
+    <!-- <script type="text/javascript" src="./d3-render.js"></script> -->
+
 </body>
+
+<script>
+</script>
 
 </html>

@@ -137,5 +137,10 @@ const imgs = {
     "https://js.seapik.com/image/content-generator/20231031/icon_5.png",
   marketing:
     "https://js.seapik.com/image/content-generator/20231031/icon_9.png",
-  social: "https://js.seapik.com/image/content-generator/20231031/icon_11.png",
+  entertainment:
+    "https://js.seapik.com/image/content-generator/20231031/icon_11.png",
+  office: "https://js.seapik.com/image/content-generator/office.png",
+  analytical_consulting:
+    "https://js.seapik.com/image/content-generator/analytical.png",
+  social_media: "https://js.seapik.com/image/content-generator/social.png",
 };

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <head name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>D3 SVG Intersection</title>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+
+        <style>
+            .cls-1 {
+                fill: #141414;
+                fill-rule: evenodd;
+            }
+
+            .cls-2 {
+                fill: #141414;
+                /* fill-rule: evenodd; */
+                fill-rule: inputmode;
+            }
+        </style>
+    </head>
+
+<body>
+    <svg width="400" height="400" xmlns="http://www.w3.org/2000/svg" id="_图层_1" data-name="图层 1"
+        viewBox="0 0 242.4 190.56">
+
+        <path class="cls-1"
+            d="m7.2,0h147.84c3.98,0,7.2,3.22,7.2,7.2v124.08c0,3.98-3.22,7.2-7.2,7.2H7.2c-3.98,0-7.2-3.22-7.2-7.2V7.2C0,3.22,3.22,0,7.2,0Zm102.24,81.12h125.76c3.98,0,7.2,3.22,7.2,7.2v95.04c0,3.98-3.22,7.2-7.2,7.2h-125.76c-3.98,0-7.2-3.22-7.2-7.2v-95.04c0-3.98,3.22-7.2,7.2-7.2Z" />
+    </svg>
+
+
+    <svg width="400" height="400" viewBox="0 0 966 913" fill="pink">
+        <path
+            d="M 218.2,804.7 C 70.7,698.1 37.6,492.1 144.2,344.6 C 250.8,197.1 456.8,164 604.2,270.6 C 751.7,377.2 784.9,583.2 678.3,730.6 C 571.7,878.1 365.7,911.3 218.2,804.7 Z"
+            fill="rgba(0,39,148,0.43)"></path>
+        <path
+            d="M 283.7,714 C 186.3,643.6 164.4,507.5 234.8,410.1 C 305.2,312.7 441.3,290.8 538.7,361.2 C 636.2,431.6 658.1,567.7 587.7,665.1 C 517.2,762.6 381.1,784.5 283.7,714 Z"
+            fill="rgba(79,125,255,1)"></path>
+        <path
+            d="M 706,878.4 C 706,878.4 1.7,369.3 1.7,369.3 C 1.7,369.3 259.8,1.8 259.8,1.8 C 259.8,1.8 964,510.9 964,510.9 C 964,510.9 706,878.4 706,878.4 Z"
+            fill="rgba(79,0,255,1)"></path>
+        <path
+            d="M 607.8,893.2 C 607.8,893.2 524.6,867.8 524.6,867.8 C 524.6,867.8 583.4,675.6 583.4,675.6 C 583.4,675.6 666.6,701 666.6,701 C 666.6,701 607.8,893.2 607.8,893.2 Z"
+            fill="rgba(79,0,30,1)"></path>
+        <path
+            d="M 11,462.3 C 11,462.3 61.1,533.2 61.1,533.2 C 61.1,533.2 224.9,417.2 224.9,417.2 C 224.9,417.2 174.8,346.3 174.8,346.3 C 174.8,346.3 11,462.3 11,462.3 Z"
+            fill="rgba(79,0,20,1)"></path>
+    </svg>
+
+    <svg width="400" height="400" viewBox="0 0 966 913" fill="pink">
+        <path class="cls-2"
+            d="M 218.2,804.7 C 70.7,698.1 37.6,492.1 144.2,344.6 C 250.8,197.1 456.8,164 604.2,270.6 C 751.7,377.2 784.9,583.2 678.3,730.6 C 571.7,878.1 365.7,911.3 218.2,804.7 Z M 607.8,893.2 C 607.8,893.2 524.6,867.8 524.6,867.8 C 524.6,867.8 583.4,675.6 583.4,675.6 C 583.4,675.6 666.6,701 666.6,701 C 666.6,701 607.8,893.2 607.8,893.2 Z"
+            fill="rgba(0,39,148,0.43)"></path>
+        <!-- <path
+            d="M 283.7,714 C 186.3,643.6 164.4,507.5 234.8,410.1 C 305.2,312.7 441.3,290.8 538.7,361.2 C 636.2,431.6 658.1,567.7 587.7,665.1 C 517.2,762.6 381.1,784.5 283.7,714 Z"
+            fill="rgba(79,125,255,1)"></path>
+        <path
+            d="M 706,878.4 C 706,878.4 1.7,369.3 1.7,369.3 C 1.7,369.3 259.8,1.8 259.8,1.8 C 259.8,1.8 964,510.9 964,510.9 C 964,510.9 706,878.4 706,878.4 Z"
+            fill="rgba(79,0,255,1)"></path> -->
+        <!-- <path
+            d="M 607.8,893.2 C 607.8,893.2 524.6,867.8 524.6,867.8 C 524.6,867.8 583.4,675.6 583.4,675.6 C 583.4,675.6 666.6,701 666.6,701 C 666.6,701 607.8,893.2 607.8,893.2 Z"
+            fill="rgba(79,0,30,1)"></path>
+        <path
+            d="M 11,462.3 C 11,462.3 61.1,533.2 61.1,533.2 C 61.1,533.2 224.9,417.2 224.9,417.2 C 224.9,417.2 174.8,346.3 174.8,346.3 C 174.8,346.3 11,462.3 11,462.3 Z"
+            fill="rgba(79,0,20,1)"></path> -->
+    </svg>
+
+    <svg width="500" height="500">
+        <path id="path" d="M10 80 C40 10, 65 -10, 95 10 S150 30, 180 70 H20 L-10 -10 Z">
+        </path>
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="192.5px" height="181.5px">
+        <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter"
+            fill="rgb(255, 146, 7)"
+            d="M161.500,180.500 L0.500,180.500 L0.500,30.500 C0.500,13.931 13.931,0.500 30.500,0.500 L191.500,0.500 L191.500,150.500 C191.500,167.069 178.069,180.500 161.500,180.500 Z" />
+    </svg>
+
+    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="381.5px" height="301.5px">
+        <path fill-rule="evenodd" stroke="rgb(0, 0, 0)" stroke-width="1px" stroke-linecap="butt" stroke-linejoin="miter"
+            fill="rgb(255, 146, 7)"
+            d="M12.429,1.941 L243.023,1.941 C249.225,1.941 254.253,6.969 254.253,13.171 L254.253,206.706 C254.253,212.908 249.225,217.936 243.023,217.936 L12.429,217.936 C6.227,217.936 1.199,212.908 1.199,206.706 L1.199,13.171 C1.199,6.969 6.227,1.941 12.429,1.941 ZM171.898,128.468 L368.053,128.468 C374.255,128.468 379.283,133.496 379.283,139.699 L379.283,287.938 C379.283,294.140 374.255,299.168 368.053,299.168 L171.898,299.168 C165.696,299.168 160.668,294.140 160.668,287.938 L160.668,139.699 C160.668,133.496 165.696,128.468 171.898,128.468 Z" />
+    </svg>
+
+    <!-- <script>
+        function getIntersection(rect1, rect2) {
+            let x1 = Math.max(rect1.x, rect2.x);
+            let y1 = Math.max(rect1.y, rect2.y);
+            let x2 = Math.min(rect1.x + rect1.width, rect2.x + rect2.width);
+            let y2 = Math.min(rect1.y + rect1.height, rect2.y + rect2.height);
+
+            // 检查是否有交集
+            if (x1 < x2 && y1 < y2) {
+                return { x: x1, y: y1, width: x2 - x1, height: y2 - y1 };
+            } else {
+                return null;
+            }
+        }
+
+        let rect1 = d3.select("#rect1").node().getBBox();
+        let rect2 = d3.select("#rect2").node().getBBox();
+
+        let intersection = getIntersection(rect1, rect2);
+
+        if (intersection) {
+            d3.select("svg").append("rect")
+                .attr("x", intersection.x)
+                .attr("y", intersection.y)
+                .attr("width", intersection.width)
+                .attr("height", intersection.height)
+                .attr("fill", "green")
+                .attr("opacity", "0.5");
+        }
+
+
+
+
+    </script> -->
+
+    <!-- <script>
+
+        // 创建一条SVG路径
+        // var path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+        // path.setAttribute('d', 'M10 80 C40 10, 65 -10, 95 10 S150 30, 180 70 H20 L-10 -10 Z');
+        // svg.appendChild(path);
+
+        const path = document.getElementById("path");
+
+        // 获取路径上所有点的坐标
+        var points = [];
+        for (let i = 0; i < path.getTotalLength(); i++) {
+            var point = path.getPointAtLength(i);
+            points.push({ x: point.x, y: point.y });
+        }
+        console.log(points); // 输出包含所有点坐标的数组
+    </script> -->
+
+</body>
+
+</html>
