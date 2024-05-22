@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill='pink' viewBox="0 0 797 65" preserveAspectRatio="none"
-    style="position:absolute;left:0;top:0">
-    <path type="path"
-    
-        d="M 6,6 C 6,6 791,6 791,6 C 791,6 791,59 791,59 C 791,59 6,59 6,59 C 6,59 6,6 6,6 Z"
-        operation="union" stroke-linecap="butt" stroke-linejoin="miter" stroke-width="10"
-        stroke-opacity="1" stroke-dasharray="0.1,0.7,0.1,0.7" stroke="red"  fill='blue'></path>
-</svg>
