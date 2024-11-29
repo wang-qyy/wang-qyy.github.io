@@ -1,0 +1,45 @@
+<html>
+
+<head>
+  <title>console detect test</title>
+  <style></style>
+  <link rel="stylesheet" href="../dist/main.css" />
+
+  <style>
+    .box {
+      width: 30px;
+      height: 30px;
+      margin: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div>
+      <img class="brand-logo" src="https://img.lovepik.com/logo/porlandusa-com.jpg!/fw/120" />
+    </div>
+  </div>
+
+
+  <script src="../lib/jquery.3.7.1.js"></script>
+
+  <script>
+
+    $(function () {
+      // 商家logo加载失败展示商家名称
+      $('.brand-logo').on('error', function () {
+        $(this).parent().html("<span class='text-base'>123</span>")
+      })
+
+      $('#btn').on('click', function (e) {
+
+        $('.wrap').html('<button id="btn">click</button>')
+
+      })
+
+    })
+  </script>
+</body>
+
+</html>
