@@ -1,6 +1,8 @@
 const eg_RegExp = /字段(\d+)样例/g;
 
 function writing(event) {
+  console.log("writing");
+
   loadExcelFile(event).then((workbook) => {
     const arr = [];
 
@@ -8,15 +10,15 @@ function writing(event) {
       if (!["数据源总"].includes(sheetName)) {
         var worksheet = workbook.Sheets[sheetName];
 
-        var excelData = XLSX.utils.sheet_to_json(worksheet, { header: 2 });
-        console.log("worksheet", excelData);
+        var excelData = XLSX.utils.sheet_to_json(worksheet, { header: 3 });
+        console.log("worksheet to json", excelData);
 
         excelData.forEach((item) => {
           if (item["分类"] == "popular_tools") {
             console.log(item);
           }
           const inputs = [];
-          const name = item["用例chatgpt重写"].trim();
+          const name = item["用例chatgpt重写"]?.trim() || "";
           const format_title = name
             .replace(/:+/g, "")
             .replace(/’/, "")
@@ -24,7 +26,6 @@ function writing(event) {
             .toLowerCase();
 
           const url = item.url || `/ai-writer/${format_title}`;
-          console.log(url);
 
           const _type = url.replace("/ai-writer/", "").replace(/-+/g, "_");
 
@@ -69,6 +70,5 @@ function writing(event) {
       }
     });
     console.log("writing", arr);
-    console.log("writing", { result: JSON.stringify(arr) });
   });
 }

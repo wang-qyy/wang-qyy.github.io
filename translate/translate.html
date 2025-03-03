@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pikbest 翻译</title>
+  <style>
+    .list {
+      width: 100%;
+      padding: 104px 16px 0 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+      gap: 9px;
+      background-color: #000;
+    }
+
+    .item {
+      display: flex;
+      flex-direction: column;
+      background-color: #fff;
+      padding: 12px;
+    }
+
+    .gradient-text {
+      position: relative;
+    }
+
+    .text {
+      width: 200px;
+      height: 200px;
+      border: 4px solid transparent;
+      background: linear-gradient(to right, red, yellow);
+      background-clip: border-box;
+      color: #fff;
+
+    }
+
+    .border {
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 62px;
+      background: -webkit-linear-gradient(#eee, #333);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      display: inline-block;
+      z-index: 1;
+    }
+
+    .gradient-text {
+      font-size: 60px;
+      color: #fff;
+      /* 文字颜色 */
+      text-shadow:
+        -1px -1px 0 #00c6ff,
+        1px -1px 0 #00c6ff,
+        -1px 1px 0 #00c6ff,
+        1px 1px 0 #00c6ff;
+      /* 上下左右增加微小的阴影来模拟边缘渐变效果 */
+    }
+  </style>
+
+  <style>
+    .box {
+      /* margin: 400px auto; */
+      width: 600px;
+      height: 200px;
+      background-color: #333;
+      /* box-shadow: 0px 0px 2px 50px rgba(0, 0, 255, .2); */
+    }
+
+    .box2 {
+      width: 660px;
+      height: 220px;
+      background-color: #eee;
+      position: absolute;
+      left: -30px;
+      top: -10px;
+      /* filter: blur(10px); */
+      /* transform: translateX(-50%) translateY(-50%); */
+      z-index: -1;
+    }
+
+    .wrap {
+      position: relative;
+      margin: 400px auto;
+      width: 800px;
+    }
+  </style>
+
+  <style>
+    @font-face {
+      font-family: 'image font';
+      /* src: url('../A1 Pngtree.woff2') format('truetype'); */
+      src: url('https://js.seapik.com/fonts/LibreBarcode128Text-Regular.woff2') format('truetype');
+      /* src: url('./2.woff2') format('truetype'); */
+    }
+
+    .image-font {
+      font-family: 'image font';
+
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div style="font-family:'image font'">
+    abcde
+  </div>
+  <div style="font-family:'image font'">
+    انقر نقرا مزدوجا فوق تحرير النص
+  </div>
+
+  <input id="input" />
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+
+  <script src="./translate.js"></script>
+</body>
+
+<script>
+
+  const b = [
+    'Enterprise',
+    'All personal premium assets',
+    'Access to all personal premium assets',
+    'Personal Premium Assets',
+    'Enterprise Premium Assets',
+    'This image has copyright license for commercial use and exclusive for Enterprise plan downloads.',
+    'This image has copyright license and available for commercial use.',
+    'This image has copyright license for commercial use and exclusive for Enterprise premium plans downloads.',
+    'Upgrade to enterprise premium plan',
+    'Upgrade to premium plan',
+    'and get enterprise commercial use license.',
+    'and get commercial use license.',
+    "Valentine's Day",
+    "Enterprise Premium User",
+    "For enterprise commercial use",
+    "Personal Commercial Use",
+    'License',
+
+    "Permanent access to all personal premium assets",
+    "Download only for enterprise premium members",
+    "Upgrade to premium plan and get commercial use license.",
+    "Free assets only",
+    "Personal Premium Assets",
+  ]
+  const a = [{
+    "en-us": "Women's Day",
+    "cht": "婦女節",
+    "vi": "Ngày của phụ nữ",
+    "th": "วันสตรี",
+    "id": "Hari Wanita",
+    "ms": "Hari Wanita",
+    "hi": "महिला दिवस",
+    "pt": "Dia da Mulher",
+    "ko": "여자의 날",
+    "ja": "女性の日",
+    "es": "Día de la Mujer",
+    "de": "Frauentag",
+    "fr": "Jour de la femme",
+    "it": "Giornata femminile",
+    "pl": "Dzień kobiet",
+    "ru": "Женский день",
+    "ara": "يوم المرأة",
+    "ph": "Araw ng Kababaihan",
+    "tr": "Kadınlar Günü"
+  }];
+
+  const result = {};
+  const name = [
+    'women_s_day'
+  ]
+
+  a.forEach((item, index) => {
+    const langKey = name[index] || item["en-us"]
+      .toLocaleLowerCase()
+      .replaceAll(" ", "_")
+      .replaceAll("(", "")
+      .replaceAll(")", "")
+      .replaceAll(",", "")
+      .replaceAll(".", "");
+
+    Object.keys(item).forEach((key) => {
+      const val = item[key];
+
+      if (!result[key]) {
+        Object.assign(result, { [key]: {} });
+      }
+      Object.assign(result[key], { [langKey]: val });
+    });
+  });
+  console.log(result);
+
+  Object.keys(result).forEach((item) => {
+    let php_array = "";
+    Object.keys(result[item]).forEach((k) => {
+      php_array += `"${k}"=>"${result[item][k]}",\n`;
+    });
+
+    console.log(item, "===>", php_array);
+  });
+  window.onload = () => {
+    console.log('cookie', document.cookie);
+    document.cookie = 'test' + "=;value=123; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+  };
+
+  $(function () {
+
+
+    $("#input").on('change', function () {
+      console.log('change', $(this).val());
+      const input = $(this).val()
+      const output = input.toLocaleLowerCase()
+        .replaceAll(" ", "_")
+        .replaceAll("(", "")
+        .replaceAll(")", "")
+        .replaceAll(",", "")
+        .replaceAll(".", "")
+
+      $(this).after(`<span>${output}</span>`)
+
+    })
+  })
+
+</script>
+
+</html>

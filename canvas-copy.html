@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+  <canvas id="canvasA" width="1000" height="1000" style="background-color: pink;"></canvas>
+  <canvas id="canvasB" style="background:#eee"></canvas>
+  <canvas id="canvasC" style="background:#000"></canvas>
+
+  <div>
+    <button id="reset">重置旋转角度</button>
+    <button id="copy">复制图片</button>
+  </div>
+
+</body>
+<script src="./lib/jquery.3.7.1.js"></script>
+<script>
+
+  window.onload = function () {
+    const canvasA = document.getElementById('canvasA');
+    const canvasB = document.getElementById('canvasB');
+    const canvasC = document.getElementById('canvasC');
+
+    const ctxA = canvasA.getContext('2d');
+    const ctxB = canvasB.getContext('2d');
+    const ctxC = canvasC.getContext('2d');
+
+    const rotate = 45;
+    const left = 200;
+    const top = 200;
+    const radians = (rotate * Math.PI) / 180;
+
+    const imgUrl = "https://png.pngtree.com/edit_user/p_upload/20250110/45035856b3_56828466.png";
+
+    const img = new Image();
+
+    img.src = imgUrl;
+    img.crossOrigin = 'anonymous';
+
+    img.onload = function () {
+      const width = img.width;
+      const height = img.height;
+
+      canvasB.width = width;
+      canvasB.height = height;
+
+      // 旋转弧度
+      // 将坐标原点移动到图片中心
+      ctxA.translate(left + width / 2, top + height / 2);
+      ctxA.rotate(radians);
+      ctxA.drawImage(img, -width / 2, -height / 2, width, height);
+
+      // 直接将图片绘制到 canvasB 上，不旋转
+      ctxB.drawImage(img, 0, 0, width, height);
+    }
+
+    $('#reset').on('click', function () {
+      const width = img.width;
+      const height = img.height;
+
+      canvasC.width = width;
+      canvasC.height = height;
+
+      ctxC.translate(width / 2, height / 2);
+      ctxC.rotate(-radians);
+      ctxC.drawImage(canvasA, 0, 0);
+    });
+
+    $('#copy').on('click', function () {
+      // 复制 canvasA 到 canvasB
+      canvasB.width = canvasA.width;
+      canvasB.height = canvasA.height;
+      ctxB.drawImage(canvasA, 0, 0);
+    });
+  }
+
+</script>
+
+</html>

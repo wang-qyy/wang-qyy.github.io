@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>PDF.js Example</title>
+  <style>
+    #pdf-container {
+      width: 800px;
+      height: 600px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <input id="upload" type="file" name="" accept=".pdf" />
+  <button id="prev-btn">Previous</button>
+  <button id="next-btn">Next</button>
+  <div id="pdf-container"></div>
+
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.js"></script>
+  <script>
+
+    $(function () {
+
+      // 指定工作线程脚本的路径
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.worker.js';
+
+      // 获取容器元素
+      var container = document.getElementById('pdf-container');
+
+      function show(file) {
+
+        // 加载PDF文档
+        pdfjsLib.getDocument(file).promise.then(function (pdf) {
+          // 获取第一页
+          pdf.getPage(1).then(function (page) {
+            var scale = 1.5;
+            var viewport = page.getViewport({ scale: scale });
+
+            // 创建一个<canvas>元素用于显示PDF页面
+            var canvas = document.createElement('canvas');
+            var context = canvas.getContext('2d');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+
+            // 将PDF页面渲染到<canvas>元素中
+            page.render({
+              canvasContext: context,
+              viewport: viewport
+            });
+
+            // 将<script>元素添加到容器中
+            container.appendChild(canvas);
+          });
+
+
+          var currentPage = 1;
+          function renderPage(pageNumber) {
+            container.innerHTML = ''; // 清空容器
+            pdf.getPage(pageNumber).then(function (page) {
+              var scale = 1.5;
+              var viewport = page.getViewport({ scale: scale });
+              var canvas = document.createElement('canvas');
+              var context = canvas.getContext('2d');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+              page.render({
+                canvasContext: context,
+                viewport: viewport
+              });
+              container.appendChild(canvas);
+              currentPage = pageNumber;
+            });
+          }
+
+          // 监听翻页按钮点击事件
+          document.getElementById('prev-btn').addEventListener('click', function () {
+            if (currentPage > 1) {
+              renderPage(currentPage - 1);
+            }
+          });
+
+          document.getElementById('next-btn').addEventListener('click', function () {
+            if (currentPage < pdf.numPages) {
+              renderPage(currentPage + 1);
+            }
+          });
+        });
+
+      }
+
+
+      document.getElementById('upload').addEventListener('change', function (event) {
+
+
+        var file = event.target.files[0]; // 获取选中的文件
+        if (!file) {
+          return;
+        }
+
+        var fileURL = URL.createObjectURL(file);
+
+        console.log({ fileURL });
+
+        show(fileURL);
+        // URL.revokeObjectURL(fileURL);
+      });
+
+
+    })
+
+  </script>
+</body>
+
+</html>

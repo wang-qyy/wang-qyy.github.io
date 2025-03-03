@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <head name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>canvas跟随鼠标移动画透明线</title>
+    <style>
+      div,
+      canvas,
+      img {
+        user-select: none;
+      }
+
+      .my_canvas,
+      .bg_img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .cf {
+        content: '';
+        display: block;
+        overflow: hidden;
+        clear: both;
+      }
+
+      .fl {
+        float: left;
+      }
+
+      .fr {
+        float: right;
+      }
+
+      .bg_img {
+        width: 674px;
+        height: 495px;
+        background: #ddd;
+      }
+
+      .img_tools {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50px);
+        border: 1px solid #eee;
+        border-radius: 64px;
+        height: 64px;
+        line-height: 64px;
+        box-sizing: border-box;
+        padding: 15px 20px 0;
+      }
+
+      .img_tool {
+        height: 32px;
+        line-height: 32px;
+        color: #000;
+        font-size: 14px;
+        text-align: center;
+        width: 80px;
+        border: 1px solid #ddd;
+        border-radius: 32px;
+        margin-right: 10px;
+        cursor: pointer;
+      }
+
+      .img_tool_active {
+        color: #409EFF;
+        border: 1px solid #409EFF;
+      }
+    </style>
+  </head>
+
+<body>
+  <div class="bg_img"></div>
+  <canvas id="myCanvasBot" class="my_canvas" width="674" height="495"></canvas>
+  <canvas id="myCanvasTop" class="my_canvas" width="674" height="495"></canvas>
+  <div class="img_tools cf">
+    <div class="img_tool img_tool_active fl" onclick="changeType('curve',this)">涂鸦</div>
+    <div class="img_tool fl" onclick="changeType('line',this)">直线</div>
+    <div class="img_tool fl" onclick="changeType('eraser',this)">橡皮擦</div>
+  </div>
+
+
+  <script>
+    const canvasWidth = 674;
+    const canvasHeight = 495;
+    //底层canvas
+    const botCan = document.getElementById("myCanvasBot");
+    //顶层canvas
+    const topCan = document.getElementById("myCanvasTop");
+    //底层画布
+    const botCtx = botCan.getContext("2d");
+    //顶层画布
+    const topCtx = topCan.getContext("2d");
+    topCtx.lineCap = "round";
+    topCtx.lineJoin = "round";
+    //鼠标是否按下  是否移动
+    let isDown = false,
+      isMove = false;
+    //鼠标是否在canvas上抬起
+    let isCanUp = false;
+    //需要画图的轨迹
+    let drawPoints = [];
+    //起始点x,y
+    let startPoint = {
+      x: 0,
+      y: 0,
+    };
+    //图片历史
+    let imgHistory = [];
+    //icon历史
+    // let partHistory = [];
+    //操作类型
+    let drawType = "curve";
+    //画线宽度
+    const lineWidth = 10;
+    //鼠标按下
+    const mousedown = (e) => {
+      isDown = true;
+      let x = (e || window.event).offsetX;
+      let y = (e || window.event).offsetY;
+      startPoint = { x, y };
+      drawPoints.push([{ x, y }]);
+      topCtx.strokeStyle = "rgba(255,0,0,0.2)";
+      topCtx.lineWidth = lineWidth;
+      topCtx.beginPath();
+      topCtx.moveTo(x, y);
+    };
+    //鼠标移动
+    const mousemove = (e) => {
+      let x = (e || window.event).offsetX;
+      let y = (e || window.event).offsetY;
+      if (isDown) {
+        isMove = true;
+        switch (drawType) {
+          case "curve":
+            drawCurve(x, y);
+            break;
+          case "line":
+            drawLine(x, y);
+            break;
+          case "eraser":
+            drawEraser(x, y);
+            break;
+        }
+      }
+    };
+    //鼠标抬起
+    const mouseup = (e) => {
+      isCanUp = true;
+      if (isDown) {
+        // topCan内容画到botCan上
+        topToBot();
+      }
+    };
+    //topCan内容画到botCan上
+    const topToBot = () => {
+      //把topCan画布生成图片
+      let img = new Image();
+      img.src = topCan.toDataURL("image/png");
+      img.onload = () => {
+        // partHistory.push(img);
+        //添加到botCtx画布
+        botCtx.drawImage(img, 0, 0);
+        let historyImg = new Image();
+        historyImg = botCan.toDataURL("image/png");
+        historyImg.onload = () => {
+          //添加到历史记录
+          imgHistory.push(historyImg);
+        };
+        //清除topCtx画布
+        topCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+        //botCan画完之后，重置canvas的mouseup isCanUp
+        if (isCanUp) isCanUp = false;
+      };
+      drawPoints = [];
+      isDown = false;
+      isMove = false;
+    };
+    //橡皮擦
+    const drawEraser = (x, y) => {
+      //橡皮擦圆形半径
+      const radius = lineWidth / 2;
+      botCtx.beginPath();
+      for (let i = 0; i < radius * 2; i++) {
+        //勾股定理高h
+        let h = Math.abs(radius - i); //i>radius h = i-radius; i<radius  h = radius - i
+        //勾股定理l
+        let l = Math.sqrt(radius * radius - h * h);
+        //矩形高度
+        let rectHeight = 1;
+        //矩形宽度
+        let rectWidth = 2 * l;
+        //矩形X
+        let rectX = x - l;
+        //矩形Y
+        let rectY = y - radius + i;
+
+        botCtx.clearRect(rectX, rectY, rectWidth, rectHeight);
+      }
+    };
+    //画透明度直线
+    const drawLine = (x, y) => {
+      if (!isDown) return;
+      //清空当前画布内容
+      topCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      //必须每次都beginPath  不然会卡
+      topCtx.beginPath();
+      topCtx.moveTo(startPoint.x, startPoint.y);
+      topCtx.lineTo(x, y);
+      topCtx.stroke();
+    };
+    //画带透明度涂鸦
+    const drawCurve = (x, y) => {
+      drawPoints.push({ x, y });
+      //清空当前画布内容
+      topCtx.clearRect(0, 0, canvasWidth, canvasHeight);
+      //必须每次都beginPath  不然会卡
+      topCtx.beginPath();
+      topCtx.moveTo(drawPoints[0].x, drawPoints[0].y);
+      for (let i = 1; i < drawPoints.length; i++) {
+        topCtx.lineTo(drawPoints[i].x, drawPoints[i].y);
+      }
+      topCtx.stroke();
+    };
+    //切换操作
+    const changeType = (type, that) => {
+      if (drawType == type) return;
+      let tools = document.getElementsByClassName("img_tool");
+      for (let i = 0; i < tools.length; i++) {
+        let ele = tools[i];
+        if (ele.classList.contains("img_tool_active"))
+          ele.classList.remove("img_tool_active"); //ele.removeClassName('img_tool_active');
+      }
+      that.classList.add("img_tool_active");
+      drawType = type;
+    };
+
+    //canvas添加鼠标事件
+    topCan.addEventListener("mousedown", mousedown);
+    topCan.addEventListener("mousemove", mousemove);
+    topCan.addEventListener("mouseup", mouseup);
+    //全局添加鼠标抬起事件
+    document.addEventListener("mouseup", (e) => {
+      let x = (e || window.event).offsetX;
+      let y = (e || window.event).offsetY;
+      if (!isCanUp) {
+        if (drawType == "line") {
+          let clientX = topCan.getBoundingClientRect().x;
+          let clientY = topCan.getBoundingClientRect().y;
+          drawLine(x - clientX, y - clientY);
+        }
+        // topCan内容画到botCan上
+        topToBot();
+      }
+    });
+    //全局添加鼠标移动事件
+    document.addEventListener("mousemove", (e) => {
+      if (isMove) return (isMove = false);
+      let x = (e || window.event).offsetX;
+      let y = (e || window.event).offsetY;
+      if (drawType == "line") {
+        let clientX = topCan.getBoundingClientRect().x;
+        let clientY = topCan.getBoundingClientRect().y;
+        drawLine(x - clientX, y - clientY);
+      }
+    });
+
+
+  </script>
+
+</body>
+
+
+
+</html>

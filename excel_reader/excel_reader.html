@@ -1,68 +1,441 @@
 <!DOCTYPE html>
 <html lang="en">
+<meta>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document</title>
 
-<head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+<style>
+        .flex-box {
+                display: flex;
+                color: aquamarine;
+        }
 
-        <style>
-                .flex-box {
-                        display: flex;
-                        color: aquamarine;
-                }
+        .flex-box a {
+                width: 200px;
+        }
 
-                .flex-box a {
-                        width: 200px;
-                }
+        .flex-box a:nth-child(odd) {
+                background: #000;
+        }
 
-                .flex-box a:nth-child(odd) {
-                        background: #000;
-                }
+        .flex-box a {
+                background: pink;
 
-                .flex-box a {
-                        background: pink;
+                padding: 16px;
+        }
 
-                        padding: 16px;
-                }
-        </style>
-</head>
+        div,
+        body {
+                font-family: serif;
+        }
+</style>
+</meta>
 
 <body>
-        用例：<input type="file" onchange="getEnText(event)" />
+        <div>انقر نقرا مزدوجا فوق تحرير النص</div>
+        用例：<input type="file" onchange="getEnText(event)" placeholder />
         <br />
         输入字段：<input type="file" onchange="writing(event)" />
 
-        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.7.1/jquery.js"></script>
-        <script src="https://cdn.bootcss.com/xlsx/0.14.5/xlsx.full.min.js"></script>
+        <script src="../lib/jquery.3.7.1.js"></script>
+        <script src="../lib/xlsx/0.14.5/xlsx.full.min.js"></script>
+
         <script src="./utils.ts"></script>
         <script src="./data.ts"></script>
         <script src="./writing.ts"></script>
         <script src="./excel_reader.ts"></script>
 
-        <!-- <script src="./题问词.js"></script>
-        <script src="./inputs-v2.js"></script>
-        <script src="./inputs.js"></script> -->
-
-        <!-- 
         <script>
-                const arr = [];
-                input2.forEach(item => {
-                        const old = input1.find(b => b.type == item.type)
+                const data = [
+                        {
+                                en: "Brush Size",
+                                zh: "刷子大小",
+                                vi: "Kích thước bàn chải",
+                                th: "ขนาดแปรง",
+                                id: "Ukuran kuas",
+                                ms: "Saiz berus",
+                                hi: "ब्रश का आकार",
+                                pt: "Tamanho da escova",
+                                kor: "브러시 크기",
+                                ja: "ブラシのサイズ",
+                                es: "Tamaño del cepillo",
+                                de: "Bürstengröße",
+                                fr: "Taille de la brosse",
+                                it: "Dimensione del pennello",
+                                pl: "Rozmiar pędzla",
+                                ru: "Размер кисти",
+                                ara: "حجم الفرشاة",
+                                ph: "Laki ng brush",
+                                tr: "Fırça boyutu",
+                        },
+                ];
 
-                        let example = ""
-                        if (old) {
-                                example = old.example
+                let key_str = "key\n";
+
+                data.forEach((item) => {
+                        if (!item.key) {
+                                const str = item["en"].trim().toLowerCase().replaceAll(" ", "_");
+                                const txt_key = `${item["分类"] ?? "global"}.${str}`;
+
+                                Object.assign(item, { key: txt_key });
+                                key_str += `${txt_key}\n`;
                         }
-                        arr.push({ ...item, example: example });
+                });
+                console.log(key_str);
+
+                const aa = [
+                        "en",
+                        "zh",
+                        "de",
+                        "fr",
+                        "id",
+                        "it",
+                        "nl",
+                        "pl",
+                        "pt",
+                        "ru",
+                        "vi",
+                        "ms",
+                        "tr",
+                        "th",
+                        "hi",
+                        "kor",
+                        "ja",
+                        "es",
+                ];
+
+                console.log("翻译", aa.map((i) => data[0][i] || "").join("\t"));
+
+                const langmap = {};
+                aa.forEach((item) => {
+                        langmap[item] = {};
                 });
 
-                console.log(arr);
-                console.log({ arr: JSON.stringify(arr) });
+                data.forEach((item) => {
+                        aa.forEach((lang) => {
+                                Object.assign(langmap[lang], { [item["key"]]: item[lang] });
+                        });
+                });
+                console.log(langmap);
+        </script>
 
-        </script> -->
+        <script>
+                const menus = [
+                        {
+                                id: '2',
+                                parent_id: '0',
+                                name: 'AI Deals',
+                                url: '/ai_tools/',
+                                status: '1',
+                                highlight: false,
+                                sort: '0',
+                                children: [
+                                        {
+                                                name: 'Page Pilot AI  ',
+                                                url: '/store/page-pilot-ai',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Unriddle AI 40% OF',
+                                                url: '/store/unriddle/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Wondercraft AI',
+                                                url: '/store/wondercraft-ai/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Creatify AI ',
+                                                url: '/store/creatify/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'TextCortex AI',
+                                                url: '/store/textcortex/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Aragon AI ',
+                                                url: '/store/aragon-ai/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Decktopus AI ',
+                                                url: '/store/decktopus/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'DreamGF AI ',
+                                                url: '/store/dreamgf-ai/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'MAGAI ',
+                                                url: '/store/magai/',
+                                                parent_id: '2',
+                                                status: '1',
+                                                highlight: false
+                                        }
+                                ]
+                        },
+                        {
+                                id: '1',
+                                parent_id: '0',
+                                name: 'Coupons',
+                                url: '/',
+                                status: '1',
+                                highlight: false,
+                                sort: '2',
+                                children: [
+                                        {
+                                                name: 'SHEIN   ',
+                                                url: '/store/shein/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Walmart   ',
+                                                url: '/store/walmart/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'AliExpress   ',
+                                                url: '/store/aliexpress/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'TEMU   ',
+                                                url: '/store/temu/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'BestBuy   ',
+                                                url: '/store/best-buy-u-s/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Groupon   ',
+                                                url: '/store/groupon/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: "Kohl's    ",
+                                                url: '/store/kohls/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Wayfair   ',
+                                                url: '/store/wayfair/  ',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Target   ',
+                                                url: '/store/wayfair/',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Overstock  ',
+                                                url: '/store/overstock/   ',
+                                                parent_id: '1',
+                                                status: '1',
+                                                highlight: false
+                                        }
+                                ]
+                        },
+                        {
+                                id: '3',
+                                parent_id: '0',
+                                name: 'Category',
+                                url: '/ai_tools/category/text-writing',
+                                status: '1',
+                                highlight: false,
+                                sort: '1',
+                                children: [
+                                        {
+                                                name: 'Adobe CC $19.99  ',
+                                                url: '/store/adobe',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Leonardo AI  ',
+                                                url: '/store/leonardo-ai/',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Envato Elements  ',
+                                                url: '/store/envato-pty-ltd/',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'LAMZU  ',
+                                                url: '/store/lamzu/',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'Canva  ',
+                                                url: '/store/canva/',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: '123RF    ',
+                                                url: '/store/123rf/',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        },
+                                        {
+                                                name: 'iStock   ',
+                                                url: '/store/istock/',
+                                                parent_id: '3',
+                                                status: '1',
+                                                highlight: false
+                                        }
+                                ]
+                        },
+                        {
+                                id: '5',
+                                parent_id: '0',
+                                name: 'Design',
+                                url: '',
+                                status: '1',
+                                highlight: true,
+                                sort: '3',
+                                children: [
+                                        {
+                                                id: '64',
+                                                parent_id: '5',
+                                                name: 'Adobe CC $19.99',
+                                                url: '/coupons_code/adobe/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '7'
+                                        },
+                                        {
+                                                id: '65',
+                                                parent_id: '5',
+                                                name: 'Leonardo',
+                                                url: '/coupons_code/leonardo-ai/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '8'
+                                        },
+                                        {
+                                                id: '66',
+                                                parent_id: '5',
+                                                name: 'Envato Elements',
+                                                url: '/coupons_code/envato-pty-ltd/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '9'
+                                        },
+                                        {
+                                                id: '67',
+                                                parent_id: '5',
+                                                name: 'LAMZU',
+                                                url: '/coupons_code/lamzu/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '10'
+                                        },
+                                        {
+                                                id: '68',
+                                                parent_id: '5',
+                                                name: 'Canva',
+                                                url: '/coupons_code/canva/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '11'
+                                        },
+                                        {
+                                                id: '69',
+                                                parent_id: '5',
+                                                name: '123RF',
+                                                url: '/coupons_code/123rf/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '12'
+                                        },
+                                        {
+                                                id: '70',
+                                                parent_id: '5',
+                                                name: 'iStock',
+                                                url: '/coupons_code/istock/',
+                                                status: '1',
+                                                highlight: false,
+                                                sort: '13'
+                                        }
+                                ]
+                        }
+                ]
 
+
+
+                menus.forEach(function (item) {
+                        Object.assign(item, {
+                                ...item,
+                                name: item.name.replaceAll(' ', ''),
+                                children: item.children.map(function (child) {
+                                        return {
+                                                ...child,
+                                                name: child.name.replaceAll(' ', ''),
+
+                                                parent_id: item.id,
+                                                status: '1',
+                                                highlight: false,
+                                        }
+                                })
+                        })
+                })
+                console.log(menus);
+
+
+        </script>
 </body>
 
 </html>

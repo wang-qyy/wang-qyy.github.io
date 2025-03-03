@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<meta>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Document</title>
+
+<style>
+  canvas {
+    background-color: #eee;
+
+  }
+</style>
+</meta>
+
+<body>
+  <canvas id="canvas" width="800" height="800"></canvas>
+  <canvas id="canvasB" width="800" height="800"></canvas>
+
+  <button id="reset">get image</button>
+</body>
+
+<script>
+
+  const imgInfo = {
+    url: "https://png.pngtree.com/thumb_back/fh260/background/20240501/pngtree-wedding-invitation-card-frame-with-asthetic-blue-flower-decoration-vector-image_15723129.jpg",
+    width: 289,
+    height: 405,
+    angle: 30,
+    x: 100,
+    y: 100,
+  }
+
+  // 计算旋转的左上角坐标及宽度
+  function calculateBounds({ x, y, width, height, angle }) {
+    const radians = (angle * Math.PI) / 180;
+    const centerX = x + width / 2;
+    const centerY = y + height / 2;
+    const corners = [
+      { x: x, y: y },
+      { x: x + width, y: y },
+      { x: x + width, y: y + height },
+      { x: x, y: y + height },
+    ];
+
+    // Rotate the corners around the center
+    const rotatedCorners = corners.map((corner) => {
+      const dx = corner.x - centerX;
+      const dy = corner.y - centerY;
+      return {
+        x: centerX + dx * Math.cos(radians) - dy * Math.sin(radians),
+        y: centerY + dx * Math.sin(radians) + dy * Math.cos(radians),
+      };
+    });
+
+    // Calculate the bounding box of the rotated rectangle
+    const minX = Math.min(...rotatedCorners.map((corner) => corner.x));
+    const minY = Math.min(...rotatedCorners.map((corner) => corner.y));
+    const maxX = Math.max(...rotatedCorners.map((corner) => corner.x));
+    const maxY = Math.max(...rotatedCorners.map((corner) => corner.y));
+
+    const newWidth = maxX - minX;
+    const newHeight = maxY - minY;
+
+    return {
+      minX,
+      minY,
+      maxX,
+      maxY,
+      width: newWidth,
+      height: newHeight,
+    };
+  }
+
+  // 渲染带旋转角度的图片
+  function renderImageWithAngle(canvas, { url, angle, width, height, x, y }) {
+    const ctx = canvas.getContext("2d");
+    const radians = (angle * Math.PI) / 180;
+
+    const img = new Image();
+    img.crossOrigin = "anonymous";
+    img.src = url;
+
+    img.onload = function () {
+      const o = {
+        x: x + width / 2,
+        y: y + height / 2,
+      };
+      const fill = {
+        x: -width / 2,
+        y: -height / 2,
+      };
+
+      ctx.translate(o.x, o.y);
+      ctx.rotate(radians);
+      ctx.drawImage(img, fill.x, fill.y, width, height);
+      ctx?.setTransform(1, 0, 0, 1, 0, 0);
+    };
+  }
+
+  // 重置旋转角度
+  function reSetRenderImageWithAngle(
+    canvasA,
+    canvasB,
+    { url, angle, width, height, x, y }
+  ) {
+    const ctxA = canvasA.getContext("2d");
+    const ctxB = canvasB.getContext("2d");
+
+    const { minX, minY, width: newWidth, height: newHeight } = calculateBounds(imgInfo)
+
+    const imageData = ctxA.getImageData(minX, minY, newWidth, newHeight);
+    const newCanvas = document.createElement("canvas");
+    newCanvas.width = newWidth;
+    newCanvas.height = newHeight;
+    newCanvas.getContext("2d").putImageData(imageData, 0, 0);
+
+    ctxB.translate(minX + newWidth / 2, minY + newHeight / 2);
+    ctxB.rotate((-angle * Math.PI) / 180);
+    ctxB.drawImage(newCanvas, -newWidth / 2, -newHeight / 2);
+    ctxB.setTransform(1, 0, 0, 1, 0, 0); // 恢复画布状态
+    ctxB.restore();
+
+    const canvasC = document.createElement("canvas")
+
+    const ctxC = canvasC.getContext("2d");
+
+    canvasC.width = width;
+    canvasC.height = height;
+
+    ctxC.putImageData(ctxB.getImageData(x, y, width, height), 0, 0)
+
+    document.body.appendChild(canvasC)
+  }
+
+  window.onload = function () {
+    const canvas = document.getElementById("canvas");
+
+    renderImageWithAngle(canvas, imgInfo);
+
+    document.getElementById("reset").onclick = function () {
+      const canvasA = document.getElementById("canvas");
+      const canvasB = document.getElementById("canvasB");
+
+      reSetRenderImageWithAngle(canvasA, canvasB, imgInfo)
+
+    };
+  };
+
+</script>
+
+</html>
