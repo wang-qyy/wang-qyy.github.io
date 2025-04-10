@@ -1,0 +1,65 @@
+div,
+canvas,
+img {
+  user-select: none;
+}
+
+.my_canvas,
+.bg_img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.cf {
+  content: "";
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+
+.bg_img {
+  width: 674px;
+  height: 495px;
+  background: #ddd;
+}
+
+.img_tools {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50px);
+  border: 1px solid #eee;
+  border-radius: 64px;
+  height: 64px;
+  line-height: 64px;
+  box-sizing: border-box;
+  padding: 15px 20px 0;
+}
+
+.img_tool {
+  height: 32px;
+  line-height: 32px;
+  color: #000;
+  font-size: 14px;
+  text-align: center;
+  width: 80px;
+  border: 1px solid #ddd;
+  border-radius: 32px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.img_tool_active {
+  color: #409eff;
+  border: 1px solid #409eff;
+}

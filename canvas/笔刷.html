@@ -76,6 +76,9 @@
   </head>
 
 <body>
+
+  <canvas id="canvas"></canvas>
+
   <div class="bg_img"></div>
   <canvas id="myCanvasBot" class="my_canvas" width="674" height="495"></canvas>
   <canvas id="myCanvasTop" class="my_canvas" width="674" height="495"></canvas>
@@ -84,6 +87,22 @@
     <div class="img_tool fl" onclick="changeType('line',this)">直线</div>
     <div class="img_tool fl" onclick="changeType('eraser',this)">橡皮擦</div>
   </div>
+
+  <script>
+    window.onload = function () {
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.fillStyle = "blue";
+      ctx.fillRect(10, 10, 100, 100);
+      ctx.globalCompositeOperation = "destination-in"
+
+      ctx.fillStyle = 'red';
+      // ctx.fillStyle = "rgba(255,0,0,0.8)"
+      ctx.fillRect(50, 50, 100, 100);
+
+    }
+  </script>
 
 
   <script>

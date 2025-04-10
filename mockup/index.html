@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <head name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mockup</title>
+  </head>
+
+  <style>
+    .frame-box {
+      position: relative;
+    }
+
+    .frame-image {
+      position: absolute;
+    }
+  </style>
+
+<body>
+
+  <div class="frame-box">
+    <div class="frame frame-image">
+      <div class="image-render">
+      </div>
+    </div>
+    <div class="frame frame-content">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 248.69 265.56">
+
+        <image id="_6474087" width="1200" height="1200" transform="translate(8.53) scale(.25)"
+          xlink:href="./svg/6474087.png" />
+      </svg>
+    </div>
+    <div class="frame frame-mask">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 248.69 265.56">
+        <clipPath id="clippath">
+          <ellipse id="lhImageFrame" class="cls-1" cx="124.35" cy="129.49" rx="68.83" ry="80" />
+        </clipPath>
+      </svg>
+    </div>
+
+  </div>
+
+</body>
+<script src="../lib/jquery.3.7.1.js"></script>
+
+<script>
+  const asset = {
+    width: 248.69, height: 265.56, children: {
+      width: 400,
+      height: 400,
+      url: 'https://png.pngtree.com/edit_user/p_upload/20250110/sm/546c1f3a2e_56828466.png',
+      left: -30,
+      top: -200
+    }
+  }
+
+  $(function () {
+    $('.frame, .frame-box').css({ width: asset.width, height: asset.height })
+
+    $('.frame').css({ position: 'absolute', left: 0, top: 0 })
+
+    $(".frame-image .image-render").append(`<img src="${asset.children.url}" width="100%" height="100%"/>`)
+
+    $('.frame-image').css({
+      'clip-path': 'url(#clippath)'
+    })
+    $(".frame-image .image-render").css({
+      position: 'absolute',
+      width: asset.children.width,
+      height: asset.children.height,
+      left: asset.children.left,
+      top: asset.children.top,
+    })
+  })
+</script>
+
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <head name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+
+<body>
+
+  <div style="position: relative; width: 600px; height: 600px; background-color: aquamarine;">
+    <div
+      style="position: absolute;left: 20px;top: 20px; width: 400px;height: 400px;background-color: bisque;clip-path: url(#myClip);">
+    </div>
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="myClip" transform="scale(2,2)">
+          <use xlink:href="#clip_rect"></use>
+        </clipPath>
+      </defs>
+      <circle cx="80" cy="80" r="80" fill="red" id="clip_rect" />
+    </svg>
+  </div>
+
+  <div class="preview-asset-mask___CCTnY" style="position: relative; width: 1500px; height: 1500px;">
+    <div
+      style="position: absolute; width: 1500px; height: 1500px; left: 0px; top: 0px; transform: rotate(0deg); clip-path: url(#SVGID_preview_32_)">
+      <img src="https://png.pngtree.com/edit_user/p_upload/20250110/45035856b3_56828466.png"
+        style="width: 100%; height: 100%;" />
+    </div>
+
+    <div class="mask-svg" style="position: absolute; left: 0px; top: 0px; width: 1500px; height: 1500px;">
+      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300">
+
+        <ellipse id="lhImageFrame" cx="50" cy="100" rx="50" ry="100" fill="#000" style="opacity: 0;" />
+        <clipPath id="SVGID_preview_32_" transform="scale(5,5)" transformOrigin="left top">
+          <use xlink:href="#lhImageFrame" overflow="visible"></use>
+        </clipPath>
+      </svg>
+    </div>
+  </div>
+
+
+</body>
+
+</html>
