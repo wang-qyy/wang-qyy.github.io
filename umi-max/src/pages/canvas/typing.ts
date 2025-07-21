@@ -5,6 +5,6 @@ export interface ImageInfo {
   height: number;
   angle: number;
   url: string;
-  originWidth: 640;
-  originHeight: 640;
+  originWidth: number;
+  originHeight: number;
 }

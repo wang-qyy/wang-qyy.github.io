@@ -3,7 +3,7 @@ import { observable, makeObservable, action } from "mobx";
 
 import { renderImageWithAngle, canvasToFile } from "./utils";
 
-export type DrawType = "curve" | "line" | "eraser";
+export type DrawType = "restore" | "erase";
 
 class ImageHandler {
   botRef = createRef<HTMLCanvasElement>();
@@ -40,18 +40,20 @@ class ImageHandler {
   //操作类型
 
   @observable
-  drawType: DrawType = "curve";
+  drawType: DrawType = "erase";
 
   @observable //画线宽度
   lineWidth: number = 20;
 
   @observable
-  brushColor: string = "rgba(255,255,255,1)";
+  brushColor: string = "rgba(255,255,255,0.5)";
 
   initImageData?: ImageData;
 
   isEdit: boolean = false;
-  constructor() {}
+  constructor() {
+    makeObservable(this);
+  }
 
   init() {
     this.topCan = this.topRef.current;
@@ -76,11 +78,6 @@ class ImageHandler {
       let x = (e || window.event).offsetX;
       let y = (e || window.event).offsetY;
       if (!this.isCanUp) {
-        if (this.drawType == "line") {
-          let clientX = this.topCan.getBoundingClientRect().x;
-          let clientY = this.topCan.getBoundingClientRect().y;
-          this.drawLine(x - clientX, y - clientY);
-        }
         // topCan内容画到botCan上
         this.topToBot();
       }
@@ -90,11 +87,6 @@ class ImageHandler {
       if (this.isMove) return (this.isMove = false);
       let x = (e || window.event).offsetX;
       let y = (e || window.event).offsetY;
-      if (this.drawType == "line") {
-        let clientX = this.topCan.getBoundingClientRect().x;
-        let clientY = this.topCan.getBoundingClientRect().y;
-        this.drawLine(x - clientX, y - clientY);
-      }
     });
   };
 
@@ -127,8 +119,14 @@ class ImageHandler {
     let y = (e || window.event).offsetY;
     this.startPoint = { x, y };
     this.drawPoints.push({ x, y });
-    this.topCtx.strokeStyle = this.brushColor;
-    this.topCtx.lineWidth = this.lineWidth;
+
+    if (this.drawType == "erase") {
+      this.topCtx.strokeStyle = this.brushColor;
+      this.topCtx.lineWidth = this.lineWidth;
+    } else {
+      this.topCtx.strokeStyle = "rgba(255, 255, 255,1)";
+      this.topCtx.lineWidth = 30;
+    }
     this.topCtx.beginPath();
     this.topCtx.moveTo(x, y);
   };
@@ -139,14 +137,16 @@ class ImageHandler {
     if (this.isDown) {
       this.isMove = true;
       switch (this.drawType) {
-        case "curve":
+        case "erase":
           this.drawCurve(x, y);
           break;
-        case "line":
-          this.drawLine(x, y);
-          break;
-        case "eraser":
-          this.drawEraser(x, y);
+        // case "line":
+        //   this.drawLine(x, y);
+        //   break;
+        case "restore":
+          this.drawCurve(x, y);
+
+          // this.drawEraser(x, y);
           break;
       }
     }
@@ -155,6 +155,38 @@ class ImageHandler {
   private mouseup = (e: MouseEvent) => {
     this.isCanUp = true;
     if (this.isDown) {
+      let previewCanvas: HTMLCanvasElement;
+      if (this.drawType == "erase") {
+        previewCanvas = document.getElementById("erase") as HTMLCanvasElement;
+      } else {
+        previewCanvas = document.getElementById("restore") as HTMLCanvasElement;
+      }
+
+      if (previewCanvas) {
+        const previewCtx = previewCanvas.getContext(
+          "2d"
+        ) as CanvasRenderingContext2D;
+
+        previewCtx.drawImage(this.topCan, 0, 0);
+      }
+      const composeCtx = (document.getElementById(
+        "compose"
+      ) as HTMLCanvasElement)!.getContext("2d");
+
+      // 重置合成模式
+      composeCtx!.globalCompositeOperation = "source-out";
+      composeCtx?.drawImage(
+        document.getElementById("erase") as HTMLCanvasElement,
+        0,
+        0
+      );
+      composeCtx!.globalCompositeOperation = "lighter";
+      composeCtx?.drawImage(
+        document.getElementById("restore") as HTMLCanvasElement,
+        0,
+        0
+      );
+
       // topCan内容画到botCan上
       this.topToBot();
     }
@@ -165,8 +197,6 @@ class ImageHandler {
     let img = new Image();
     img.src = this.topCan.toDataURL("image/png");
     img.onload = () => {
-      //添加到botCtx画布
-
       /**
        * https://developer.mozilla.org/zh-CN/docs/Web/API/CanvasRenderingContext2D/globalCompositeOperation
        * 将重合部分置为透明
@@ -182,7 +212,7 @@ class ImageHandler {
         // 添加到历史记录
         this.imgHistory.push(historyImg);
 
-        document.body.appendChild(historyImg);
+        // document.body.appendChild(historyImg);
       };
 
       // this.getArea();
@@ -278,15 +308,22 @@ class ImageHandler {
   //画带透明度涂鸦
   drawCurve = (x: number, y: number) => {
     this.drawPoints.push({ x, y });
-    //清空当前画布内容
-    this.topCtx.clearRect(0, 0, this.topCan.width, this.topCan.height);
-    //必须每次都beginPath  不然会卡
-    this.topCtx.beginPath();
-    this.topCtx.moveTo(this.drawPoints[0].x, this.drawPoints[0].y);
-    for (let i = 1; i < this.drawPoints.length; i++) {
-      this.topCtx.lineTo(this.drawPoints[i].x, this.drawPoints[i].y);
-    }
-    this.topCtx.stroke();
+
+    const drawPath = (ctx: CanvasRenderingContext2D, clear = true) => {
+      //清空当前画布内容
+      if (clear) {
+        ctx.clearRect(0, 0, this.topCan.width, this.topCan.height);
+      }
+      //必须每次都beginPath  不然会卡
+      ctx.beginPath();
+      ctx.moveTo(this.drawPoints[0].x, this.drawPoints[0].y);
+      for (let i = 1; i < this.drawPoints.length; i++) {
+        ctx.lineTo(this.drawPoints[i].x, this.drawPoints[i].y);
+      }
+      ctx.stroke();
+    };
+
+    drawPath(this.topCtx);
   };
 
   private point2Index(x: number, y: number) {

@@ -1,3 +1,15 @@
 {
-  "extends": "./src/.umi/tsconfig.json"
+  "extends": "./src/.umi/tsconfig.json",
+  "[typescript]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false, // 禁用整理导入
+      "source.removeUnusedImports": true // 仅删除未使用的导入
+    }
+  },
+  "[javascript]": {
+    "editor.codeActionsOnSave": {
+      "source.organizeImports": false, // 禁用整理导入
+      "source.removeUnusedImports": true // 仅删除未使用的导入
+    }
+  }
 }
