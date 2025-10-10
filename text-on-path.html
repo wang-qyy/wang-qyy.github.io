@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!-- Adding the Fabric JS Library-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/510/fabric.min.js"></script>
+</head>
+
+<body>
+  <h2>Passing the path property as key</h2>
+  <p>You can see that the text path has been created</p>
+  <canvas id="canvas" width="500" height="500"></canvas>
+
+  <!-- 角度 -->
+  <!-- 弧度 -->
+  <!-- 半径 -->
+
+
+  <script>
+
+    function arcToSvgPath(centerX, centerY, radius, startAngle, endAngle) {
+      // 将角度转换为弧度
+      const startRad = (startAngle * Math.PI) / 180;
+      const endRad = (endAngle * Math.PI) / 180;
+
+      // 计算起点和终点的坐标
+      const startX = centerX + radius * Math.cos(startRad);
+      const startY = centerY + radius * Math.sin(startRad);
+      const endX = centerX + radius * Math.cos(endRad);
+      const endY = centerY + radius * Math.sin(endRad);
+
+      // 判断是否为大弧
+      const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+
+      // 生成 SVG path 的 d 属性
+      const d = `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
+
+      return d;
+    }
+    var canvas = new fabric.Canvas("canvas");
+
+    // 示例用法
+    const centerX = 250;
+    const centerY = 250;
+    const radius = 200;
+    const startAngle = 200;
+    const endAngle = 560;
+
+    const svgPath = arcToSvgPath(centerX, centerY, radius, startAngle, endAngle);
+    console.log(svgPath); // 输出 SVG path 的 d 属性
+
+    var path = new fabric.Path(svgPath, {
+      strokeWidth: 1,
+      fill: "transparent",
+      stroke: 'pink'
+    });
+
+    // Initiate an itext object
+    var itext = new fabric.IText("Add sample text here.", {
+      width: 10,
+      left: 50,
+      top: 70,
+      fill: "red",
+      path: path,
+      pathSide: "left",
+      pathStartOffset: 0,
+    });
+    // Add it to the canvas
+    canvas.add(itext);
+
+    // // 已知弧长和弧度，计算半径
+    // function calculateRadiusFromRadian(arcLength, radian) {
+    //   return arcLength / radian;
+    // }
+
+    // // 已知弧长和角度，计算半径
+    // function calculateRadiusFromDegree(arcLength, degree) {
+    //   const radian = (degree * Math.PI) / 180; // 将角度转换为弧度
+    //   return arcLength / radian;
+    // }
+
+    // // 示例用法
+    // const arcLength = 10; // 弧长
+    // const radian = 1.57; // 弧度（约等于 90 度）
+    // const degree = 90; // 角度
+
+    // const radiusFromRadian = calculateRadiusFromRadian(arcLength, radian);
+    // const radiusFromDegree = calculateRadiusFromDegree(arcLength, degree);
+
+    // console.log("Radius from radian:", radiusFromRadian); // 输出: 6.366197723675814
+    // console.log("Radius from degree:", radiusFromDegree); // 输出: 6.366197723675814
+
+  </script>
+
+
+  <!-- <script>
+    // Initiate a canvas instance
+    var canvas = new fabric.Canvas("canvas");
+    canvas.setWidth(document.body.scrollWidth);
+    canvas.setHeight(250);
+
+    // Initiate a path instance
+    var path = new fabric.Path("M 0 0 C 100 -100 150 -100 300 0", {
+      strokeWidth: 1,
+      fill: "black",
+    });
+
+    // Initiate an itext object
+    var itext = new fabric.IText("Add sample text here.", {
+      width: 300,
+      left: 50,
+      top: 70,
+      fill: "red",
+      path: path,
+      pathSide: "left",
+      pathStartOffset: 0,
+    });
+    // Add it to the canvas
+    canvas.add(itext);
+  </script> -->
+</body>
+
+</html>

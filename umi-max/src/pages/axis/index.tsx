@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import { renderFn } from "./index";
 
 const canvas = {
   width: 500,
@@ -53,7 +54,7 @@ export default () => {
     if (ctx) {
       var rotationAngle = (info.rotate * Math.PI) / 180; // 将角度转换为弧度
 
-      ctx.translate(left + rectWidth / 2, top + rectHeight / 2);
+      ctx.translate(left + width / 2, top + height / 2);
 
       ctx.rotate(info.rotate);
       ctx.fillStyle = info.fill; // 设置填充颜色为红色
@@ -63,9 +64,10 @@ export default () => {
   }
 
   useEffect(() => {
-    draw({ ...element, rotate: 0, fill: "pink" });
-    draw(element);
-    drawCanvas(element);
+    // draw({ ...element, rotate: 0, fill: "pink" });
+    // draw(element);
+    // drawCanvas(element);
+    // renderFn(canvasRef.current);
   }, []);
 
   return (

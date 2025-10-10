@@ -72,14 +72,25 @@ jsonData.forEach((row) => {
       if (insertPosition === -1) {
         throw new Error(key + "未找到插入位置标记");
       }
-      const insertContent = `,\n    "${key_name}"=>'${text}'`;
+      const keyPattern = new RegExp(
+        `(['"]${key_name}\\s*['"]\\s*=>\\s*['"][^'"]*['"])`,
+        "g"
+      );
+
+      if (content.match(keyPattern)) {
+        // 如果找到了键，则替换值
+        content = content.replace(keyPattern, `'${key_name}' => '${text}'`);
+        console.log(`在文件 ${fullPath} 中找到并更新了键 '${key_name}'`);
+      } else {
+        const insertContent = `,\n    "${key_name}"=>'${text}'`;
+
+        content =
+          content.slice(0, insertPosition) +
+          insertContent +
+          content.slice(insertPosition);
+      }
 
       // console.log(insertContent);
-
-      content =
-        content.slice(0, insertPosition) +
-        insertContent +
-        content.slice(insertPosition);
 
       // 4. 写回文件
       fs.writeFileSync(fullPath, content);

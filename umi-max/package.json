@@ -15,7 +15,7 @@
     "antd": "^5.24.0",
     "classnames": "^2.5.1",
     "crypto-js": "^4.2.0",
-    "fabric": "^6.7.0",
+    "fabric": "^6.7.1",
     "mobx": "^6.13.6",
     "mobx-react": "^9.2.0",
     "qs": "^6.14.0",
@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
+    "@types/fabric": "^5.3.10",
     "@types/qs": "^6.14.0",
     "@types/react": "^18.0.33",
     "@types/react-dom": "^18.0.11",

@@ -9,5 +9,12 @@ export default defineConfig({
       cookieDomainRewrite: "",
       secure: false,
     },
+    "/maker-ppt": {
+      target: "https://cdna-candles-incorrect-ram.trycloudflare.com/",
+      changeOrigin: true,
+      pathRewrite: { "^/maker-ppt": "" },
+      cookieDomainRewrite: "",
+      secure: false,
+    },
   },
 });
