@@ -1,217 +1,71 @@
 import { Canvas } from "fabric";
-import { useEffect } from "react";
+import { Button } from "antd";
+import { useEffect, useRef } from "react";
 
-const data = {
-  id: "APxCmQX_hz",
-  name: "企业印刷名片",
-  width: 491.20000000000005,
-  height: 294.7200092397929,
-  zoom: 0.4619896422900353,
-  left: 0,
-  top: 0,
-  version: "6.6",
-  objects: [
-    {
-      rx: 0,
-      ry: 0,
-      id: "WorkSpaceDrawType",
-      name: "rect",
-      color: "#ffffff",
-      padding: 0,
-      fill: "#ffffff",
-      selectable: false,
-      evented: false,
-      fillType: 0,
-      lockMovementX: false,
-      lockMovementY: false,
-      objectCaching: true,
-      transparentCorners: false,
-      hasBorders: false,
-      globalCompositeOperation: "source-over",
-      absolutePositioned: false,
-      type: "Rect",
-      version: "6.7.1",
-      originX: "left",
-      originY: "top",
-      left: 0,
-      top: 0,
-      width: 1063.2273,
-      height: 637.9364,
-      stroke: "",
-      strokeWidth: 0,
-      strokeDashArray: null,
-      strokeLineCap: "butt",
-      strokeDashOffset: 0,
-      strokeLineJoin: "miter",
-      strokeUniform: false,
-      strokeMiterLimit: 0,
-      scaleX: 1,
-      scaleY: 1,
-      angle: 0,
-      flipX: false,
-      flipY: false,
-      opacity: 1,
-      shadow: null,
-      visible: true,
-      backgroundColor: "rgba(0,0,0,0)",
-      fillRule: "nonzero",
-      paintFirst: "fill",
-      skewX: 0,
-      skewY: 0,
-    },
-    {
-      cropX: 152.72776013228685,
-      cropY: 152.72776013228687,
-      id: "arw5PYpXuY",
-      name: "image",
-      padding: 0,
-      cropKey: "arrow",
-      cropPath:
-        "M -172.27223986771315 -62.68213179990151 L 34.454447973542635 -62.68213179990151 L 34.454447973542635 -104.47021966650253 L 172.27223986771315 0 L 34.454447973542635 104.47021966650253 L 34.454447973542635 62.68213179990151 L -172.27223986771315 62.68213179990151 Z",
-      fill: "rgb(0,0,0)",
-      selectable: true,
-      evented: true,
-      lockMovementX: false,
-      lockMovementY: false,
-      objectCaching: true,
-      transparentCorners: false,
-      hasBorders: true,
-      effects: {
-        stroke: [],
-        solidFill: [],
-        outerGlow: {},
-        gradientOverlay: [],
-        innerShadow: [],
-        innerGlow: {},
-        bevel: {},
-        satin: {},
-      },
-      globalCompositeOperation: "source-over",
-      absolutePositioned: false,
-      clipPath: {
-        padding: 0,
-        fill: "rgb(0,0,0)",
-        selectable: true,
-        evented: true,
-        lockMovementX: false,
-        lockMovementY: false,
-        objectCaching: true,
-        transparentCorners: false,
-        hasBorders: true,
-        effects: {
-          stroke: [],
-          solidFill: [],
-          outerGlow: {},
-          gradientOverlay: [],
-          innerShadow: [],
-          innerGlow: {},
-          bevel: {},
-          satin: {},
-        },
-        globalCompositeOperation: "source-over",
-        absolutePositioned: false,
-        pathOffset: {
-          x: 0,
-          y: 0,
-        },
-        inverted: false,
-        type: "Path",
-        version: "6.7.1",
-        originX: "left",
-        originY: "top",
-        left: -172.7722,
-        top: -104.9702,
-        width: 344.5445,
-        height: 208.9404,
-        stroke: null,
-        strokeWidth: 1,
-        strokeDashArray: null,
-        strokeLineCap: "butt",
-        strokeDashOffset: 0,
-        strokeLineJoin: "miter",
-        strokeUniform: true,
-        strokeMiterLimit: 4,
-        scaleX: 1,
-        scaleY: 1,
-        angle: 0,
-        flipX: false,
-        flipY: false,
-        opacity: 1,
-        shadow: null,
-        visible: true,
-        backgroundColor: "",
-        fillRule: "nonzero",
-        paintFirst: "fill",
-        skewX: 0,
-        skewY: 0,
-        path: [
-          ["M", -172.27223986771315, -62.68213179990151],
-          ["L", 34.454447973542635, -62.68213179990151],
-          ["L", 34.454447973542635, -104.47021966650253],
-          ["L", 172.27223986771315, 0],
-          ["L", 34.454447973542635, 104.47021966650253],
-          ["L", 34.454447973542635, 62.68213179990151],
-          ["L", -172.27223986771315, 62.68213179990151],
-          ["Z"],
-        ],
-      },
-      type: "Image",
-      version: "6.7.1",
-      originX: "left",
-      originY: "top",
-      left: 0,
-      top: 0,
-      width: 497.27223986771315,
-      height: 361.66819946529193,
-      stroke: null,
-      strokeWidth: 0,
-      strokeDashArray: null,
-      strokeLineCap: "butt",
-      strokeDashOffset: 0,
-      strokeLineJoin: "miter",
-      strokeUniform: false,
-      strokeMiterLimit: 4,
-      scaleX: 0.6452,
-      scaleY: 0.6452,
-      angle: 0,
-      flipX: false,
-      flipY: false,
-      opacity: 1,
-      shadow: null,
-      visible: true,
-      backgroundColor: "",
-      fillRule: "nonzero",
-      paintFirst: "fill",
-      skewX: 0,
-      skewY: 0,
-      src: "https://images.pexels.com/photos/290275/pexels-photo-290275.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-      crossOrigin: "anonymous",
-      filters: [],
-      imageWidth: 650,
-      imageHeight: 650,
-    },
-  ],
-  workSpace: {
-    fillType: 0,
-    left: 0,
-    top: 0,
-    angle: 0,
-    scaleX: 1,
-    scaleY: 1,
-    color: "#ffffff",
-    fill: "#ffffff",
-    backgroundColor: "rgba(0,0,0,0)",
-  },
-};
+import data, { cropObj, rawpixelObj } from "./data";
 
 export default () => {
+  const canvasRef = useRef<Canvas>();
   useEffect(() => {
     const canvasDom = document.getElementById("canvas") as HTMLCanvasElement;
 
     const canvas = new Canvas(canvasDom);
+    canvasRef.current = canvas;
     // canvas.loadFromJSON({ objects: [object, { type: "IText", text: "1234" }] });
     canvas.loadFromJSON(data);
     canvas.requestRenderAll();
+
+    canvas.on({
+      "object:modified": (a) => {
+        console.log(a);
+      },
+    });
+    canvas.toJSON();
   }, []);
-  return <canvas id="canvas" width={data.width} height={data.height} />;
+
+  return (
+    <div style={{ padding: 20 }}>
+      <div style={{ lineHeight: 2 }}>
+        clipSize:
+        <br />
+        width : {rawpixelObj.width} * {rawpixelObj.scaleX} =
+        {rawpixelObj.width * rawpixelObj.scaleX}
+        <br />
+        height : {rawpixelObj.height} * {rawpixelObj.scaleY} =
+        {rawpixelObj.height * rawpixelObj.scaleY}
+        <br />
+        imageSize:
+        <br />
+        width :{rawpixelObj.originalWidth}*{rawpixelObj.scaleX}=
+        {rawpixelObj.originalWidth * rawpixelObj.scaleX}
+        <br />
+        height :{rawpixelObj.originalHeight}*{rawpixelObj.scaleY}=
+        {rawpixelObj.originalHeight * rawpixelObj.scaleY}
+      </div>
+      <Button
+        onClick={() => {
+          // console.log(canvasRef.current?.getActiveObject()?.toSVG());
+          console.log(canvasRef.current?.toSVG());
+        }}
+      >
+        导出
+      </Button>
+      <div>
+        imageSize:
+        {cropObj.scaleX * cropObj.assetWidth} *
+        {cropObj.scaleY * cropObj.assetHeight}
+        <br />
+        clipSize:
+        {cropObj.clipPath.width * cropObj.scaleX} *
+        {cropObj.clipPath.height * cropObj.scaleY}
+        <br />
+        normal:
+        {cropObj.width * cropObj.scaleX} *{cropObj.height * cropObj.scaleY}
+        <br />
+        {cropObj.cropX} * {cropObj.cropY}
+        <br />
+      </div>
+      <canvas id="canvas" width={data.width} height={data.height} />
+    </div>
+  );
 };

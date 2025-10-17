@@ -1,4 +1,4 @@
-import { Canvas } from "fabric";
+import { Canvas, loadSVGFromURL, loadSVGFromString } from "fabric";
 import { useEffect } from "react";
 
 const object = {
@@ -67,9 +67,9 @@ const object = {
 const data = {
   id: "APxCmQX_hz",
   name: "企业印刷名片",
-  width: 491.20000000000005,
-  height: 294.7200092397929,
-  zoom: 0.4619896422900353,
+  width: 500,
+  height: 500,
+  zoom: 1,
   left: 0,
   top: 0,
   version: "6.6",
@@ -81,7 +81,7 @@ const data = {
       name: "rect",
       color: "#ffffff",
       padding: 0,
-      fill: "#ffffff",
+      fill: "#eee",
       selectable: false,
       evented: false,
       fillType: 0,
@@ -123,8 +123,8 @@ const data = {
       skewY: 0,
     },
     {
-      cropX: 152.72776013228685,
-      cropY: 152.72776013228687,
+      cropX: 200,
+      cropY: 200,
       id: "arw5PYpXuY",
       name: "image",
       padding: 0,
@@ -139,16 +139,7 @@ const data = {
       objectCaching: true,
       transparentCorners: false,
       hasBorders: true,
-      effects: {
-        stroke: [],
-        solidFill: [],
-        outerGlow: {},
-        gradientOverlay: [],
-        innerShadow: [],
-        innerGlow: {},
-        bevel: {},
-        satin: {},
-      },
+
       globalCompositeOperation: "source-over",
       absolutePositioned: false,
       clipPath: {
@@ -186,6 +177,8 @@ const data = {
         top: -104.9702,
         width: 344.5445,
         height: 208.9404,
+        // width: 100,
+        // height: 50,
         stroke: null,
         strokeWidth: 1,
         strokeDashArray: null,
@@ -222,10 +215,10 @@ const data = {
       version: "6.7.1",
       originX: "left",
       originY: "top",
-      left: 0,
-      top: 0,
-      width: 497.27223986771315,
-      height: 361.66819946529193,
+      left: 100,
+      top: 100,
+      width: 200,
+      height: 100,
       stroke: null,
       strokeWidth: 0,
       strokeDashArray: null,
@@ -234,8 +227,8 @@ const data = {
       strokeLineJoin: "miter",
       strokeUniform: false,
       strokeMiterLimit: 4,
-      scaleX: 0.6452,
-      scaleY: 0.6452,
+      scaleX: 0.5,
+      scaleY: 0.5,
       angle: 0,
       flipX: false,
       flipY: false,
@@ -267,6 +260,10 @@ const data = {
   },
 };
 
+// const svg = "https://js.pngtree.com/editor/assets/mask_v_561.svg";
+const svg = "https://js.pngtree.com/editor/assets/mask_v_220.svg";
+const svg1 = "https://js.pngtree.com/editor/assets/svg_v_22.svg";
+
 export default () => {
   useEffect(() => {
     const canvasDom = document.getElementById("canvas") as HTMLCanvasElement;
@@ -276,6 +273,22 @@ export default () => {
     // canvas.loadFromJSON({ objects: [object, { type: "IText", text: "1234" }] });
     canvas.loadFromJSON(data);
     canvas.requestRenderAll();
+
+    loadSVGFromURL(svg).then((res) => {
+      console.log(res);
+    });
+    loadSVGFromURL(svg1).then((res) => {
+      console.log(res);
+    });
+
+    loadSVGFromString(
+      `<svg> <rect id="SVGID_1_" x="0.5" y="0.5" width="599" height="600"/> </svg>`
+    ).then((res) => {
+      console.log("loadSVGFromString", res);
+      res.objects.forEach((item) => {
+        console.log(item?.width, item?.height);
+      });
+    });
   }, []);
-  return <canvas id="canvas" width={object.width} height={object.height} />;
+  return <canvas id="canvas" width={data.width} height={data.height} />;
 };

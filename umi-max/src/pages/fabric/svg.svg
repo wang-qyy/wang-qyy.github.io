@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1"
+  width="1462.3999999999999" height="877.4400275086991" viewBox="0 0 1462.4 877.44"
+  xml:space="preserve">
+<desc>Created with Fabric.js 6.7.1</desc>
+<defs>
+</defs>
+<g transform="matrix(1 0 0 1 531.6137 318.9682)" id="WorkSpaceDrawType"  >
+<rect style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(255,255,255); fill-rule: nonzero; opacity: 1;"  x="-531.61365" y="-318.9682" rx="0" ry="0" width="1063.2273" height="637.9364" />
+</g>
+<g transform="matrix(2.6 0 0 2.6 471.4224 391.3203)" id="arw5PYpXuY" clip-path="url(#CLIPPATH_2)"  >
+<clipPath id="CLIPPATH_2" >
+	<path transform="matrix(1 0 0 1 0 0) translate(0, 0)" d="M -82.716 -33.8543 L 16.5432 -33.8543 L 16.5432 -56.4238 L 82.716 0 L 16.5432 56.4238 L 16.5432 33.8543 L -82.716 33.8543 Z" stroke-linecap="round" />
+</clipPath>
+<clipPath id="imageCrop_1">
+	<rect x="-101.09729148978928" y="-68.96236303372183" width="202.19458297957857" height="137.92472606744366" />
+</clipPath>
+	<image style="stroke: none; stroke-width: 0; stroke-dasharray: none; stroke-linecap: butt; stroke-dashoffset: 0; stroke-linejoin: miter; stroke-miterlimit: 4; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;"  xlink:href="https://images.pexels.com/photos/290275/pexels-photo-290275.jpeg" x="-137.85994294062175" y="-94.03958595507521" width="650" height="650" clip-path="url(#imageCrop_1)" ></image>
+</g>
+</svg>
