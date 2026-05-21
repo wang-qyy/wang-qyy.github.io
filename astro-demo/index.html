@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>90sheji ai 工具</title>
-    <link rel="stylesheet" href="/astro-demo/static-dev/index.9bBrs2rA.css">
+    <link rel="stylesheet" href="/astro-demo/static-dev/index.Cvo4U_DI.css">
 </head>
 <body>
     <div class="container cssprx-mx-auto cssprx-py-12">
@@ -58,8 +58,7 @@
                         a = t => t.map(o),
                         m = t => typeof t != "object" || t === null ? t :
                         Object.fromEntries(Object.entries(t).map(([l,
-                            e
-                        ]) => [l, o(e)]));
+                            e]) => [l, o(e)]));
                     class y extends HTMLElement {
                         constructor() {
                             super(...arguments);
@@ -74,7 +73,7 @@
                                     null ? void 0 : b
                                     .closest(
                                         "astro-island[ssr]"
-                                    );
+                                        );
                                 if (e) {
                                     e.addEventListener(
                                         "astro:hydrate",
@@ -90,7 +89,7 @@
                                     h = this
                                     .querySelectorAll(
                                         "template[data-astro-template]"
-                                    );
+                                        );
                                 for (let r of h) {
                                     let s = r.closest(this
                                         .tagName);
@@ -98,7 +97,7 @@
                                         .isSameNode(this) &&
                                         (n[r.getAttribute(
                                                     "data-astro-template"
-                                                ) ||
+                                                    ) ||
                                                 "default"] =
                                             r.innerHTML, r
                                             .remove())
@@ -110,7 +109,7 @@
                                         .isSameNode(this) &&
                                         (n[r.getAttribute(
                                                     "name"
-                                                ) ||
+                                                    ) ||
                                                 "default"] =
                                             r.innerHTML)
                                 }
@@ -121,26 +120,26 @@
                                         JSON.parse(this
                                             .getAttribute(
                                                 "props")
-                                        )) : {}
+                                            )) : {}
                                 } catch (r) {
                                     let s = this
                                         .getAttribute(
                                             "component-url"
-                                        ) ||
+                                            ) ||
                                         "<unknown>",
                                         v = this
                                         .getAttribute(
                                             "component-export"
-                                        );
+                                            );
                                     throw v && (s +=
                                             ` (export ${v})`
-                                        ), console
+                                            ), console
                                         .error(
                                             `[hydrate] Error parsing props for component ${s}`,
                                             this
                                             .getAttribute(
                                                 "props"), r
-                                        ), r
+                                            ), r
                                 }
                                 let u;
                                 await this.hydrator(this)(
@@ -149,13 +148,13 @@
                                             client: this
                                                 .getAttribute(
                                                     "client"
-                                                )
+                                                    )
                                         }), this
                                     .removeAttribute("ssr"),
                                     this.dispatchEvent(
                                         new CustomEvent(
                                             "astro:hydrate")
-                                    )
+                                        )
                             });
                             d(this, "unmount", () => {
                                 this.isConnected || this
@@ -212,7 +211,7 @@
                                 c = this.getAttribute("client");
                             if (Astro[c] === void 0) {
                                 window.addEventListener(`astro:${c}`,
-                                    () => this.start(), {
+                                () => this.start(), {
                                         once: !0
                                     });
                                 return
@@ -228,16 +227,15 @@
                                         .all([import(this
                                                 .getAttribute(
                                                     "component-url"
-                                                )),
+                                                    )),
                                             n ? import(
                                                 n) :
-                                            () =>
-                                            () => {}
+                                        () => () => {}
                                         ]),
                                         u = this
                                         .getAttribute(
                                             "component-export"
-                                        ) || "default";
+                                            ) || "default";
                                     if (!u.includes("."))
                                         this.Component = h[
                                             u];
