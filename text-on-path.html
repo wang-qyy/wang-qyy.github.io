@@ -2,122 +2,1081 @@
 <html>
 
 <head>
-  <!-- Adding the Fabric JS Library-->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/510/fabric.min.js"></script>
+  <link rel="stylesheet" href="text-on-path.css" />
+
+  <style>
+    .box {
+      width: 800px;
+      height: 800px;
+      position: relative;
+      background-color: black;
+    }
+
+    .box::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 200px;
+      height: 50px;
+      background-color: pink;
+      transform: skewY(20deg);
+    }
+  </style>
 </head>
 
 <body>
-  <h2>Passing the path property as key</h2>
-  <p>You can see that the text path has been created</p>
-  <canvas id="canvas" width="500" height="500"></canvas>
+  <div class="container">
+    <div class="canvas-container">
+      <h2>Fabric.js 6.0+ 弯曲文本编辑器</h2>
+      <canvas id="canvas" width="800" height="600"></canvas>
+    </div>
 
-  <!-- 角度 -->
-  <!-- 弧度 -->
-  <!-- 半径 -->
+    <div class="controls">
+      <h2>控制面板</h2>
 
+      <div class="tab-container">
+        <div class="tabs">
+          <div class="tab active" onclick="switchTab('text')">文本设置</div>
+          <div class="tab" onclick="switchTab('curve')">曲线设置</div>
+          <div class="tab" onclick="switchTab('style')">样式设置</div>
+        </div>
 
-  <script>
+        <!-- 文本设置 -->
+        <div id="textTab" class="tab-content active">
+          <div class="control-group">
+            <label>文本内容</label>
+            <textarea id="textContent" rows="3" style="width: 100%; resize: vertical">弯曲文本效果</textarea>
+          </div>
 
-    function arcToSvgPath(centerX, centerY, radius, startAngle, endAngle) {
-      // 将角度转换为弧度
-      const startRad = (startAngle * Math.PI) / 180;
-      const endRad = (endAngle * Math.PI) / 180;
+          <div class="control-group">
+            <label>弯曲类型</label>
+            <select id="curveType">
+              <option value="arc">arc 弧形</option>
+              <option value="circle">circle 圆形</option>
+              <option value="wave">wave 波浪形</option>
+              <option value="spiral">spiral 螺旋形</option>
+            </select>
+          </div>
 
-      // 计算起点和终点的坐标
-      const startX = centerX + radius * Math.cos(startRad);
-      const startY = centerY + radius * Math.sin(startRad);
-      const endX = centerX + radius * Math.cos(endRad);
-      const endY = centerY + radius * Math.sin(endRad);
+          <button onclick="createCurvedText()">创建弯曲文本</button>
+          <button class="secondary" onclick="updateSelectedText()">
+            更新选中文本
+          </button>
+        </div>
 
-      // 判断是否为大弧
-      const largeArcFlag = endAngle - startAngle <= 180 ? 0 : 1;
+        <!-- 曲线设置 -->
+        <div id="curveTab" class="tab-content">
+          <!-- 弧形控制 -->
+          <div id="arcControls" class="property-controls">
+            <div class="control-group">
+              <label>半径</label>
+              <div class="range-group">
+                <input type="range" id="arcRadius" min="50" max="300" value="100" />
+                <span id="arcRadiusValue">100</span>
+              </div>
+            </div>
 
-      // 生成 SVG path 的 d 属性
-      const d = `M ${startX} ${startY} A ${radius} ${radius} 0 ${largeArcFlag} 1 ${endX} ${endY}`;
+            <div class="control-group">
+              <label>起始角度</label>
+              <div class="range-group">
+                <input type="range" id="arcStartAngle" min="0" max="360" value="0" />
+                <span id="arcStartAngleValue">0°</span>
+              </div>
+            </div>
 
-      return d;
-    }
-    var canvas = new fabric.Canvas("canvas");
+            <div class="control-group">
+              <label>结束角度</label>
+              <div class="range-group">
+                <input type="range" id="arcEndAngle" min="0" max="360" value="180" />
+                <span id="arcEndAngleValue">180°</span>
+              </div>
+            </div>
 
-    // 示例用法
-    const centerX = 250;
-    const centerY = 250;
-    const radius = 200;
-    const startAngle = 200;
-    const endAngle = 560;
+            <div class="control-group">
+              <label>垂直偏移</label>
+              <div class="range-group">
+                <input type="range" id="arcPadding" min="-50" max="50" value="0" />
+                <span id="arcPaddingValue">0</span>
+              </div>
+            </div>
+          </div>
 
-    const svgPath = arcToSvgPath(centerX, centerY, radius, startAngle, endAngle);
-    console.log(svgPath); // 输出 SVG path 的 d 属性
+          <!-- 圆形控制 -->
+          <div id="circleControls" class="property-controls" style="display: none">
+            <div class="control-group">
+              <label>半径</label>
+              <div class="range-group">
+                <input type="range" id="circleRadius" min="50" max="200" value="100" />
+                <span id="circleRadiusValue">100</span>
+              </div>
+            </div>
 
-    var path = new fabric.Path(svgPath, {
-      strokeWidth: 1,
-      fill: "transparent",
-      stroke: 'pink'
-    });
+            <div class="control-group">
+              <label>起始角度</label>
+              <div class="range-group">
+                <input type="range" id="circleStartAngle" min="0" max="360" value="0" />
+                <span id="circleStartAngleValue">0°</span>
+              </div>
+            </div>
 
-    // Initiate an itext object
-    var itext = new fabric.IText("Add sample text here.", {
-      width: 10,
-      left: 50,
-      top: 70,
-      fill: "red",
-      path: path,
-      pathSide: "left",
-      pathStartOffset: 0,
-    });
-    // Add it to the canvas
-    canvas.add(itext);
+            <div class="control-group">
+              <label>字符间距</label>
+              <div class="range-group">
+                <input type="range" id="circleSpacing" min="0.5" max="2" step="0.1" value="1" />
+                <span id="circleSpacingValue">1.0</span>
+              </div>
+            </div>
+          </div>
 
-    // // 已知弧长和弧度，计算半径
-    // function calculateRadiusFromRadian(arcLength, radian) {
-    //   return arcLength / radian;
-    // }
+          <!-- 波浪控制 -->
+          <div id="waveControls" class="property-controls" style="display: none">
+            <div class="control-group">
+              <label>波浪幅度</label>
+              <div class="range-group">
+                <input type="range" id="waveAmplitude" min="0" max="100" value="20" />
+                <span id="waveAmplitudeValue">20</span>
+              </div>
+            </div>
 
-    // // 已知弧长和角度，计算半径
-    // function calculateRadiusFromDegree(arcLength, degree) {
-    //   const radian = (degree * Math.PI) / 180; // 将角度转换为弧度
-    //   return arcLength / radian;
-    // }
+            <div class="control-group">
+              <label>波浪频率</label>
+              <div class="range-group">
+                <input type="range" id="waveFrequency" min="1" max="100" value="5" />
+                <span id="waveFrequencyValue">0.05</span>
+              </div>
+            </div>
 
-    // // 示例用法
-    // const arcLength = 10; // 弧长
-    // const radian = 1.57; // 弧度（约等于 90 度）
-    // const degree = 90; // 角度
+            <div class="control-group">
+              <label>相位偏移</label>
+              <div class="range-group">
+                <input type="range" id="wavePhase" min="0" max="628" value="0" />
+                <span id="wavePhaseValue">0</span>
+              </div>
+            </div>
+          </div>
 
-    // const radiusFromRadian = calculateRadiusFromRadian(arcLength, radian);
-    // const radiusFromDegree = calculateRadiusFromDegree(arcLength, degree);
+          <!-- 螺旋控制 -->
+          <div id="spiralControls" class="property-controls" style="display: none">
+            <div class="control-group">
+              <label>起始半径</label>
+              <div class="range-group">
+                <input type="range" id="spiralStartRadius" min="20" max="100" value="50" />
+                <span id="spiralStartRadiusValue">50</span>
+              </div>
+            </div>
 
-    // console.log("Radius from radian:", radiusFromRadian); // 输出: 6.366197723675814
-    // console.log("Radius from degree:", radiusFromDegree); // 输出: 6.366197723675814
+            <div class="control-group">
+              <label>半径增量</label>
+              <div class="range-group">
+                <input type="range" id="spiralRadiusIncrement" min="1" max="20" value="10" />
+                <span id="spiralRadiusIncrementValue">10</span>
+              </div>
+            </div>
 
-  </script>
+            <div class="control-group">
+              <label>角度增量</label>
+              <div class="range-group">
+                <input type="range" id="spiralAngleIncrement" min="1" max="50" value="30" />
+                <span id="spiralAngleIncrementValue">0.3</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <!-- 样式设置 -->
+        <div id="styleTab" class="tab-content">
+          <div class="control-group">
+            <label>字体大小</label>
+            <div class="range-group">
+              <input type="range" id="fontSize" min="10" max="72" value="30" />
+              <span id="fontSizeValue">30</span>
+            </div>
+          </div>
 
-  <!-- <script>
-    // Initiate a canvas instance
-    var canvas = new fabric.Canvas("canvas");
-    canvas.setWidth(document.body.scrollWidth);
-    canvas.setHeight(250);
+          <div class="control-group">
+            <label>字体颜色</label>
+            <input type="color" id="fontColor" value="#333333" />
+          </div>
 
-    // Initiate a path instance
-    var path = new fabric.Path("M 0 0 C 100 -100 150 -100 300 0", {
-      strokeWidth: 1,
-      fill: "black",
-    });
+          <div class="control-group">
+            <label>描边颜色</label>
+            <input type="color" id="strokeColor" value="#000000" />
+          </div>
 
-    // Initiate an itext object
-    var itext = new fabric.IText("Add sample text here.", {
-      width: 300,
-      left: 50,
-      top: 70,
-      fill: "red",
-      path: path,
-      pathSide: "left",
-      pathStartOffset: 0,
-    });
-    // Add it to the canvas
-    canvas.add(itext);
-  </script> -->
+          <div class="control-group">
+            <label>描边宽度</label>
+            <div class="range-group">
+              <input type="range" id="strokeWidth" min="0" max="5" value="0" />
+              <span id="strokeWidthValue">0</span>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <label>字体粗细</label>
+            <select id="fontWeight">
+              <option value="normal">正常</option>
+              <option value="bold">加粗</option>
+              <option value="600">600</option>
+              <option value="700">700</option>
+              <option value="800">800</option>
+              <option value="900">900</option>
+            </select>
+          </div>
+
+          <div class="control-group">
+            <label>字体样式</label>
+            <select id="fontStyle">
+              <option value="normal">正常</option>
+              <option value="italic">斜体</option>
+              <option value="oblique">倾斜</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <label>预设效果</label>
+        <div class="preset-grid">
+          <button class="preset-btn" onclick="applyPreset('gentle')">
+            gentle 轻柔弧形
+          </button>
+          <button class="preset-btn" onclick="applyPreset('strong')">
+            strong 强烈弧形
+          </button>
+          <button class="preset-btn" onclick="applyPreset('fullCircle')">
+            fullCircle 完整圆形
+          </button>
+          <button class="preset-btn" onclick="applyPreset('sineWave')">
+            sineWave 正弦波浪
+          </button>
+          <button class="preset-btn" onclick="applyPreset('spiralIn')">
+            spiralIn 内旋螺旋
+          </button>
+          <button class="preset-btn" onclick="applyPreset('spiralOut')">
+            spiralOut 外旋螺旋
+          </button>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <button class="secondary" onclick="exportJSON()">导出为 JSON</button>
+        <button class="secondary" onclick="importJSON()">导入 JSON</button>
+        <button class="danger" onclick="clearCanvas()">清空画布</button>
+      </div>
+    </div>
+  </div>
 </body>
+
+<script src="lib/jquery.3.7.1.js"></script>
+
+<script src="lib/fabric.v5.3.0.js"></script>
+
+<script>
+  // 切换选项卡
+  function switchTab(tabName) {
+    // 更新选项卡样式
+    document.querySelectorAll(".tab").forEach((tab) => {
+      tab.classList.remove("active");
+    });
+    document.querySelectorAll(".tab-content").forEach((content) => {
+      content.classList.remove("active");
+    });
+
+    event.target.classList.add("active");
+    document.getElementById(`${tabName}Tab`).classList.add("active");
+
+    // 更新曲线类型控制面板显示
+    updateCurveControls();
+  }
+
+  // 更新曲线控制面板
+  function updateCurveControls() {
+    const curveType = document.getElementById("curveType").value;
+
+    // 隐藏所有控制面板
+    ["arc", "circle", "wave", "spiral"].forEach((type) => {
+      document.getElementById(`${type}Controls`).style.display = "none";
+    });
+
+    // 显示当前类型的控制面板
+    document.getElementById(`${curveType}Controls`).style.display = "block";
+  }
+
+  // 创建弯曲文本
+  function createCurvedText() {
+    const text = document.getElementById("textContent").value;
+    const curveType = document.getElementById("curveType").value;
+
+    const options = {
+      fontSize: parseInt(document.getElementById("fontSize").value),
+      fontFamily: "Arial",
+      fill: document.getElementById("fontColor").value,
+      stroke:
+        document.getElementById("strokeWidth").value > 0
+          ? document.getElementById("strokeColor").value
+          : null,
+      strokeWidth: parseInt(document.getElementById("strokeWidth").value),
+      fontWeight: document.getElementById("fontWeight").value,
+      fontStyle: document.getElementById("fontStyle").value,
+      left: 400,
+      top: 300,
+    };
+
+    // 根据曲线类型添加额外选项
+    switch (curveType) {
+      case "arc":
+        options.radius = parseInt(document.getElementById("arcRadius").value);
+        options.startAngle =
+          (parseInt(document.getElementById("arcStartAngle").value) *
+            Math.PI) /
+          180;
+        options.endAngle =
+          (parseInt(document.getElementById("arcEndAngle").value) * Math.PI) /
+          180;
+        options.padding = parseInt(
+          document.getElementById("arcPadding").value
+        );
+        textManager.createArcText(text, options);
+        break;
+
+      case "circle":
+        options.radius = parseInt(
+          document.getElementById("circleRadius").value
+        );
+        options.startAngle =
+          (parseInt(document.getElementById("circleStartAngle").value) *
+            Math.PI) /
+          180;
+        options.spacing = parseFloat(
+          document.getElementById("circleSpacing").value
+        );
+        options.clockwise = true;
+        textManager.createCircleText(text, options);
+        break;
+
+      case "wave":
+        options.amplitude = parseInt(
+          document.getElementById("waveAmplitude").value
+        );
+        options.frequency =
+          parseInt(document.getElementById("waveFrequency").value) / 100;
+        options.phase =
+          parseInt(document.getElementById("wavePhase").value) / 100;
+        options.left = 200;
+        textManager.createWaveText(text, options);
+        break;
+
+      case "spiral":
+        options.startRadius = parseInt(
+          document.getElementById("spiralStartRadius").value
+        );
+        options.radiusIncrement = parseInt(
+          document.getElementById("spiralRadiusIncrement").value
+        );
+        options.angleIncrement =
+          parseInt(document.getElementById("spiralAngleIncrement").value) /
+          100;
+        textManager.createSpiralText(text, options);
+        break;
+    }
+  }
+
+  // 更新选中的文本
+  function updateSelectedText() {
+    const activeObject = canvas.getActiveObject();
+    if (!activeObject || !activeObject.curvedType) {
+      alert("请先选择要更新的弯曲文本");
+      return;
+    }
+
+    const newText = document.getElementById("textContent").value;
+    const curveType = document.getElementById("curveType").value;
+
+    const options = {
+      fontSize: parseInt(document.getElementById("fontSize").value),
+      fontFamily: "Arial",
+      fill: document.getElementById("fontColor").value,
+      stroke:
+        document.getElementById("strokeWidth").value > 0
+          ? document.getElementById("strokeColor").value
+          : null,
+      strokeWidth: parseInt(document.getElementById("strokeWidth").value),
+      fontWeight: document.getElementById("fontWeight").value,
+      fontStyle: document.getElementById("fontStyle").value,
+    };
+
+    // 根据曲线类型添加额外选项
+    switch (curveType) {
+      case "arc":
+        options.radius = parseInt(document.getElementById("arcRadius").value);
+        options.startAngle =
+          (parseInt(document.getElementById("arcStartAngle").value) *
+            Math.PI) /
+          180;
+        options.endAngle =
+          (parseInt(document.getElementById("arcEndAngle").value) * Math.PI) /
+          180;
+        options.padding = parseInt(
+          document.getElementById("arcPadding").value
+        );
+        break;
+
+      case "circle":
+        options.radius = parseInt(
+          document.getElementById("circleRadius").value
+        );
+        options.startAngle =
+          (parseInt(document.getElementById("circleStartAngle").value) *
+            Math.PI) /
+          180;
+        options.spacing = parseFloat(
+          document.getElementById("circleSpacing").value
+        );
+        break;
+
+      case "wave":
+        options.amplitude = parseInt(
+          document.getElementById("waveAmplitude").value
+        );
+        options.frequency =
+          parseInt(document.getElementById("waveFrequency").value) / 100;
+        options.phase =
+          parseInt(document.getElementById("wavePhase").value) / 100;
+        break;
+
+      case "spiral":
+        options.startRadius = parseInt(
+          document.getElementById("spiralStartRadius").value
+        );
+        options.radiusIncrement = parseInt(
+          document.getElementById("spiralRadiusIncrement").value
+        );
+        options.angleIncrement =
+          parseInt(document.getElementById("spiralAngleIncrement").value) /
+          100;
+        break;
+    }
+
+    console.log(options);
+
+    textManager.updateCurvedText(activeObject, newText, options);
+  }
+
+  // 应用预设
+  function applyPreset(preset) {
+    switch (preset) {
+      case "gentle":
+        document.getElementById("arcRadius").value = 150;
+        document.getElementById("arcStartAngle").value = 30;
+        document.getElementById("arcEndAngle").value = 150;
+        document.getElementById("arcPadding").value = 0;
+        break;
+
+      case "strong":
+        document.getElementById("arcRadius").value = 80;
+        document.getElementById("arcStartAngle").value = 0;
+        document.getElementById("arcEndAngle").value = 180;
+        document.getElementById("arcPadding").value = 10;
+        break;
+
+      case "fullCircle":
+        document.getElementById("curveType").value = "circle";
+        document.getElementById("circleRadius").value = 100;
+        document.getElementById("circleStartAngle").value = 0;
+        document.getElementById("circleSpacing").value = 1.0;
+        break;
+
+      case "sineWave":
+        document.getElementById("curveType").value = "wave";
+        document.getElementById("waveAmplitude").value = 30;
+        document.getElementById("waveFrequency").value = 5;
+        document.getElementById("wavePhase").value = 0;
+        break;
+
+      case "spiralIn":
+        document.getElementById("curveType").value = "spiral";
+        document.getElementById("spiralStartRadius").value = 80;
+        document.getElementById("spiralRadiusIncrement").value = 5;
+        document.getElementById("spiralAngleIncrement").value = 30;
+        break;
+
+      case "spiralOut":
+        document.getElementById("curveType").value = "spiral";
+        document.getElementById("spiralStartRadius").value = 20;
+        document.getElementById("spiralRadiusIncrement").value = 15;
+        document.getElementById("spiralAngleIncrement").value = 20;
+        break;
+    }
+
+    updateCurveControls();
+    updateRangeValues();
+  }
+
+  // 更新范围输入的值显示
+  function updateRangeValues() {
+    // 弧形控制
+    document.getElementById("arcRadiusValue").textContent =
+      document.getElementById("arcRadius").value;
+    document.getElementById("arcStartAngleValue").textContent =
+      document.getElementById("arcStartAngle").value + "°";
+    document.getElementById("arcEndAngleValue").textContent =
+      document.getElementById("arcEndAngle").value + "°";
+    document.getElementById("arcPaddingValue").textContent =
+      document.getElementById("arcPadding").value;
+
+    // 圆形控制
+    document.getElementById("circleRadiusValue").textContent =
+      document.getElementById("circleRadius").value;
+    document.getElementById("circleStartAngleValue").textContent =
+      document.getElementById("circleStartAngle").value + "°";
+    document.getElementById("circleSpacingValue").textContent =
+      document.getElementById("circleSpacing").value;
+
+    // 波浪控制
+    document.getElementById("waveAmplitudeValue").textContent =
+      document.getElementById("waveAmplitude").value;
+    document.getElementById("waveFrequencyValue").textContent = (
+      document.getElementById("waveFrequency").value / 100
+    ).toFixed(2);
+    document.getElementById("wavePhaseValue").textContent = (
+      document.getElementById("wavePhase").value / 100
+    ).toFixed(2);
+
+    // 螺旋控制
+    document.getElementById("spiralStartRadiusValue").textContent =
+      document.getElementById("spiralStartRadius").value;
+    document.getElementById("spiralRadiusIncrementValue").textContent =
+      document.getElementById("spiralRadiusIncrement").value;
+    document.getElementById("spiralAngleIncrementValue").textContent = (
+      document.getElementById("spiralAngleIncrement").value / 100
+    ).toFixed(2);
+
+    // 样式控制
+    document.getElementById("fontSizeValue").textContent =
+      document.getElementById("fontSize").value;
+    document.getElementById("strokeWidthValue").textContent =
+      document.getElementById("strokeWidth").value;
+  }
+
+  // 导出为JSON
+  function exportJSON() {
+    const data = canvas.toJSON(["curvedType", "curvedOptions"]);
+    const jsonString = JSON.stringify(data, null, 2);
+
+    const blob = new Blob([jsonString], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "curved-text-design.json";
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  // 导入JSON
+  function importJSON() {
+    const input = document.createElement("input");
+    input.type = "file";
+    input.accept = ".json";
+
+    input.onchange = function (e) {
+      const file = e.target.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function (e) {
+        try {
+          const data = JSON.parse(e.target.result);
+          canvas.loadFromJSON(data, function () {
+            canvas.renderAll();
+          });
+        } catch (error) {
+          alert("导入失败：" + error.message);
+        }
+      };
+
+      reader.readAsText(file);
+    };
+
+    input.click();
+  }
+
+  // 清空画布
+  function clearCanvas() {
+    if (confirm("确定要清空画布吗？")) {
+      canvas.clear();
+      canvas.backgroundColor = "#ffffff";
+      canvas.renderAll();
+    }
+  }
+
+  // Fabric.js 6.0+ 弯曲文本扩展
+  class CurvedTextExtension {
+    constructor(canvas) {
+      this.canvas = canvas;
+      this.fabric = window.fabric;
+    }
+
+    // 创建弧形文本
+    createArcText(text, options = {}) {
+      const {
+        radius = 100,
+        startAngle = 0,
+        endAngle = Math.PI,
+        fontSize = 30,
+        fontFamily = "Arial",
+        fill = "#333",
+        stroke = null,
+        strokeWidth = 1,
+        fontWeight = "normal",
+        fontStyle = "normal",
+        left = 300,
+        top = 200,
+        padding = 0,
+      } = options;
+
+      const chars = text.split("");
+      const totalAngle = endAngle - startAngle;
+      const angleStep =
+        chars.length > 1 ? totalAngle / (chars.length - 1) : 0;
+      console.log({ angleStep });
+
+      const charObjects = chars.map((char, i) => {
+        const angle = startAngle + i * angleStep;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        return new this.fabric.Text(char, {
+          left: x,
+          top: y + padding,
+          fontSize,
+          fontFamily,
+          fill,
+          stroke,
+          strokeWidth,
+          fontWeight,
+          fontStyle,
+          angle: ((angle + Math.PI / 2) * 180) / Math.PI,
+          originX: "center",
+          originY: "center",
+          textBackgroundColor: options.textBackgroundColor,
+          charSpacing: options.charSpacing || 0,
+        });
+      });
+
+      const group = new this.fabric.Group(charObjects, {
+        left,
+        top,
+        originX: "center",
+        originY: "center",
+        hasControls: true,
+        hasBorders: true,
+        lockScalingFlip: true,
+        subTargetCheck: true,
+      });
+
+      // 添加自定义属性用于序列化
+      group.set("curvedType", "arc");
+      group.set("curvedOptions", { radius, startAngle, endAngle, padding });
+
+      this.canvas.add(group);
+
+      this.canvas.requestRenderAll();
+      return group;
+    }
+
+    // 创建圆形文本
+    createCircleText(text, options = {}) {
+      const {
+        radius = 100,
+        fontSize = 30,
+        fontFamily = "Arial",
+        fill = "#333",
+        stroke = null,
+        strokeWidth = 1,
+        fontWeight = "normal",
+        fontStyle = "normal",
+        left = 300,
+        top = 200,
+        startAngle = 0,
+        clockwise = true,
+        spacing = 1.0,
+      } = options;
+
+      const chars = text.split("");
+      const charWidth = fontSize * 0.6; // 估算字符宽度
+      const circumference = 2 * Math.PI * radius;
+      const totalAngle = (charWidth * chars.length * spacing) / radius;
+      const angleStep = totalAngle / chars.length;
+
+      const charObjects = chars.map((char, i) => {
+        const angle = startAngle + (clockwise ? 1 : -1) * i * angleStep;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        return new this.fabric.Text(char, {
+          left: x,
+          top: y,
+          fontSize,
+          fontFamily,
+          fill,
+          stroke,
+          strokeWidth,
+          fontWeight,
+          fontStyle: fontStyle,
+          // angle: (angle + Math.PI / 2) * 180 / Math.PI,
+          originX: "center",
+          originY: "center",
+          textBackgroundColor: options.textBackgroundColor,
+        });
+      });
+
+      const group = new this.fabric.Group(charObjects, {
+        left,
+        top,
+        originX: "center",
+        originY: "center",
+        hasControls: true,
+        hasBorders: true,
+      });
+
+      group.set("curvedType", "circle");
+      group.set("curvedOptions", { radius, startAngle, clockwise, spacing });
+
+      this.canvas.add(group);
+      this.canvas.requestRenderAll();
+      return group;
+    }
+
+    // 创建波浪文本
+    createWaveText(text, options = {}) {
+      const {
+        amplitude = 20,
+        frequency = 0.05,
+        fontSize = 30,
+        fontFamily = "Arial",
+        fill = "#333",
+        stroke = null,
+        strokeWidth = 1,
+        left = 100,
+        top = 200,
+        phase = 0,
+      } = options;
+
+      const chars = text.split("");
+      const charSpacing = fontSize * 0.8;
+
+      const charObjects = chars.map((char, i) => {
+        const x = i * charSpacing;
+        const y = Math.sin(x * frequency + phase) * amplitude;
+
+        // 计算切线角度
+        const slope = Math.cos(x * frequency + phase) * amplitude * frequency;
+        const angle = (Math.atan(slope) * 180) / Math.PI;
+
+        return new this.fabric.Text(char, {
+          left: x,
+          top: y,
+          fontSize,
+          fontFamily,
+          fill,
+          stroke,
+          strokeWidth,
+          // angle: angle,
+          originX: "center",
+          originY: "center",
+          fontWeight: options.fontWeight || "normal",
+        });
+      });
+
+      const group = new this.fabric.Group(charObjects, {
+        left,
+        top,
+        hasControls: true,
+        hasBorders: true,
+      });
+
+      group.set("curvedType", "wave");
+      group.set("curvedOptions", { amplitude, frequency, phase });
+
+      this.canvas.add(group);
+      this.canvas.requestRenderAll();
+      return group;
+    }
+
+    // 创建螺旋文本
+    createSpiralText(text, options = {}) {
+      const {
+        startRadius = 50,
+        radiusIncrement = 10,
+        angleIncrement = 0.3,
+        fontSize = 24,
+        fontFamily = "Arial",
+        fill = "#333",
+        left = 300,
+        top = 200,
+      } = options;
+
+      const chars = text.split("");
+
+      const charObjects = chars.map((char, i) => {
+        const radius = startRadius + i * radiusIncrement;
+        const angle = i * angleIncrement;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        return new this.fabric.Text(char, {
+          left: x,
+          top: y,
+          fontSize,
+          fontFamily,
+          fill,
+          angle: ((angle + Math.PI / 2) * 180) / Math.PI,
+          originX: "center",
+          originY: "center",
+        });
+      });
+
+      const group = new this.fabric.Group(charObjects, {
+        left,
+        top,
+        originX: "center",
+        originY: "center",
+        hasControls: true,
+        hasBorders: true,
+      });
+
+      this.canvas.add(group);
+      this.canvas.requestRenderAll();
+      return group;
+    }
+
+    // 更新弯曲文本
+    updateCurvedText(group, newText, options = {}) {
+      if (!group || !group._objects) return;
+
+      const curvedType = group.curvedType || "arc";
+      const curvedOptions = { ...group.curvedOptions, ...options };
+
+      // 移除旧文本
+      group._objects.forEach((obj) => {
+        group.removeWithUpdate(obj);
+      });
+
+      // 创建新文本
+      let newChars = newText.split("");
+      let newObjects = [];
+
+      switch (curvedType) {
+        case "arc":
+          newObjects = this._createArcChars(newChars, curvedOptions);
+          break;
+        case "circle":
+          newObjects = this._createCircleChars(newChars, curvedOptions);
+          break;
+        case "wave":
+          newObjects = this._createWaveChars(newChars, curvedOptions);
+          break;
+      }
+
+      // 添加新字符
+      newObjects.forEach((obj) => {
+        group.addWithUpdate(obj);
+      });
+
+      group.curvedOptions = curvedOptions;
+      this.canvas.requestRenderAll();
+    }
+
+    _createArcChars(chars, options) {
+      const radius = options.radius || 100;
+      const startAngle = options.startAngle || 0;
+      const endAngle = options.endAngle || Math.PI;
+      const totalAngle = endAngle - startAngle;
+      const angleStep =
+        chars.length > 1 ? totalAngle / (chars.length - 1) : 0;
+
+      return chars.map((char, i) => {
+        const angle = startAngle + i * angleStep;
+        const x = Math.cos(angle) * radius;
+        const y = Math.sin(angle) * radius;
+
+        return new this.fabric.Text(char, {
+          left: x,
+          top: y + (options.padding || 0),
+          fontSize: options.fontSize || 30,
+          fontFamily: options.fontFamily || "Arial",
+          fill: options.fill || "#333",
+          angle: ((angle + Math.PI / 2) * 180) / Math.PI,
+          originX: "center",
+          originY: "center",
+        });
+      });
+    }
+  }
+
+  // 初始化 Canvas
+  const canvas = new fabric.Canvas("canvas");
+
+  // 设置画布大小
+  canvas.setDimensions({ width: 800, height: 600 });
+
+  // 创建弯曲文本管理器
+  const textManager = new CurvedTextExtension(canvas);
+
+  // 绑定事件监听器
+  document
+    .getElementById("curveType")
+    .addEventListener("change", updateCurveControls);
+
+  // 绑定所有范围输入的事件
+  const rangeInputs = document.querySelectorAll('input[type="range"]');
+  const colorInputs = document.querySelectorAll('input[type="color"]');
+
+  rangeInputs.forEach((input) => {
+    input.addEventListener("input", updateRangeValues);
+  });
+  colorInputs.forEach((input) => {
+    input.addEventListener("input", (e) => {
+      const id = e.target.id;
+      canvas
+        .getActiveObject()
+        .getObjects()
+        .map((obj) => {
+          switch (id) {
+            case "fontColor":
+              obj.set({
+                fill: e.target.value,
+              });
+              break;
+            case "strokeColor":
+              obj.set({
+                stroke: e.target.value,
+              });
+              break;
+
+            case "strokeWidth":
+              obj.set({
+                strokeWidth: parseInt(e.target.value),
+              });
+              break;
+
+          }
+        });
+      canvas.renderAll();
+    });
+  });
+
+  // 初始更新
+  updateCurveControls();
+  updateRangeValues();
+
+  // 画布事件
+  canvas.on("selection:created", function (e) {
+    const obj = e.selected[0];
+    if (obj && obj.curvedType) {
+      // 加载选中对象的属性到控制面板
+      loadObjectProperties(obj);
+    }
+  });
+
+  canvas.on("selection:updated", function (e) {
+    const obj = e.selected[0];
+    if (obj && obj.curvedType) {
+      loadObjectProperties(obj);
+    }
+  });
+
+  // 加载对象属性到控制面板
+  function loadObjectProperties(obj) {
+    if (!obj.curvedType || !obj.curvedOptions) return;
+
+    // 设置曲线类型
+    document.getElementById("curveType").value = obj.curvedType;
+    updateCurveControls();
+
+    // 设置文本内容
+    const text = obj._objects ? obj._objects.map((t) => t.text).join("") : "";
+    document.getElementById("textContent").value = text;
+
+    // 设置曲线参数
+    const opts = obj.curvedOptions;
+    switch (obj.curvedType) {
+      case "arc":
+        document.getElementById("arcRadius").value = opts.radius || 100;
+        document.getElementById("arcStartAngle").value = Math.round(
+          ((opts.startAngle || 0) * 180) / Math.PI
+        );
+        document.getElementById("arcEndAngle").value = Math.round(
+          ((opts.endAngle || Math.PI) * 180) / Math.PI
+        );
+        document.getElementById("arcPadding").value = opts.padding || 0;
+        break;
+
+      case "circle":
+        document.getElementById("circleRadius").value = opts.radius || 100;
+        document.getElementById("circleStartAngle").value = Math.round(
+          ((opts.startAngle || 0) * 180) / Math.PI
+        );
+        document.getElementById("circleSpacing").value = opts.spacing || 1.0;
+        break;
+
+      case "wave":
+        document.getElementById("waveAmplitude").value = opts.amplitude || 20;
+        document.getElementById("waveFrequency").value = Math.round(
+          (opts.frequency || 0.05) * 100
+        );
+        document.getElementById("wavePhase").value = Math.round(
+          (opts.phase || 0) * 100
+        );
+        break;
+
+      case "spiral":
+        document.getElementById("spiralStartRadius").value =
+          opts.startRadius || 50;
+        document.getElementById("spiralRadiusIncrement").value =
+          opts.radiusIncrement || 10;
+        document.getElementById("spiralAngleIncrement").value = Math.round(
+          (opts.angleIncrement || 0.3) * 100
+        );
+        break;
+    }
+
+    // 设置样式
+    if (obj._objects && obj._objects.length > 0) {
+      const firstChar = obj._objects[0];
+      document.getElementById("fontSize").value = firstChar.fontSize || 30;
+      document.getElementById("fontColor").value =
+        firstChar.fill || "#333333";
+      document.getElementById("strokeColor").value =
+        firstChar.stroke || "#000000";
+      document.getElementById("strokeWidth").value =
+        firstChar.strokeWidth || 0;
+      document.getElementById("fontWeight").value =
+        firstChar.fontWeight || "normal";
+      document.getElementById("fontStyle").value =
+        firstChar.fontStyle || "normal";
+    }
+
+    updateRangeValues();
+  }
+
+  // 初始示例
+  setTimeout(() => {
+    const props = {
+      radius: 200,
+      startAngle: -Math.PI * 0.3,
+      endAngle: Math.PI * 0.7,
+      fontSize: 36,
+      fill: "#667eea",
+      stroke: "#4c51bf",
+      strokeWidth: 2,
+      fontWeight: "bold",
+      left: 400,
+      top: 300,
+    };
+
+    textManager.createArcText("Fabric.js 6.0+", props);
+  }, 100);
+</script>
 
 </html>

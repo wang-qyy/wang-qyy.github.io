@@ -124,12 +124,12 @@ export function gradientObj2Str(gradient: GradientColor) {
   return `linear-gradient(${deg}deg, ${stops})`;
 }
 
-// const newColors = [];
-// gradientColors.forEach((item) => {
-//   const { angle, list } = getDataByBackground(item);
+const newColors = [];
+gradientColors.forEach((item) => {
+  const { angle, list } = getDataByBackground(item);
 
-//   const res = getEffectGradientColor(list, angle);
-//   newColors.push(res);
-// });
+  const res = getEffectGradientColor(list, angle);
+  newColors.push(res);
+});
 
-// console.log(newColors);
+console.log(newColors);

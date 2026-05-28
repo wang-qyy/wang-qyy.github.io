@@ -10,16 +10,6 @@ const codeStatus = {
   1005: "请求异常，需要手动处理。不做全局拦截",
 };
 
-export const pikbestAdminHost = extend({
-  prefix: `/pikbestAdminHost`,
-  timeout: 300000,
-  credentials: "include",
-  headers: {
-    "access-token": "best_67a5c697037d7",
-    Authorization: "Basic UGlrOHF2MnZ6X2ZJOjhrN2UxR0hfeTdZbHlpdlk=",
-  },
-});
-
 export const useRequestGlobalConfig = {
   formatResult: (res: any) => {
     // 兼容旧版本
@@ -37,3 +27,18 @@ export const useRequestGlobalConfig = {
     return res;
   },
 };
+
+export const mainHost = extend({
+  prefix: `/hostApi`,
+  timeout: 30000,
+  credentials: "include",
+});
+
+export const slidesdocsHost = extend({
+  prefix: `/slidesdocsApi`,
+  timeout: 30000,
+  credentials: "include",
+  headers: {
+    Authorization: "Basic cG5ndHJlZTpWMW1XNFZ4RW82elF6dW1uOUBwbmd0cmVl",
+  },
+});

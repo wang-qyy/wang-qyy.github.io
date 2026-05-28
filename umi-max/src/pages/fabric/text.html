@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/5.3.0/fabric.min.js"></script>
+</head>
+
+<body>
+  <canvas id="canvas" width="800" height="400"></canvas>
+
+  <script>
+    // 简化版的弯曲文本实现
+    class SimpleCurvedText {
+      constructor(text, pathData, options = {}) {
+        this.canvas = new fabric.Canvas('canvas');
+        this.text = text;
+        this.options = options;
+
+        // 创建路径
+        this.path = new fabric.Path(pathData, {
+          fill: '',
+          stroke: options.showPath ? 'lightgray' : 'transparent',
+          strokeWidth: 1,
+          selectable: false
+        });
+
+        this.createTextAlongPath();
+      }
+
+      createTextAlongPath() {
+        const chars = this.text.split('');
+        const segmentCount = chars.length;
+
+        chars.forEach((char, index) => {
+          const t = index / segmentCount;
+          const point = this.calculatePointOnBezier(t);
+
+          const text = new fabric.Text(char, {
+            left: point.x,
+            top: point.y,
+            fontSize: this.options.fontSize || 20,
+            fill: this.options.fill || '#333',
+            angle: point.angle || 0
+          });
+
+          this.canvas.add(text);
+        });
+
+        this.canvas.add(this.path);
+      }
+
+      calculatePointOnBezier(t) {
+        // 简化版的贝塞尔曲线点计算
+        // 实际使用时需要根据具体路径实现
+        const x = 100 + t * 200;
+        const y = 100 + Math.sin(t * Math.PI) * 50;
+        const angle = Math.atan2(Math.cos(t * Math.PI), 1) * 180 / Math.PI;
+
+        return { x, y, angle };
+      }
+    }
+
+    // 使用示例
+    const curvedText = new SimpleCurvedText('弯曲文本示例', 'M 100 100 Q 200 50 300 100', {
+      fontSize: 18,
+      fill: 'blue',
+      showPath: true
+    });
+  </script>
+</body>
+
+</html>

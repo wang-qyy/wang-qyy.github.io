@@ -1,48 +1,189 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="zh">
 <head>
-  <meta charset="UTF-8">
-
-  <head name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  </head>
-
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字镂空效果</title>
+    <style>
+        body {
+            background-color: #000;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+        }
+        .effect-1 {
+            font-size: 120px;
+            font-weight: 900;
+            font-family: "Arial Black", "Microsoft YaHei", sans-serif;
+            color: #00ff00;
+            position: relative;
+            letter-spacing: 2px;
+        }
+        /* 第一层黑色轮廓 */
+        .effect-1::before {
+            content: "标题";
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            color: transparent;
+            -webkit-text-stroke: 8px #000;
+            text-stroke: 8px #000;
+            z-index: -1;
+        }
+        /* 第二层更细黑色轮廓 */
+        .effect-1::after {
+            content: "标题";
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            color: transparent;
+            -webkit-text-stroke: 4px #000;
+            text-stroke: 4px #000;
+            z-index: -2;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: #eee;
+        }
+    </style>
+</head>
 <body>
-
-  <div style="position: relative; width: 600px; height: 600px; background-color: aquamarine;">
-    <div
-      style="position: absolute;left: 20px;top: 20px; width: 400px;height: 400px;background-color: bisque;clip-path: url(#myClip);">
+    <div class="box">
+        <canvas id="canvas" width="400" height="400"></canvas>
     </div>
-    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <clipPath id="myClip" transform="scale(2,2)">
-          <use xlink:href="#clip_rect"></use>
-        </clipPath>
-      </defs>
-      <circle cx="80" cy="80" r="80" fill="red" id="clip_rect" />
+    <svg width=" 100%" height="'100%" viewBox="0 0 500 500" fill="none"
+        xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <rect x="20" y="20" width="460" height="460" fill="#fff"
+            stroke="url(#02d10_gradient)" stroke-width="10"
+            stroke-dasharray="40 40"></rect>
+        <defs>
+            <linearGradient id="02d10_gradient" x1="49%" y1="100%" x2="50%"
+                y2="0%">
+                <stop offset="0.00%" stop-color="rgba(255,255,25,1)"></stop>
+                <stop offset="100.00%" stop-color="rgba(0,255,0,1)"></stop>
+            </linearGradient>
+        </defs>
     </svg>
-  </div>
-
-  <div class="preview-asset-mask___CCTnY" style="position: relative; width: 1500px; height: 1500px;">
-    <div
-      style="position: absolute; width: 1500px; height: 1500px; left: 0px; top: 0px; transform: rotate(0deg); clip-path: url(#SVGID_preview_32_)">
-      <img src="https://png.pngtree.com/edit_user/p_upload/20250110/45035856b3_56828466.png"
-        style="width: 100%; height: 100%;" />
-    </div>
-
-    <div class="mask-svg" style="position: absolute; left: 0px; top: 0px; width: 1500px; height: 1500px;">
-      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300">
-
-        <ellipse id="lhImageFrame" cx="50" cy="100" rx="50" ry="100" fill="#000" style="opacity: 0;" />
-        <clipPath id="SVGID_preview_32_" transform="scale(5,5)" transformOrigin="left top">
-          <use xlink:href="#lhImageFrame" overflow="visible"></use>
-        </clipPath>
-      </svg>
-    </div>
-  </div>
-
-
+    <svg hidden id="svg_text" width="400" height="200"
+        xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <!-- 定义深绿色外轮廓滤镜 -->
+            <filter id="outerGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feMorphology in="SourceAlpha" operator="dilate" radius="4"
+                    result="thicker" />
+                <feFlood flood-color="#006400" result="glowColor" />
+                <feComposite in="glowColor" in2="thicker" operator="in"
+                    result="softGlow" />
+                <feMerge>
+                    <feMergeNode in="softGlow" />
+                    <feMergeNode in="SourceGraphic" />
+                </feMerge>
+            </filter>
+        </defs>
+        <!-- 黑色背景矩形 -->
+        <rect width="100%" height="100%" fill="black" />
+        <!-- 文字 -->
+        <text x="50%" y="55%" font-family="sans-serif" font-size="120"
+            font-weight="bold" text-anchor="middle" dominant-baseline="middle"
+            stroke="#00ff00" stroke-width="8" fill="transparent"
+            filter="url(#outerGlow)">
+            标题
+        </text>
+    </svg>
+    <svg hidden xmlns="http://www.w3.org/2000/svg"
+        xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="图层_1"
+        x="0px" y="0px" viewBox="0 0 1242 1260.1"
+        enable-background="new 0 0 1242 1260.1" xml:space="preserve">
+        <g>
+            <g opacity="0.19">
+                <rect x="43.4" y="51.4" fill="#FFFFFF" width="1168.2"
+                    height="1168.2" />
+            </g>
+            <g>
+                <path fill="#FFFFFF"
+                    d="M1217,1225H38V46h1179V1225z M48.8,1214.2h1157.3V56.8H48.8V1214.2z" />
+            </g>
+        </g>
+    </svg>
+    <script src="./lib/fabric.v6.9.1.js">
+    </script>
+    <script>
+        const str = `<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.0.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
+	<!ENTITY ns_extend "http://ns.adobe.com/Extensibility/1.0/">
+	<!ENTITY ns_ai "http://ns.adobe.com/AdobeIllustrator/10.0/">
+	<!ENTITY ns_graphs "http://ns.adobe.com/Graphs/1.0/">
+	<!ENTITY ns_vars "http://ns.adobe.com/Variables/1.0/">
+	<!ENTITY ns_imrep "http://ns.adobe.com/ImageReplacement/1.0/">
+	<!ENTITY ns_sfw "http://ns.adobe.com/SaveForWeb/1.0/">
+	<!ENTITY ns_custom "http://ns.adobe.com/GenericCustomNamespace/1.0/">
+	<!ENTITY ns_adobe_xpath "http://ns.adobe.com/XPath/1.0/">
+]>
+<svg version="1.1" id="_x31_" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="600px" height="114.65px" viewBox="0 0 600 114.65" enable-background="new 0 0 600 114.65" xml:space="preserve">
+<switch>
+	<foreignObject requiredExtensions="&ns_ai;" x="0" y="0" width="1" height="1">
+		<i:aipgfRef  xlink:href="#adobe_illustrator_pgf"> </i:aipgfRef>
+	</foreignObject>
+	<g i:extraneous="self">
+		<g>
+			<path fill="#FFC715" d="M571.45,113.12c-34.7,0-52.57-19.66-66.93-35.46c-14.09-15.51-22.98-24.28-41.66-24.28
+				c-18.68,0-27.57,8.77-41.66,24.28c-14.36,15.8-32.23,35.46-66.92,35.46s-52.57-19.66-66.92-35.46
+				c-14.09-15.51-22.98-24.28-41.66-24.28c-18.68,0-27.56,8.77-41.65,24.28c-14.36,15.8-32.22,35.46-66.92,35.46
+				c-34.7,0-52.56-19.66-66.92-35.46C56.11,62.15,47.22,53.38,28.55,53.38c-9.43,0-17.07-7.64-17.07-17.07
+				c0-9.43,7.64-17.07,17.07-17.07c34.7,0,52.57,19.66,66.92,35.46c14.1,15.51,22.98,24.28,41.65,24.28
+				c18.67,0,27.57-8.78,41.65-24.28c14.35-15.8,32.22-35.46,66.92-35.46c34.7,0,52.57,19.66,66.93,35.46
+				c14.09,15.51,22.97,24.28,41.65,24.28c18.69,0,27.57-8.78,41.66-24.28c14.35-15.8,32.22-35.46,66.92-35.46
+				c34.7,0,52.57,19.66,66.94,35.46c14.09,15.51,22.97,24.28,41.66,24.28c9.43,0,17.07,7.64,17.07,17.07 C588.52,105.48,580.88,113.12,571.45,113.12z"/>
+		</g>
+	</g>
+</switch>
+</svg>
+`
+        const parser = new DOMParser()
+        parser.parseFromString(str.trim(), 'text/xml');
+    </script>
+    <script>
+        const svgUrl = [
+            // 'https://js.pngtree.com/editor/assets/svg_v_29.svg',
+            'https://js.pngtree.com/editor/assets/svg_v_34.svg',
+            // 'https://js.pngtree.com/editor/assets/svg_v_15.svg',
+            // 'https://js.pngtree.com/editor/assets/svg_v_21.svg',
+            // 'https://js.pngtree.com/editor/assets/svg_v_42.svg',
+            // 'https://js.pngtree.com/editor/assets/svg_v_156.svg',
+        ]
+        window.onload = function() {
+            console.log('fabric version:', fabric.version);
+            const svgs = document.querySelectorAll('svg')
+            svgs.forEach((svg, index) => {
+                const descendants = Array.from(svg
+                    .getElementsByTagName('*'))
+                console.log(index, descendants);
+            })
+            var canvas = new fabric.Canvas('canvas');
+            svgUrl.forEach(url => {
+                fabric.loadSVGFromURL(url, function(objects,
+                    options) {
+                    var obj = fabric.util.groupSVGElements(
+                        objects,
+                        options);
+                    const scale = fabric.util
+                        .findScaleToFit(obj, {
+                            width: 300,
+                            height: 300
+                        })
+                    obj.set({
+                        scaleX: scale,
+                        scaleY: scale
+                    })
+                    canvas.add(obj).renderAll();
+                });
+            })
+        }
+    </script>
 </body>
-
 </html>
