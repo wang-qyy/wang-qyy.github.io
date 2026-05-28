@@ -1,0 +1,1 @@
+import{j as o}from"./react.CI0sv58i.js";import{u as t}from"./store.Df_UFi_5.js";import"./index.DDnrJw8P.js";function x(){const s=t(r=>r.onOpen);return o.jsx("button",{className:"cssprx-bg-blue-500 cssprx-text-white cssprx-py-2 cssprx-px-4 cssprx-rounded",onClick:s,children:"注册/登录"})}export{x as default};
