@@ -1,0 +1,1 @@
+import{o as e}from"./https.CRH3ckiD.js";import{c as n}from"./react.BhNkukyI.js";const t=n(()=>({userInfo:void 0}));function i(){const o=t.getState().userInfo?.uid;return o||e(),o}function u(o){return t.setState({userInfo:o})}export{i as c,t as s,u};
