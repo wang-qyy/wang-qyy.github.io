@@ -7,12 +7,12 @@
   <title>商品图生成逼真场景图-90ai</title>
   <meta name="description">
   <meta name="keywords">
-  <link rel="preload" href="https://wang-qyy.github.io/static/antd.v6.min.DmwDYEEA.css" as="style" fetchpriority="high"
-    crossorigin="anonymous">
-  <link rel="stylesheet" href="https://wang-qyy.github.io/static/antd.v6.min.DmwDYEEA.css" fetchpriority="high"
-    crossorigin="anonymous">
+  <link rel="preload" href="https://wang-qyy.github.io/astro-demo/static/antd.v6.min.DmwDYEEA.css" as="style"
+    fetchpriority="high" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://wang-qyy.github.io/astro-demo/static/antd.v6.min.DmwDYEEA.css"
+    fetchpriority="high" crossorigin="anonymous">
   <link rel="shortcut icon" type="image/x-icon" href="http://jsnew.90sheji.com/static/favicon.ico">
-  <link rel="stylesheet" href="https://wang-qyy.github.io/static/fission-pattern.CWwTgpO8.css">
+  <link rel="stylesheet" href="https://wang-qyy.github.io/astro-demo/static/fission-pattern.CWwTgpO8.css">
 </head>
 
 <body class="cssprx-h-screen cssprx-w-screen cssprx-overflow-hidden cssprx-flex cssprx-flex-col">
@@ -27,16 +27,17 @@
       }
     </style>
     <script>(() => { var e = async t => { await (await t())() }; (self.Astro || (self.Astro = {})).load = e; window.dispatchEvent(new Event("astro:load")); })();; (() => { var A = Object.defineProperty; var g = (i, o, a) => o in i ? A(i, o, { enumerable: !0, configurable: !0, writable: !0, value: a }) : i[o] = a; var d = (i, o, a) => g(i, typeof o != "symbol" ? o + "" : o, a); { let i = { 0: t => m(t), 1: t => a(t), 2: t => new RegExp(t), 3: t => new Date(t), 4: t => new Map(a(t)), 5: t => new Set(a(t)), 6: t => BigInt(t), 7: t => new URL(t), 8: t => new Uint8Array(t), 9: t => new Uint16Array(t), 10: t => new Uint32Array(t), 11: t => 1 / 0 * t }, o = t => { let [l, e] = t; return l in i ? i[l](e) : void 0 }, a = t => t.map(o), m = t => typeof t != "object" || t === null ? t : Object.fromEntries(Object.entries(t).map(([l, e]) => [l, o(e)])); class y extends HTMLElement { constructor() { super(...arguments); d(this, "Component"); d(this, "hydrator"); d(this, "hydrate", async () => { var b; if (!this.hydrator || !this.isConnected) return; let e = (b = this.parentElement) == null ? void 0 : b.closest("astro-island[ssr]"); if (e) { e.addEventListener("astro:hydrate", this.hydrate, { once: !0 }); return } let c = this.querySelectorAll("astro-slot"), n = {}, h = this.querySelectorAll("template[data-astro-template]"); for (let r of h) { let s = r.closest(this.tagName); s != null && s.isSameNode(this) && (n[r.getAttribute("data-astro-template") || "default"] = r.innerHTML, r.remove()) } for (let r of c) { let s = r.closest(this.tagName); s != null && s.isSameNode(this) && (n[r.getAttribute("name") || "default"] = r.innerHTML) } let p; try { p = this.hasAttribute("props") ? m(JSON.parse(this.getAttribute("props"))) : {} } catch (r) { let s = this.getAttribute("component-url") || "<unknown>", v = this.getAttribute("component-export"); throw v && (s += ` (export ${v})`), console.error(`[hydrate] Error parsing props for component ${s}`, this.getAttribute("props"), r), r } let u; await this.hydrator(this)(this.Component, p, n, { client: this.getAttribute("client") }), this.removeAttribute("ssr"), this.dispatchEvent(new CustomEvent("astro:hydrate")) }); d(this, "unmount", () => { this.isConnected || this.dispatchEvent(new CustomEvent("astro:unmount")) }) } disconnectedCallback() { document.removeEventListener("astro:after-swap", this.unmount), document.addEventListener("astro:after-swap", this.unmount, { once: !0 }) } connectedCallback() { if (!this.hasAttribute("await-children") || document.readyState === "interactive" || document.readyState === "complete") this.childrenConnectedCallback(); else { let e = () => { document.removeEventListener("DOMContentLoaded", e), c.disconnect(), this.childrenConnectedCallback() }, c = new MutationObserver(() => { var n; ((n = this.lastChild) == null ? void 0 : n.nodeType) === Node.COMMENT_NODE && this.lastChild.nodeValue === "astro:end" && (this.lastChild.remove(), e()) }); c.observe(this, { childList: !0 }), document.addEventListener("DOMContentLoaded", e) } } async childrenConnectedCallback() { let e = this.getAttribute("before-hydration-url"); e && await import(e), this.start() } async start() { let e = JSON.parse(this.getAttribute("opts")), c = this.getAttribute("client"); if (Astro[c] === void 0) { window.addEventListener(`astro:${c}`, () => this.start(), { once: !0 }); return } try { await Astro[c](async () => { let n = this.getAttribute("renderer-url"), [h, { default: p }] = await Promise.all([import(this.getAttribute("component-url")), n ? import(n) : () => () => { }]), u = this.getAttribute("component-export") || "default"; if (!u.includes(".")) this.Component = h[u]; else { this.Component = h; for (let f of u.split(".")) this.Component = this.Component[f] } return this.hydrator = p, this.hydrate }, e, this) } catch (n) { console.error(`[astro-island] Error hydrating ${this.getAttribute("component-url")}`, n) } } attributeChangedCallback() { this.hydrate() } } d(y, "observedAttributes", ["props"]), customElements.get("astro-island") || customElements.define("astro-island", y) } })();</script>
-    <astro-island uid="ZD19Iw" prefix="r2" component-url="https://wang-qyy.github.io/static/user.BC9eOrka.js"
-      component-export="default" renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js" props="{}" ssr=""
-      client="load" opts="{&quot;name&quot;:&quot;User&quot;,&quot;value&quot;:true}" await-children=""><button
-        type="button"
+    <astro-island uid="ZD19Iw" prefix="r2" component-url="https://wang-qyy.github.io/astro-demo/static/user.BC9eOrka.js"
+      component-export="default" renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js"
+      props="{}" ssr="" client="load" opts="{&quot;name&quot;:&quot;User&quot;,&quot;value&quot;:true}"
+      await-children=""><button type="button"
         class="ant-btn css-ypkju9 css-var-root ant-btn-default ant-btn-color-default ant-btn-variant-outlined"><span>注册/登录</span></button><!--astro:end--></astro-island>
   </nav>
   <main class="cssprx-flex-1 cssprx-overflow-hidden cssprx-flex"> <astro-island uid="Ax9JJ" prefix="r1"
-      component-url="https://wang-qyy.github.io/static/aside.C3ONXeV6.js" component-export="default"
-      renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js" props="{&quot;pageId&quot;:[0,&quot;5&quot;]}"
-      ssr="" client="load" opts="{&quot;name&quot;:&quot;Aside&quot;,&quot;value&quot;:true}" await-children="">
+      component-url="https://wang-qyy.github.io/astro-demo/static/aside.C3ONXeV6.js" component-export="default"
+      renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js"
+      props="{&quot;pageId&quot;:[0,&quot;5&quot;]}" ssr="" client="load"
+      opts="{&quot;name&quot;:&quot;Aside&quot;,&quot;value&quot;:true}" await-children="">
       <aside
         class="cssprx-border-r cssprx-border-theme-eee cssprx-overflow-y-auto cssprx-w-40 cssprx-h-full cssprx-flex-shrink-0 cssprx-pt-10">
         <div>
@@ -56,12 +57,13 @@
       </aside><!--astro:end-->
     </astro-island>
     <script>(() => { var e = async t => { await (await t())() }; (self.Astro || (self.Astro = {})).only = e; window.dispatchEvent(new Event("astro:only")); })();</script>
-    <astro-island uid="1MaJGX" component-url="https://wang-qyy.github.io/static/history.zVMuJJnY.js"
-      component-export="default" renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js" props="{}" ssr=""
-      client="only" opts="{&quot;name&quot;:&quot;History&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
+    <astro-island uid="1MaJGX" component-url="https://wang-qyy.github.io/astro-demo/static/history.zVMuJJnY.js"
+      component-export="default" renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js"
+      props="{}" ssr="" client="only"
+      opts="{&quot;name&quot;:&quot;History&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
     <section class="cssprx-w-96"> <astro-island uid="Z1vWMNl" prefix="r0"
-        component-url="https://wang-qyy.github.io/static/inputs.CmGZMk-C.js" component-export="default"
-        renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js"
+        component-url="https://wang-qyy.github.io/astro-demo/static/inputs.CmGZMk-C.js" component-export="default"
+        renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js"
         props="{&quot;slot&quot;:[0,&quot;inputs&quot;]}" ssr="" client="load"
         opts="{&quot;name&quot;:&quot;Inputs&quot;,&quot;value&quot;:true}" await-children="">
         <link rel="preload" as="image"
@@ -264,8 +266,8 @@
         </div><!--astro:end-->
       </astro-island> </section>
     <section class="cssprx-flex-1 cssprx-bg-theme-f0"> <astro-island uid="LSQTh" prefix="r3"
-        component-url="https://wang-qyy.github.io/static/guide.jXA39lZn.js" component-export="default"
-        renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js" props="{}" ssr="" client="load"
+        component-url="https://wang-qyy.github.io/astro-demo/static/guide.jXA39lZn.js" component-export="default"
+        renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js" props="{}" ssr="" client="load"
         opts="{&quot;name&quot;:&quot;Guide&quot;,&quot;value&quot;:true}" await-children="">
         <link rel="preload" as="image"
           href="https://img.alicdn.com/imgextra/i2/2217837947689/O1CN01wa4U8q26fcSO6gS3b_!!2217837947689-0-aigc_business_user.jpg_640x640q90s150.jpg_.webp" />
@@ -302,14 +304,15 @@
               class="cssprx-block cssprx-w-fit cssprx-mx-auto cssprx-bg-black cssprx-text-white cssprx-px-4 cssprx-py-2 cssprx-rounded-full cssprx-text-sm">一键做同款</button>
           </div>
         </div><!--astro:end-->
-      </astro-island> <astro-island uid="ZEXSUQ" component-url="https://wang-qyy.github.io/static/result.CDkq4Mz9.js"
-        component-export="default" renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js" props="{}" ssr=""
-        client="only" opts="{&quot;name&quot;:&quot;Result&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
-    </section>
+      </astro-island> <astro-island uid="ZEXSUQ"
+        component-url="https://wang-qyy.github.io/astro-demo/static/result.CDkq4Mz9.js" component-export="default"
+        renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js" props="{}" ssr="" client="only"
+        opts="{&quot;name&quot;:&quot;Result&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island> </section>
   </main>
-  <footer></footer> <astro-island uid="Z1Mp9jU" component-url="https://wang-qyy.github.io/static/Login.BqTStPFq.js"
-    component-export="default" renderer-url="https://wang-qyy.github.io/static/client.BT9wLY1_.js" props="{}" ssr=""
-    client="only" opts="{&quot;name&quot;:&quot;Login&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
+  <footer></footer> <astro-island uid="Z1Mp9jU"
+    component-url="https://wang-qyy.github.io/astro-demo/static/Login.BqTStPFq.js" component-export="default"
+    renderer-url="https://wang-qyy.github.io/astro-demo/static/client.BT9wLY1_.js" props="{}" ssr="" client="only"
+    opts="{&quot;name&quot;:&quot;Login&quot;,&quot;value&quot;:&quot;react&quot;}"></astro-island>
 </body>
 
 </html>
