@@ -1,0 +1,266 @@
+[
+  {
+    "id": 0,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/d132ca0b.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/e7dad203.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/ad9e81cc.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 1,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/d17a07bb.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/7f720ae4.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/87679d83.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 2,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/dff202e6.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/e47c15ad.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/b14d0c9a.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 3,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/3ae7f951.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/cfa62644.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/1503fd30.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 4,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/71a05935.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/fcd655ed.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/bbc45c82.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 5,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/a2889b47.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/cfb901c3.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/8da7fee2.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 6,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/e3fc6ac1.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/56226b3f.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/671ec78d.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 7,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/bc5407da.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/76c3a42e.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/ae7d9206.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 8,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/8eceaab7.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/0468f67d.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/efd6087f.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 9,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/224f6e7d.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/4cf97efc.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/4d7830a2.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 10,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/b620c934.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/45f81ed5.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/1ca5b4a9.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  },
+  {
+    "id": 11,
+    "category": "1",
+    "preview": "https://imusae-static.90sheji.com/ai/images/e38d8bf7.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/f7096acb.png",
+            "imgType": 0
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/9b857e52.png",
+            "imgType": 1
+          }
+        ]
+      }
+    },
+    "createdAt": 1785482650288,
+    "updatedAt": 1785482650288
+  }
+]

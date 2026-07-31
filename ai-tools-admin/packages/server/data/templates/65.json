@@ -1,0 +1,202 @@
+[
+  {
+    "id": 52,
+    "category": "65",
+    "preview": "https://imusae-static.90sheji.com/ai_works/20260722/6a6068a4a1e29.jpg",
+    "params": {
+      "prompt": "让【参考图8】的模特穿着【搭配图1】的一双银色的高跟凉鞋，穿着【搭配图2】的一件浅灰色的吊带连衣裙，穿着【搭配图3】的一件浅灰色的花卉图案马甲，戴着【搭配图4】的米色的编织帽子，拿着【搭配图5】的一条浅蓝色带有菠萝图案的围巾，拿着【搭配图6】的绿色的菱格纹手提包，把模特换成【模特图7】的模特。",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062a1cd670.jpg",
+            "imgType": 0,
+            "width": 1016,
+            "height": 1024
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062a320fe4.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1032
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062a44a1cc.jpg",
+            "imgType": 0,
+            "width": 1424,
+            "height": 1424
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062a5a5c27.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1025
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062a7a7f9d.jpg",
+            "imgType": 0,
+            "width": 1360,
+            "height": 1360
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062a924a90.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062aa6dd8a.jpg",
+            "imgType": 2,
+            "width": 467,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6062abb93f9.jpg",
+            "imgType": 1,
+            "width": 1104,
+            "height": 1472
+          }
+        ]
+      }
+    },
+    "updatedAt": 1785309370358,
+    "previewWidth": 3072,
+    "previewHeight": 4096,
+    "width": 3072,
+    "height": 4096
+  },
+  {
+    "id": 53,
+    "category": "65",
+    "preview": "https://imusae-static.90sheji.com/ai_works/20260722/6a607db21956b.jpg",
+    "params": {
+      "prompt": "让模特穿上搭配图1的红色的夹克，带有翻领和拉链，穿上搭配图2的蓝白条纹长袖衬衫，穿上搭配图3的深蓝色的宽松裤子，穿上搭配图4的棕色皮革低帮鞋，带有鞋带设计，穿上搭配图5的黑色皮带，拿着搭配图6的深棕色的布质手提包，带有黑色装饰条纹，戴上搭配图7的棕色带有金色图案的围巾，戴上搭配图8的黑色方形镜框墨镜。模特：20-35岁男性，休闲都市风；动作：一脚轻点地面或脚尖靠墙，微微前倾展示鞋型与裤脚比例；场景：水泥地面与落地窗投影，自然光下的生活化商拍",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607db38734e.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e07cc00e.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e0931788.jpg",
+            "imgType": 0,
+            "width": 1248,
+            "height": 1248
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e0aa9e1b.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e0c1f05f.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e0d6e084.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e0ebad9e.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a607e103f4eb.jpg",
+            "imgType": 0,
+            "width": 832,
+            "height": 832
+          }
+        ]
+      }
+    },
+    "updatedAt": 1785307515301,
+    "previewWidth": 1791,
+    "previewHeight": 2388,
+    "width": 1791,
+    "height": 2388
+  },
+  {
+    "id": 54,
+    "category": "65",
+    "preview": "https://imusae-static.90sheji.com/ai_works/20260722/6a60817256184.jpg",
+    "params": {
+      "prompt": "让参考图8的模特穿着搭配图1的一件黑色牛仔夹克，拿着搭配图2的一个黑色的手提包，戴着搭配图3的一条黑色的针织围巾，穿着搭配图4的一双棕色的系带靴子，穿着搭配图5的灰色的夹克，戴着搭配图6的一条米色带有蓝色和红色雪花图案的针织帽，穿着搭配图7的一条黑色的宽腿牛仔裤，把模特换成模特图9的模特。",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a608173d0f1b.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1019
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6081751bff0.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6081764a203.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1016
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6081777b33d.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1024
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a6081789e31b.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1016
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a608179c868e.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1020
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a60817b0f920.jpg",
+            "imgType": 0,
+            "width": 1024,
+            "height": 1032
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a60817c33bf7.jpg",
+            "imgType": 1,
+            "width": 1104,
+            "height": 1472
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260722/6a60817d63bd7.jpg",
+            "imgType": 2,
+            "width": 467,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 2592,
+    "previewHeight": 3456,
+    "width": 2592,
+    "height": 3456
+  }
+]

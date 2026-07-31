@@ -1,0 +1,1132 @@
+{
+  "version": "1.0",
+  "exportedAt": 1785401472500,
+  "totalRules": 11,
+  "rules": [
+    {
+      "category": "60",
+      "right": [
+        {
+          "desc": "商品介绍图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260714/6a55a7877081f.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "商品介绍图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260714/6a55a7877caee.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "商品介绍图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260714/6a55a78788e8b.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "电商封面图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a548056adb26.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "电商封面图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a548056b9783.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/d3afa678.png",
+          "desc": "满屏水印"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/9f5d9398.png",
+          "desc": "水印融入背景"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/c6a81121.png",
+          "desc": "设计元素满"
+        }
+      ],
+      "id": 1,
+      "categoryName": "去水印",
+      "createdAt": 1785283200000,
+      "updatedAt": 1785401472500
+    },
+    {
+      "id": 2,
+      "category": "62",
+      "right": [
+        {
+          "desc": "模特图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a54907038339.jpg",
+            "filedName": "baseModelUrl"
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a54907038339.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "模特图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a54907043dd2.jpg",
+            "filedName": "baseModelUrl"
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a54907043dd2.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "模特图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a5490704f7a6.jpg",
+            "filedName": "baseModelUrl"
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a5490704f7a6.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "模特图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a5490705b30b.jpg",
+            "filedName": "baseModelUrl"
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a5490705b30b.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "模特图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a54907066d86.jpg",
+            "filedName": "baseModelUrl"
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a54907066d86.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "商品不清晰",
+          "url": "https://imusae-static.90sheji.com/ai/images/75941fcc.png"
+        },
+        {
+          "desc": "商品不清晰",
+          "url": "https://imusae-static.90sheji.com/ai/images/75941fcc.png"
+        },
+        {
+          "desc": "商品不清晰",
+          "url": "https://imusae-static.90sheji.com/ai/images/75941fcc.png"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "商品提取"
+    },
+    {
+      "category": "63",
+      "right": [
+        {
+          "desc": "上装平铺图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/0e55c10a.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "连体衣平铺图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/96e9dd07.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "上装平铺图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/3d5c81da.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "真人上身图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/2cd91be4.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "真人上身图",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/38230345.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/953f9f6f.png",
+          "desc": "商品被遮挡"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/9fc53460.png",
+          "desc": "套装商品"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/faf8cb77.png",
+          "desc": "商品不清晰"
+        }
+      ],
+      "id": 3,
+      "categoryName": "服装上身",
+      "createdAt": 1785283200000,
+      "updatedAt": 1785398485573
+    },
+    {
+      "category": "64",
+      "right": [
+        {
+          "desc": "耳环",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/c6fc8cfa.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "包包",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/37a0ca8c.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "手表",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/85a1fb58.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "帽子",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/3c3f8334.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/3f5c14e8.png",
+          "desc": "商品不完整"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/72cfd608.png",
+          "desc": "挂件过多"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/75941fcc.png",
+          "desc": "商品不清晰"
+        }
+      ],
+      "id": 4,
+      "categoryName": "万物穿戴",
+      "createdAt": 1785283200000,
+      "updatedAt": 1785398397707
+    },
+    {
+      "category": "68",
+      "right": [
+        {
+          "desc": "短裤",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/1067fd7e.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "上衣",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/3ff231a9.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "外套",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/971118d8.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "半身裙",
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai/images/a6f13d53.png",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/f31c327d.png",
+          "desc": "背景杂乱"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/2a6a86b1.png",
+          "desc": "套装商品"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/8a16c8b6.png",
+          "desc": "商品不清晰"
+        },
+        {
+          "url": "https://imusae-static.90sheji.com/ai/images/0df6d735.png",
+          "desc": "商品被遮挡"
+        }
+      ],
+      "id": 5,
+      "categoryName": "平铺转3D",
+      "createdAt": 1785283200000,
+      "updatedAt": 1785398658882
+    },
+    {
+      "id": 6,
+      "category": "69",
+      "right": [
+        {
+          "desc": "真人上身图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21143ad3.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21143ad3.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "真人上身图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2126cd0d.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2126cd0d.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "上衣平铺图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2139845e.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2139845e.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "外套平铺图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc214b77fb.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc214b77fb.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "内衣平铺图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc215f35d7.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc215f35d7.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "商品被遮挡",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01k00fWw1XGQ61qWTRk_!!6000000002896-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "商品不清晰",
+          "url": "https://img.alicdn.com/imgextra/i2/O1CN01LxSJSH1ZnVwkhfRCR_!!6000000003239-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "拍摄灯光暗",
+          "url": "https://img.alicdn.com/imgextra/i2/O1CN01yYnvLK1WvoH9hvV1k_!!6000000002851-2-tps-900-1200.png_640x640q90s150.jpg"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "面料上身"
+    },
+    {
+      "id": 7,
+      "category": "7",
+      "right": [
+        {
+          "desc": "毛衣",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2433dc23.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2433dc23.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "T恤",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2445d3a2.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2445d3a2.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "包包",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2457b764.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2457b764.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "水壶",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc246b00fe.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc246b00fe.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "项链",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc247cfb7f.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc247cfb7f.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "毛衣",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01K4oLZZ28NsMML7bro_!!6000000007921-2-tps-642-856.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "T恤",
+          "url": "https://img.alicdn.com/imgextra/i1/O1CN01hWnr1026L0bxNBxWq_!!6000000007644-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "包包",
+          "url": "https://img.alicdn.com/imgextra/i2/O1CN01yYnvLK1WvoH9hvV1k_!!6000000002851-2-tps-900-1200.png_640x640q90s150.jpg"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "商品详情页"
+    },
+    {
+      "id": 8,
+      "category": "70",
+      "right": [
+        {
+          "desc": "外套",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2174666c.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2174666c.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "短袖",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21891e8b.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21891e8b.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "短裙",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc219c37c0.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc219c37c0.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "吊带裙",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21b0634d.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21b0634d.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "长裤",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21c54156.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21c54156.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "商品被遮挡",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01k00fWw1XGQ61qWTRk_!!6000000002896-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "套装商品",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01jPIux51MLx6hJE3JS_!!6000000001419-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "商品不清晰",
+          "url": "https://img.alicdn.com/imgextra/i2/O1CN01LxSJSH1ZnVwkhfRCR_!!6000000003239-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "拍摄灯光暗",
+          "url": "https://img.alicdn.com/imgextra/i3/O1CN01Dd9NLb1yAuxpKktk2_!!6000000006539-2-tps-1104-1472.png_640x640q90s150.jpg"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "服装细节图"
+    },
+    {
+      "id": 9,
+      "category": "71",
+      "right": [
+        {
+          "desc": "平铺图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21d7c4a0.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21d7c4a0.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "人台图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21ebd676.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21ebd676.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "上身图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21fee9d2.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc21fee9d2.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "平铺图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2238c9b8.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc2238c9b8.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "上身图",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc225531b5.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc225531b5.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "商品被遮挡",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01hiLvKf1HQ0Y1gYbj3_!!6000000000751-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "图片不清晰",
+          "url": "https://img.alicdn.com/imgextra/i1/O1CN01JibPa01of0qNV6zM9_!!6000000005251-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "拍摄灯光暗",
+          "url": "https://img.alicdn.com/imgextra/i2/O1CN01pgzkXe27WI08h22DM_!!6000000007804-2-tps-900-1200.png_640x640q90s150.jpg"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "服装种草图"
+    },
+    {
+      "id": 10,
+      "category": "72",
+      "right": [
+        {
+          "desc": "吊带裙",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc226d2f2e.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc226d2f2e.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "运动鞋",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc229d407f.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc229d407f.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "行李箱",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc22dd3891.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc22dd3891.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "沙发",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc22fd319a.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc22fd319a.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "口红",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc231d07cc.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc231d07cc.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "商品不完整",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01K4oLZZ28NsMML7bro_!!6000000007921-2-tps-642-856.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "商品不清晰",
+          "url": "https://img.alicdn.com/imgextra/i1/O1CN01hWnr1026L0bxNBxWq_!!6000000007644-2-tps-480-640.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "拍摄灯光暗",
+          "url": "https://img.alicdn.com/imgextra/i2/O1CN01yYnvLK1WvoH9hvV1k_!!6000000002851-2-tps-900-1200.png_640x640q90s150.jpg"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "商品卖点图"
+    },
+    {
+      "id": 11,
+      "category": "73",
+      "right": [
+        {
+          "desc": "正面",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc232f056f.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc232f056f.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "半侧",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc234350bf.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc234350bf.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "正面",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc23570f15.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc23570f15.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        },
+        {
+          "desc": "侧面",
+          "prodInfo": {
+            "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc23694172.jpg",
+            "filedName": ""
+          },
+          "params": {
+            "prompt": "",
+            "taskConfig": {
+              "images": [
+                {
+                  "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dc23694172.jpg",
+                  "imgType": 0
+                }
+              ]
+            }
+          }
+        }
+      ],
+      "wrong": [
+        {
+          "desc": "不同商品",
+          "url": "https://img.alicdn.com/imgextra/i1/O1CN01TzJgPT1dMjHJWG213_!!6000000003722-2-tps-1200-1200.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "商品同款不同色",
+          "url": "https://img.alicdn.com/imgextra/i4/O1CN01BJnrf41ZzQHBzQpMo_!!6000000003265-2-tps-1200-1200.png_640x640q90s150.jpg"
+        },
+        {
+          "desc": "同商品不同配件",
+          "url": "https://img.alicdn.com/imgextra/i3/O1CN01SosH521CxpjswXwCa_!!6000000000148-2-tps-1200-1200.png_640x640q90s150.jpg"
+        }
+      ],
+      "createdAt": 1785283200000,
+      "updatedAt": 1785283200000,
+      "categoryName": "商品精修"
+    }
+  ]
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>puppeteer + Chromium 将html转为pdf</title>
+</head>
+
+<body>
+  <div>
+    <input type="file" id="file" />
+    <button id="download">下载pdf</button>
+  </div>
+  <script>
+    const buildHtml = () => {
+      return `<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试导出pdf</title>
+
+  <style>
+    .box {
+      width: 100vw;
+      height: 100vh;
+      background-color: papayawhip;
+      margin-bottom: 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>测试导出pdf</h1>
+
+  <div class="box">
+    第1页
+  </div>
+  <div class="box">
+    第2页
+  </div>
+
+</body>
+
+</html>`;
+    };
+
+    window.onload = function () {
+      document
+        .getElementById("download")
+        .addEventListener("click", function () {
+          fetch("/api/pdf", {
+            method: "POST",
+            headers: {
+              // 关键缺失头
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              html: buildHtml(),
+            }),
+          })
+            .then((res) => res.blob())
+            .then((blob) => {
+              const a = document.createElement("a");
+              a.href = URL.createObjectURL(blob);
+              a.download = "测试文档.pdf";
+              a.click();
+              URL.revokeObjectURL(a.href);
+            })
+            .catch((err) => console.error("导出失败：", err));
+        });
+
+
+      async function uploadWordToPdf(file) {
+        const formData = new FormData();
+        formData.append('wordFile', file);
+
+        const res = await fetch('/api/word-to-pdf', {
+          method: 'POST',
+          // 重点：不要手动设置 Content-Type！浏览器会自动携带 multipart/form-data 边界
+          body: formData
+        });
+
+        if (!res.ok) {
+          const msg = await res.text();
+          throw new Error(msg);
+        }
+
+        const blob = await res.blob();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        // 自动取原文件名，这里后端已经处理编码
+        a.download = '转换文件.pdf';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      // 使用示例
+      document.querySelector('#file').onchange = async e => {
+        const file = e.target.files[0];
+        if (!file) return;
+        await uploadWordToPdf(file);
+      }
+
+    };
+  </script>
+</body>
+
+</html>

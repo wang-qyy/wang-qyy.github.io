@@ -1,0 +1,29 @@
+{
+  "name": "koa-react-app",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel -r run dev",
+    "dev:server": "pnpm --filter @app/server run dev",
+    "dev:client": "pnpm --filter @app/client run dev",
+    "build": "pnpm -r run build",
+    "build:server": "pnpm --filter @app/server run build",
+    "build:client": "pnpm --filter @app/client run build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^10.0.0",
+    "eslint-plugin-react-hooks": "^5.0.0",
+    "eslint-plugin-simple-import-sort": "^12.0.0",
+    "eslint-plugin-unused-imports": "^4.0.0",
+    "prettier": "^3.0.0",
+    "typescript-eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.21"
+  }
+}

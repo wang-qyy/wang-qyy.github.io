@@ -1,0 +1,266 @@
+[
+  {
+    "id": 25,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/f35480e2.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/d2752f5b.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 26,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/38bb4a09.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/0af06446.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 27,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/1f7d7ecf.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/63649a4e.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 28,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/500a925c.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/acf59add.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 29,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/494962fc.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/24e1ccdf.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 30,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/d9bcc88e.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/fd2b486d.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 31,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/8f2e2c1b.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/8ddb32ac.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 32,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/9c746df9.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/200b5d63.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 33,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/b21bcb80.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/71e96a20.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 34,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/4141a10d.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/c30519fa.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 35,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/d00ef521.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/712bb1a8.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 36,
+    "category": 62,
+    "preview": "https://imusae-static.90sheji.com/ai/images/f2b9a613.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/ad50340b.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  }
+]

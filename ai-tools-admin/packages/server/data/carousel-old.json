@@ -1,0 +1,431 @@
+{
+  "to-3d": {
+    "title": "只需一张平铺图，得到服装3D效果图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "desc": "上传平铺图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5876698ec97.jpg"
+          },
+          {
+            "desc": "选择参考图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5876691c7bd.jpg"
+          },
+          {
+            "desc": "生成3D图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5876692f97e.jpg"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5876698ec97.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5876691c7bd.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "fabric-on-body": {
+    "title": "一键替换面料，保留版型生成真实样衣",
+    "demos": [
+      {
+        "previews": [
+          {
+            "desc": "上传版式图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b640690.jpg"
+          },
+          {
+            "desc": "上传面料图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a587669812ab.jpg"
+          },
+          {
+            "desc": "生成图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b64cf47.jpg"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b640690.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a587669812ab.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "clothing-detail": {
+    "title": "只需一张服装图，即可生出细节放大图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "desc": "上传原图并描述服装细节",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b622645.jpg"
+          },
+          {
+            "desc": "生成细节图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b666805.jpg"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b622645.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b666805.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "clothing-grass-planting": {
+    "title": "保持相同穿搭，改变模特、场景、姿势",
+    "demos": [
+      {
+        "previews": [
+          {
+            "desc": "上传原图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5877255a2ed.jpg"
+          },
+          {
+            "desc": "选择参考图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b608941.jpg"
+          },
+          {
+            "desc": "生成种草图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b683173.jpg"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5877255a2ed.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b608941.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "item-selling-point": {
+    "title": "自动识别商品卖点，合成电商主图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "desc": "上传商品图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b5eac84.jpg"
+          },
+          {
+            "desc": "选择参考图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b695a75.jpg"
+          },
+          {
+            "desc": "生成图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b6ae783.jpg"
+          }
+        ],
+        "params": {
+          "prompt": "软糯仿水貂绒/V领显瘦设计/慵懒温柔风/亲肤透气/纯色百搭/秋冬保暖\n预估到手价¥368",
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b5eac84.jpg",
+                "imgType": 0,
+                "imgTypeName": "商品图"
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b695a75.jpg",
+                "imgType": 1,
+                "imgTypeName": "参考图"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "item-repair": {
+    "title": "一键提升商品图质感，生成多角度产品图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "desc": "上传商品图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b6e6453.jpg"
+          },
+          {
+            "desc": "选择模版",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b614e7e.jpg"
+          },
+          {
+            "desc": "生成结果图",
+            "img": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b65a02c.jpg"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b6e6453.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260716/6a5872b614e7e.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "flat-lay": {
+    "title": "只需一张服装图，得到模特上身商拍图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "img": "https://imusae-static.90sheji.com/ai/images/c30f4553.png",
+            "desc": "上传服装图"
+          },
+          {
+            "img": "https://imusae-static.90sheji.com/ai/images/4e731477.png",
+            "desc": "选择参考图"
+          },
+          {
+            "img": "https://imusae-static.90sheji.com/ai/images/e896bb0e.png",
+            "desc": "生成商拍图"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai/images/c30f4553.png",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai/images/4e731477.png",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "wear-everything": {
+    "title": "只需一张商品图 (鞋包配饰等)，得到真人穿戴图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1d9906c6.jpg",
+            "desc": "上传商品图"
+          },
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1daba0f9.jpg",
+            "desc": "上传参考图"
+          },
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1dbdee06.jpg",
+            "desc": "生成商拍图"
+          }
+        ],
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1d9906c6.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1daba0f9.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        }
+      }
+    ]
+  },
+  "item-detail": {
+    "title": "上传商品图，一键生成全套商品详情图",
+    "demos": [
+      {
+        "previews": [
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1dd151f1.jpg",
+            "desc": "上传商品图"
+          },
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1de3c5ce.jpg",
+            "desc": "生成商品详情套图"
+          }
+        ],
+        "params": {
+          "prompt": "轻量防风/简约百搭/抽绳袖口设计/前置拉链口袋/连帽可调节/都市休闲风格",
+          "config": [
+            {
+              "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5de09073c85.jpg",
+              "imgType": 3,
+              "prompt": "生成商品首图"
+            },
+            {
+              "img": "https://imusae-static.90sheji.com/ai_works/20260720/6a5de18f46e61.jpg",
+              "imgType": 4,
+              "prompt": "卖点详解图"
+            },
+            {
+              "imgType": 5,
+              "prompt": "模特上身图"
+            },
+            {
+              "imgType": 6,
+              "prompt": "服饰细节图"
+            },
+            {
+              "imgType": 7,
+              "prompt": "服饰平铺图"
+            }
+          ],
+          "productUrl": [
+            "https://imusae-static.90sheji.com/ai_works/20260720/6a5dd1dd151f1.jpg"
+          ]
+        }
+      }
+    ]
+  },
+  "clothing-extraction": {
+    "title": "上传任意图片，即可提取商品平铺图",
+    "demos": [
+      {
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a549070730d0.jpg",
+                "imgType": 0
+              }
+            ]
+          }
+        },
+        "previews": [
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260713/6a549070730d0.jpg",
+            "desc": "上传原图",
+            "width": 480,
+            "height": 640
+          },
+          {
+            "img": "/@fs/Users/craig/Desktop/wqy/pngtree/90sheji/90sheji_ai/src/assets/images/clothing-extraction/img4.png?origWidth=640&origHeight=640&origFormat=png",
+            "desc": "生成平铺图",
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    ]
+  },
+  "material-enhancement": {
+    "title": "增强服装材质和细节表现，提升商品质感",
+    "demos": [
+      {
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a5494acee63c.jpg",
+                "imgType": 0
+              },
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a548d6316dbe.jpg",
+                "imgType": 1
+              }
+            ]
+          }
+        },
+        "previews": [
+          {
+            "img": "/@fs/Users/craig/Desktop/wqy/pngtree/90sheji/90sheji_ai/src/assets/images/material-enhancement/img5.png?origWidth=480&origHeight=640&origFormat=png",
+            "desc": "上传原图",
+            "width": 480,
+            "height": 640
+          },
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260713/6a548d6316dbe.jpg",
+            "desc": "上传高清商品图",
+            "width": 640,
+            "height": 412
+          },
+          {
+            "img": "/@fs/Users/craig/Desktop/wqy/pngtree/90sheji/90sheji_ai/src/assets/images/material-enhancement/img6.png?origWidth=480&origHeight=640&origFormat=png",
+            "desc": "生成图",
+            "width": 480,
+            "height": 640
+          }
+        ]
+      }
+    ]
+  },
+  "remove-watermark": {
+    "title": "无需手动涂抹，一键去除水印和文字",
+    "demos": [
+      {
+        "params": {
+          "taskConfig": {
+            "images": [
+              {
+                "url": "https://imusae-static.90sheji.com/ai_works/20260713/6a548056c5588.jpg",
+                "imgType": 0
+              }
+            ]
+          }
+        },
+        "previews": [
+          {
+            "img": "https://imusae-static.90sheji.com/ai_works/20260713/6a548056c5588.jpg",
+            "desc": "上传原图",
+            "width": 640,
+            "height": 640
+          },
+          {
+            "img": "/@fs/Users/craig/Desktop/wqy/pngtree/90sheji/90sheji_ai/src/assets/images/remove-watermark/img1.png?origWidth=640&origHeight=640&origFormat=png",
+            "desc": "自动去水印/文字",
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    ]
+  }
+}

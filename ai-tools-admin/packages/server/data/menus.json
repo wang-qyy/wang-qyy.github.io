@@ -1,0 +1,186 @@
+[
+  {
+    "id": "0",
+    "name": "商品上身",
+    "children": [
+      {
+        "id": "1",
+        "name": "服装上身",
+        "icon": "tw:icon-[solar--star-broken]",
+        "url": "/workspace/ai-image/flat-lay.html",
+        "preview": "https://imusae-static.90sheji.com/ai/images/b16dbffd.png",
+        "desc": "服装图一键上身试穿",
+        "type": "63",
+        "status": "online"
+      },
+      {
+        "id": "2",
+        "name": "万物穿戴",
+        "icon": "tw:icon-[solar--star-broken]",
+        "url": "/workspace/ai-image/wear-everything.html",
+        "preview": "https://imusae-static.90sheji.com/ai/images/e2dc2164.png",
+        "desc": "鞋包等多类型商品一键穿戴",
+        "type": "64",
+        "status": "online"
+      },
+      {
+        "id": "3",
+        "name": "搭配融图",
+        "icon": "tw:icon-[solar--star-broken]",
+        "url": "/workspace/ai-image/image-fusion.html",
+        "preview": "https://imusae-static.90sheji.com/ai/images/6ef9dba8.png",
+        "desc": "自由搭配组合，生成模特图",
+        "type": "65",
+        "status": "online"
+      }
+    ]
+  },
+  {
+    "id": "4",
+    "name": "单图变多图",
+    "children": [
+      {
+        "id": "5",
+        "name": "裂变套图",
+        "url": "/workspace/ai-image/fission-pattern.html",
+        "icon": "tw:icon-[fe--layer]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/47058266.png",
+        "desc": "一张图生成完整套图",
+        "type": "3",
+        "status": "online"
+      },
+      {
+        "id": "7",
+        "name": "商品详情页",
+        "url": "/workspace/ai-image/item-detail.html",
+        "icon": "tw:icon-[custom--change-bg]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/356e34f8.jpg",
+        "desc": "一键生成全套商品详情图",
+        "type": "7",
+        "status": "offline"
+      }
+    ]
+  },
+  {
+    "id": "8",
+    "name": "图片创作",
+    "children": [
+      {
+        "id": "9",
+        "name": "创意生图",
+        "url": "/workspace/ai-image/creative-scene.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/59997e11.jpg",
+        "desc": "随心创作想要的模特图",
+        "type": "67",
+        "status": "online"
+      }
+    ]
+  },
+  {
+    "id": "10",
+    "name": "自定义功能",
+    "children": [
+      {
+        "id": "11",
+        "name": "平铺转3D",
+        "url": "/workspace/ai-image/to-3d.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/21592499.png",
+        "desc": "平铺图生成服装3D图",
+        "type": "68",
+        "status": "online"
+      },
+      {
+        "id": "12",
+        "name": "商品换背景",
+        "url": "/workspace/ai-image/item-change-background.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/c306dae7.png",
+        "desc": "商品图生成逼真场景图",
+        "type": "1",
+        "status": "online"
+      },
+      {
+        "id": "13",
+        "name": "智能去印",
+        "url": "/workspace/ai-image/remove-watermark.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/c2971c3e.png",
+        "desc": "一键去除水印和文字",
+        "type": "60",
+        "status": "online"
+      },
+      {
+        "id": "14",
+        "name": "材质增强",
+        "url": "/workspace/ai-image/material-enhancement.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/7d5c11eb.png",
+        "desc": "优化服装材质和细节质感",
+        "type": "61",
+        "status": "online"
+      },
+      {
+        "id": "15",
+        "name": "商品提取",
+        "url": "/workspace/ai-image/clothing-extraction.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/5aaa5d40.png",
+        "desc": "从任意图中提取商品平铺图",
+        "type": "62",
+        "status": "online"
+      },
+      {
+        "id": "16",
+        "name": "面料上身",
+        "url": "/workspace/ai-image/fabric-on-body.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/d936e7d0.png",
+        "desc": "面料替换，生成真实样衣",
+        "type": "69",
+        "status": "online"
+      },
+      {
+        "id": "17",
+        "name": "服装细节图",
+        "url": "/workspace/ai-image/clothing-detail.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/69228448.jpg",
+        "desc": "服装图生成细节放大图",
+        "type": "70",
+        "status": "online"
+      },
+      {
+        "id": "18",
+        "name": "服装种草图",
+        "url": "/workspace/ai-image/clothing-grass-planting.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/6c7088a5.jpg",
+        "desc": "相同穿搭改模特场景姿势",
+        "type": "71",
+        "status": "online"
+      },
+      {
+        "id": "19",
+        "name": "商品卖点图",
+        "url": "/workspace/ai-image/item-selling-point.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/5dd74819.jpg",
+        "desc": "商品图生成电商主图",
+        "type": "72",
+        "status": "online"
+      },
+      {
+        "id": "20",
+        "name": "商品精修",
+        "url": "/workspace/ai-image/item-repair.html",
+        "icon": "tw:icon-[solar--star-broken]",
+        "preview": "https://imusae-static.90sheji.com/ai/images/bdd8ef9c.jpg",
+        "desc": "一键提升商品图质感",
+        "type": "73",
+        "status": "online"
+      }
+    ]
+  }
+]

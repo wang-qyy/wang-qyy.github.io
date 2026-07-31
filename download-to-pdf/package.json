@@ -1,0 +1,18 @@
+{
+	"type": "module",
+	"scripts": {
+		"server": "node ./server.mjs"
+	},
+	"dependencies": {
+		"express": "^5.2.1",
+		"markdown-it": "^14.3.0",
+		"multer": "^2.2.0",
+		"puppeteer": "^25.3.0"
+	},
+	"devDependencies": {
+		"@types/express": "^5.0.6",
+		"@types/markdown-it": "^14.1.2",
+		"@types/node": "^26.1.0",
+		"typescript": "^6.0.3"
+	}
+}

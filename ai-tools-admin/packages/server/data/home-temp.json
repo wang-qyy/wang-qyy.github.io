@@ -1,0 +1,21 @@
+[
+  {
+    "id": 2,
+    "category": 60,
+    "preview": "https://imusae-static.90sheji.com/ai/images/c2d6be5d.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/8bf5c03c.png",
+            "imgType": 0
+          }
+        ]
+      }
+    },
+    "showInHome": true,
+    "createdAt": 1785469411539,
+    "updatedAt": 1785469411539
+  }
+]

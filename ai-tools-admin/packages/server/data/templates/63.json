@@ -1,0 +1,234 @@
+[
+  {
+    "id": 37,
+    "cid": "007",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/e1d75a1f.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/03cc51eb.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/c341e278.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 38,
+    "cid": "006",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/c268d89f.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/a4fdd15e.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/7ac17d8a.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 39,
+    "cid": "001",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/8ba1a26b.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/5dc7b11d.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/307778fc.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 40,
+    "cid": "008",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/d60027dd.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/d4fc27f2.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/05c780cf.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 41,
+    "cid": "004",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/91097939.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/b5fd21e9.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/7cce75cc.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 42,
+    "cid": "003",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/8f504791.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/6d4fd09f.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/42cf1c68.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 43,
+    "cid": "002",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/069374c7.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/a00c91ee.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/1ad68211.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  },
+  {
+    "id": 44,
+    "cid": "005",
+    "category": 63,
+    "preview": "https://imusae-static.90sheji.com/ai/images/778d44d8.png",
+    "params": {
+      "prompt": "",
+      "taskConfig": {
+        "images": [
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/16b350f0.png",
+            "imgType": 1,
+            "width": 640,
+            "height": 640
+          },
+          {
+            "url": "https://imusae-static.90sheji.com/ai/images/611a3ce2.png",
+            "imgType": 0,
+            "width": 640,
+            "height": 640
+          }
+        ]
+      }
+    },
+    "previewWidth": 640,
+    "previewHeight": 640,
+    "width": 640,
+    "height": 640
+  }
+]
