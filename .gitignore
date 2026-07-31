@@ -7,3 +7,4 @@ node_modules
 
 dist
 .umi-production
+astro-test
